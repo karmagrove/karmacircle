@@ -1,6 +1,8 @@
+require 'sinatra'
+
+
 post "/" do 
-	
-	
+		
 	params.each do |k,v|
 		details = JSON.parse k
 	end	

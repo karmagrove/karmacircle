@@ -14,7 +14,7 @@ post "/" do
 	
 	if details['user'] and details['password']
 		if details['user'] == "test" && details['password'] =="test"
-			return "valid credentials"
+			return "{'response': 'valid credentials'}"
 		else
 			return "invalid credentials"
 		end

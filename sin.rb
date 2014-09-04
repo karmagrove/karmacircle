@@ -1,5 +1,10 @@
 require 'sinatra'
 
+get '/' do
+
+	"this is backend for the circle app - http://www.github.com/karmagrove/circle"
+
+end
 
 post "/" do 
 		

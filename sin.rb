@@ -8,7 +8,7 @@ get '/' do
 end
 
 post "/" do 
-		
+	details = []	
 	params.each do |k,v|
 		details = JSON.parse k
 	end	

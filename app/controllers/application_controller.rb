@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
         content_gold_path
       when 'platinum'
         content_platinum_path
+      when 'customer'
+        content_customer_path
       else
         root_path
     end

@@ -7,34 +7,41 @@
     <%= link_to 'Download PDF', products_path('product.pdf'), class: 'btn btn-success btn-large' %>
   <% end %>
 <% else %>
+
   <div id="welcome" class="span7">
-    <h1> Become a Merchant of Concscious Community</h1>
-    <h3> Sign up and give as your receive. You can choose to let your customers give a portion of your revenue.</h3>
+    <h1> Become a Merchant of Conscious Community</h1>
+    <h3> Sign up and give as your receive. Give a portion of your revenue to charity as you do business.</h3>
   </div>
-  <div class="row col-sm-12 plans">
-    <div class="col-sm-4 well">
-      <div class="plan"><h2>Silver</h2></div>
+
+   <div class="row col-sm-12 plans">
+    <div class="col-sm-6 well">
+      <div class="plan"><h2>Emerald </h2></div>
       <ul class="list-unstyled">
-        <li>10% of your revenue goes to charity</li>
+        <li>At least 1% of your revenue goes to charity you choose!</li>
       </ul>
-      <h3>$9/month</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'silver'), :class => 'btn btn-primary' %>
-    </div>
-    <div class="col-sm-4 well featured">
-      <div class="plan featured-plan"><h2>Gold</h2></div>
-      <ul class="list-unstyled">
-        <li>5% of your revenue goes to charity</li>
-      </ul>
-      <h3>$19/month</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'gold'), :class => 'btn btn-primary' %>
-    </div>
-    <div class="col-sm-4 well">
-      <div class="plan"><h2>Platinum</h2></div>
-      <ul class="list-unstyled">
-        <li>1% of your revenue goes to charity</li>
-      </ul>
-      <h3>$29/month</h3>
+      <h3>$29/month + $0.10 per transaction</h3>
       <%= link_to 'Subscribe', new_user_registration_path(plan: 'platinum'), :class => 'btn btn-primary' %>
     </div>
+
+    <div class="col-sm-6 well featured">
+      <div class="plan featured-plan"><h2>Jade </h2></div>
+      <ul class="list-unstyled">
+        <li>At least 1% of your revenue goes to charity you choose!</li>
+      </ul>
+      <h3>$1.00 per transaction and NO MONTHLY FEES</h3>
+      <%= link_to 'Subscribe', new_user_registration_path(plan: 'gold'), :class => 'btn btn-primary' %>
+    </div>
   </div>
+
+   <div class="row col-sm-12 plans">
+    <div class="col-sm-12 well">
+      <div class="plan"><h2> Charity Sign up </h2> </div>
+      <ul class="list-unstyled">
+        <li>Do you represent a Charity and wish to receive donations from our conscious capitalists?</li>
+      </ul>
+      <h3>Sign up for free</h3>
+      <%= link_to 'Apply to Receive Donations', new_user_registration_path(plan: 'charity'), :class => 'btn btn-primary' %>
+    </div>   
+  </div>
+
 <% end %>

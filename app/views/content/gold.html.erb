@@ -1,4 +1,7 @@
 <h1>Content#gold</h1>
+
+
+<%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
 <p>Update your bank account to begin charging customers!</p>
 
 
@@ -12,6 +15,8 @@ Stripe.bankAccount.createToken({
 110000000
 
 000123456789
+
+4242424242424242
 
 stripe_managed_connect
 

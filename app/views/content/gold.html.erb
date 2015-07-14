@@ -1,0 +1,38 @@
+<h1>Content#gold</h1>
+
+
+<%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
+<p>Update your bank account to begin charging customers!</p>
+
+
+Stripe.bankAccount.createToken({
+  country: $('.country').val(),
+  currency: $('.currency').val(),
+  routing_number: $('.routing-number').val(),
+  account_number: $('.account-number').val()
+}, stripeResponseHandler);
+
+110000000
+
+000123456789
+
+4242424242424242
+
+stripe_managed_connect
+
+
+
+# https://stripe.com/connect/default/oauth/test?scope=read_write&code=ac_6Z8EXOmEGigea2gtkMr57HgpDUdpI2FT
+After connecting with Stripe, your users will be redirected to a page of your choosing (this is just the default). Make sure to change the test redirect URI under your application settings to something that makes sense on your own server (or localhost).
+
+To finish the process of getting an access_token for your user's account, you'll need to make one extra API request with the authorization code we passed back. In this case, the code is ac_6Z8EXOmEGigea2gtkMr57HgpDUdpI2FT, taken directly from the GET parameters on the redirect.
+
+For example, try this curl request :
+
+export STRIPE_CLIENT_ID=ca_6Z7I6felXnzUiTsikkerSt9PZCLQLo44;
+
+curl -X POST https://connect.stripe.com/oauth/token \
+-d client_secret=sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e \
+-d code=ac_6Z8EXOmEGigea2gtkMr57HgpDUdpI2FT \
+-d grant_type=authorization_code
+        

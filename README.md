@@ -8,3 +8,45 @@ https://stripe.com/docs/connect/payments-fees#collecting-fees
 https://dashboard.stripe.com/account/transfers
 
 https://stripe.com/docs/connect/payments-fees#charging-through-the-platform
+=======
+Rails Stripe Membership Saas
+================
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
+provided by the [RailsApps Project](http://railsapps.github.io/).
+
+Rails Composer is open source and supported by subscribers. Please join RailsApps to support development of Rails Composer.
+
+Ruby on Rails
+-------------
+
+This application requires:
+
+- Ruby 2.1.3
+- Rails 4.2.1
+
+Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+
+Getting Started
+---------------
+
+Documentation and Support
+-------------------------
+
+Issues
+-------------
+
+Similar Projects
+----------------
+
+Contributing
+------------
+
+Credits
+-------
+
+License
+-------
+Don't steal this. Creative Commons.

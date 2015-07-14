@@ -13,32 +13,16 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'sqlite3'
 end
+
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'gibbon'
 gem 'payola-payments'
 gem 'sendgrid'
 gem 'sucker_punch'
-group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_21]
-  gem 'guard-bundler'
-  gem 'guard-rails'
-  gem 'guard-rspec'
-  gem 'quiet_assets'
-  gem 'rails_layout'
-  gem 'rb-fchange', :require=>false
-  gem 'rb-fsevent', :require=>false
-  gem 'rb-inotify', :require=>false
-  gem 'spring-commands-rspec'
-end
-group :development, :test do
-  gem 'factory_girl_rails'
-  gem 'faker'
-  gem 'rspec-rails'
-  gem 'sqlite3'
-end
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

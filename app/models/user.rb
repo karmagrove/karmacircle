@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   enum role: [:user, :admin, :silver, :gold, :platinum, :customer, :charity]
+  @@mapped_roles = roles
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_default_plan, :if => :new_record?
   # after_create :sign_up_for_mailing_list
@@ -33,9 +34,8 @@ class User < ActiveRecord::Base
   class << self # Class methods ============
 
     def return_(role="users")
-      mapped_roles = roles
-      singular_role=role.pluralize.singularize
-      where(role: mapped_roles[singular_role])
+      singular_role= role.pluralize.singularize
+      where(role: @@mapped_roles[singular_role])
     end
 
   end # ======================================

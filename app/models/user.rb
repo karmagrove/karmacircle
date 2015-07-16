@@ -8,13 +8,6 @@ class User < ActiveRecord::Base
   belongs_to :plan
   validates_associated :plan
 
-  def set_default_role
-    self.role ||= :user
-  end
-
-  def set_default_plan
-    self.plan ||= Plan.last
-  end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -35,6 +28,16 @@ class User < ActiveRecord::Base
       :send_welcome => true
     })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
+  end
+
+  private
+
+  def set_default_role
+    self.role ||= :user
+  end
+
+  def set_default_plan
+    self.plan ||= Plan.last
   end
 
 end

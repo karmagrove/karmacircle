@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   def sign_up_for_mailing_list
     MailingListSignupJob.perform_later(self)
@@ -26,9 +26,19 @@ class User < ActiveRecord::Base
       :double_optin => false,
       :update_existing => true,
       :send_welcome => true
-    })
+      })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
   end
+
+  class << self # Class methods ============
+
+    def return_(role="users")
+      mapped_roles = roles
+      singular_role=role.pluralize.singularize
+      where(role: mapped_roles[singular_role])
+    end
+
+  end # ======================================
 
   private
 

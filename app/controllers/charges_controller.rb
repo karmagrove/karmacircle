@@ -8,24 +8,41 @@ def create
   # Amount in cents
   @amount = 500
 
-  customer = Stripe::Customer.create(
-    :email => 'example@stripe.com',
-    :card  => params[:stripeToken]
-  )
+ 
 
-  Stripe.api_key = PLATFORM_SECRET_KEY
+  #Stripe.api_key = PLATFORM_SECRET_KEY
+  Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
   token = params[:stripeToken]
+  
+  customer = Stripe::Customer.create({
+      :email => params[:stripeEmail],
+      :card  => params[:stripeToken]
+      },
+    {:stripe_account => current_user.uid}
+  )
 
 # Create the charge on Stripe's servers - this will charge the user's card
-  charge = Stripe::Charge.create({
+  Rails.logger.info "current_user.email #{current_user.email}"
+  if current_user.email == "joshua@karmagrove.com"
+    charge = Stripe::Charge.create({
     :amount => 1000, # amount in cents
     :currency => "usd",
-    :source => token,
-    :description => "Example charge",
-    :application_fee => 100 # amount in cents
+    :customer => customer,
+    :description => "Example charge"
   },
-  {:stripe_account => CONNECTED_STRIPE_ACCOUNT_ID}
+  {:stripe_account => current_user.uid}
   )
+  else
+    charge = Stripe::Charge.create({
+    :amount => 1000, # amount in cents
+    :currency => "usd",
+    :customer => customer,
+    :description => "Example charge",
+    :application_fee => 100, # amount in cents
+  },
+  {:stripe_account => current_user.uid}
+  )
+  end
 
   # charge = Stripe::Charge.create(
   #   :customer    => customer.id,
@@ -33,6 +50,7 @@ def create
   #   :description => 'Rails Stripe customer',
   #   :currency    => 'usd'
   # )
+  
 
 rescue Stripe::CardError => e
   flash[:error] = e.message

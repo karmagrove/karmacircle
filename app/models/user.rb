@@ -25,6 +25,12 @@ class User < ActiveRecord::Base
     MailingListSignupJob.perform_later(self)
   end
 
+  def has_plan?
+    unless current_user.gold? or current_user.platinum? or current_user.silver?
+      redirect_to :back, :alert => "Access denied."
+    end
+  end
+
   def subscribe
     mailchimp = Gibbon::API.new(Rails.application.secrets.mailchimp_api_key)
     result = mailchimp.lists.subscribe({

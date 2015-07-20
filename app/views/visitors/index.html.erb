@@ -4,7 +4,7 @@
     <p><%= link_to 'User count:', users_path %> <%= User.count %></p>
   <% else %>
     <h3>You've signed up. Download a free book.</h3>
-    <%= link_to 'Download PDF', products_path('product.pdf'), class: 'btn btn-success btn-large' %>
+    <%= link_to 'Download PDF', products_path('What_Is_Conscious_Capitalism.pdf'), class: 'btn btn-success btn-large' %>
   <% end %>
 
   <%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>

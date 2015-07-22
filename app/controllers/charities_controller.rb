@@ -1,5 +1,7 @@
 class CharitiesController < ApplicationController
   before_action :set_charity, only: [:show, :edit, :update, :destroy]
+  before_action :admin_only, :except => [:new, :index]
+  before_action :plan_only, :new
 
   # GET /charities
   # GET /charities.json
@@ -67,6 +69,19 @@ class CharitiesController < ApplicationController
       @charity = Charity.find(params[:id])
     end
 
+    def plan_only
+      unless current_user
+        redirect_to "/", :alert => "Access denied. You must have a plan to suggest a charity. Sign up for Jade or Emerald."
+      end
+    end
+
+
+    def admin_only
+      unless current_user.admin?
+        redirect_to :back, :alert => "Access denied."
+      end
+    end
+  
     # Never trust parameters from the scary internet, only allow the white list through.
     def charity_params
       params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state)

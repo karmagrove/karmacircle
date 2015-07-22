@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :admin, :silver, :gold, :platinum, :customer, :charity]
+  enum role: [:user, :admin, :silver, :gold, :platinum, :customer, :charity_admin]
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_default_plan, :if => :new_record?
   # after_create :sign_up_for_mailing_list
   # devise :omniauthable
 
   belongs_to :plan
-  validates_associated :plan
+  validates_associated :plan 
 
   def set_default_role
     self.role ||= :user
@@ -26,8 +26,10 @@ class User < ActiveRecord::Base
   end
 
   def has_plan?
-    unless current_user.gold? or current_user.platinum? or current_user.silver?
-      redirect_to :back, :alert => "Access denied."
+    if self.plan
+      return true
+    else
+      return false
     end
   end
 

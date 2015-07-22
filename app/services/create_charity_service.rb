@@ -8,6 +8,7 @@ class CreateAdminService
         charity.email = "uncertain@genesis.org"
         charity.city = "Dallas"
         charity.state = "TX"
+        charity.status = "approved"
     end
 
     charity = Charity.find_or_create_by!(name: "Mosaic Services") do |charity|
@@ -18,6 +19,8 @@ class CreateAdminService
         charity.email = "uncertain@mosaicservices.org"
         charity.city = "Dallas"
         charity.state = "TX"
+        charity.status = "approved"
+
     end
 
     charity = Charity.find_or_create_by!(name: "Grey Bears") do |charity|
@@ -28,6 +31,7 @@ class CreateAdminService
         charity.email = "uncertain@greybears.org"
         charity.city = "Santa Cruz"
         charity.state = "CA"
+        charity.status = "approved"
     end
 
     charity = Charity.find_or_create_by!(name: "Elephants and Bees") do |charity|
@@ -38,6 +42,7 @@ class CreateAdminService
         charity.email = "uncertain@elephantsandbees.org"
         charity.city = "Africa"
         charity.state = "Africa"
+        charity.status = "approved"
     end
 
     charity = Charity.find_or_create_by!(name: "Wounded Warriors") do |charity|
@@ -48,6 +53,7 @@ class CreateAdminService
         charity.email = "uncertain@woundedwarriors.org"
         charity.city = "allover"
         charity.state = "All of them"
+        charity.status = "approved"
     end
   end
 end

@@ -30,6 +30,7 @@
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
     </div>
+    <% unless resource.plan.name == "Charity" %>
     <div class="form-group">
       <%= label_tag :card_number, "Credit Card Number" %>
       <%= text_field_tag :card_number, nil, name: nil, class: 'form-control', data: { stripe: 'number' } %>
@@ -44,6 +45,15 @@
       <%= select_month nil, { use_two_digit_numbers: true}, { name: nil, data: { stripe: 'exp-month' } } %>
       <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, { name: nil, data: { stripe: 'exp-year' } } %>
     </div>
+    <% else %>
+
+      <%= label_tag :charity_name, "Charity Name" %>
+      <%= text_field_tag :charity_name, nil, name: nil, class: 'form-control' %>
+
+      <br />
+      You will have the option to connect your charity to receive payments after you have been approved.
+      <br />
+    <% end %>
     <%= f.submit 'Sign up', :class => 'button right' %>
   <% end %>
 </div>

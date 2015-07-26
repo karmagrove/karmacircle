@@ -1,29 +1,24 @@
 class CreatePlanService
   def call
-    p1 = Plan.where(name: 'Platinum').first_or_initialize do |p|
-      p.amount = 2900
-      p.interval = 'month'
-      p.stripe_id = 'platinum'
-    end
-    p1.save!(:validate => false)
-    p2 = Plan.where(name: 'Gold').first_or_initialize do |p|
-      p.amount = 1900
-      p.interval = 'month'
-      p.stripe_id = 'gold'
-    end
-    p2.save!(:validate => false)
-    p3 = Plan.where(name: 'Silver').first_or_initialize do |p|
-      p.amount = 900
-      p.interval = 'month'
-      p.stripe_id = 'silver'
-    end
-    p3.save!(:validate => false)
-
-    p4 = Plan.where(name: 'Charity').first_or_initialize do |p|
+    p1 = Plan.where(name: 'Partner').first_or_initialize do |p|
       p.amount = 0
       p.interval = 'month'
-      p.stripe_id = 'charity'
+      p.stripe_id = 'partner'
     end
-    p4.save!(:validate => false)
+    p1.save!(:validate => false)
+    
+    # p2 = Plan.where(name: 'Gold').first_or_initialize do |p|
+    #   p.amount = 0
+    #   p.interval = 'month'
+    #   p.stripe_id = 'gold'
+    # end
+    # p2.save!(:validate => false)
+
+    # p3 = Plan.where(name: 'Charity').first_or_initialize do |p|
+    #   p.amount = 0
+    #   p.interval = 'month'
+    #   p.stripe_id = 'charity'
+    # end
+    # p3.save!(:validate => false)
   end
 end

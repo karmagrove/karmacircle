@@ -11,8 +11,11 @@ Rails.application.routes.draw do
   devise_scope :user do
     put 'change_plan', :to => 'registrations#change_plan'
   end
-  resources :users
+  resources :users do 
+    resources :charity_users
+  end
   resources :charges
   resources :charities
+
 
 end

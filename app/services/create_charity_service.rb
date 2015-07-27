@@ -1,4 +1,4 @@
-class CreateAdminService
+class CreateCharityService
   def call
     charity = Charity.find_or_create_by!(name: "Genesis Women's Shelter") do |charity|
         charity.name = "Genesis Women's Shelter"

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :users do 
     resources :charity_users
   end
+  #resources :charity_users
   resources :charges
   resources :charities
 

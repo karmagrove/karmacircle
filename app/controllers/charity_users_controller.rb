@@ -9,7 +9,11 @@ class CharityUsersController < ApplicationController
 	end
 
 	def index
-	  @charity_users = CharityUser.where(:user_id => current_user.id)
-	  @charities = Charity.all
+	  if current_user	
+	    @charity_users = CharityUser.where(:user_id => current_user.id)
+	    @charities = Charity.all
+	  else
+	  	redirect_to "/"
+	  end
 	end
 end

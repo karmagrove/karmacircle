@@ -1,7 +1,16 @@
-index.html.erb
+Available charities
 
+<%= form_for :charity_user do |f| %>
 <% @charities.each do |charity| %>
-
-	<%= charity %>
-
+	<div class="field">
+	<%= f.label :name %><br>
+    <%= f.check_box([charity.name,charity.id], {}) %>
+    <%= charity.name %> - <%= charity.description %>
+	</div>
 <% end %>
+<% end %>
+
+
+
+    
+  

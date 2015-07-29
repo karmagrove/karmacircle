@@ -1,0 +1,16 @@
+Available charities
+
+<%= form_for :charity_user do |f| %>
+<% @charities.each do |charity| %>
+	<div class="field">
+	<%= f.label :name %><br>
+    <%= f.select_box([charity.name,charity.id], {}) %>
+    <%= charity.name %> - <%= charity.description %>
+	</div>
+<% end %>
+<% end %>
+
+
+
+    
+  

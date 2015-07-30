@@ -24,23 +24,28 @@
     <h3> Sign up and give as your receive. Give a portion of your revenue to charity as you do business.</h3>
   </div>
 
+  <div id="pitch" class="span7">
+    <h1> </h1>
+    <h3> We enable you to charge your customers, send invoices, and set aside a portion to charity for each of your sales. We also make it easy for you to tell your customers about your conscious business practices enabling you to be more connected to the people in the communities you serve </h3>
+  </div>
+
    <div class="row col-sm-12 plans">
     <div class="col-sm-6 well">
-      <div class="plan"><h2>Emerald </h2></div>
+      <div class="plan"><h2>Partner </h2></div>
       <ul class="list-unstyled">
-        <li>At least 1% of your revenue goes to charity you choose!</li>
+        <li>1% of your revenue goes to charity you choose!</li>
       </ul>
       <h3>$29/month + $0.10 per transaction</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'platinum'), :class => 'btn btn-primary' %>
+      <%= link_to 'Subscribe', new_user_registration_path(plan: 'partner'), :class => 'btn btn-primary' %>
     </div>
 
     <div class="col-sm-6 well featured">
-      <div class="plan featured-plan"><h2>Jade </h2></div>
+      <div class="plan featured-plan"><h2>Patron </h2></div>
       <ul class="list-unstyled">
         <li>At least 1% of your revenue goes to charity you choose!</li>
       </ul>
       <h3>$1.00 per transaction and NO MONTHLY FEES</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'gold'), :class => 'btn btn-primary' %>
+      <%= link_to 'Subscribe', new_user_registration_path(plan: 'patron'), :class => 'btn btn-primary' %>
 
     </div>
   </div>

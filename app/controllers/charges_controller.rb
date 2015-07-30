@@ -33,12 +33,13 @@ def create
   {:stripe_account => current_user.uid}
   )
   else
+    application_fee = current_user.transaction_cost
     charge = Stripe::Charge.create({
     :amount => 1000, # amount in cents
     :currency => "usd",
     :customer => customer,
     :description => "Example charge",
-    :application_fee => 100, # amount in cents
+    :application_fee => application_fee, # amount in cents
   },
   {:stripe_account => current_user.uid}
   )

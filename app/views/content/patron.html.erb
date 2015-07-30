@@ -1,0 +1,58 @@
+<h1> Make new sale </h1>
+
+<!-- <p><%= link_to("Make a new sale", new_charge_path( {:foo => "bar"})) %> </p> -->
+<!--  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>if (typeof jQuery === 'undefined') {
+  document.write(unescape('%3Cscript%20src%3D%22/path/to/your/scripts/jquery-2.1.4.min.js%22%3E%3C/script%3E'));
+};
+</script>
+ -->
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+Amount:    <input id="amount"></input> <br />
+Description: <input id="description" default="description of sale"></input> <br />
+<button id="customButton">Purchase</button>
+
+<script>
+
+  var handler = StripeCheckout.configure({
+    key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
+    image: '/assets/karma-circle.png',
+    token: function(token) {
+    	console.log(token.id)
+    	$.ajax({
+           type: "POST",
+           url: "/charges",
+           data: {"stripeToken":token.id,
+           "stripeEmail": token.email},
+           success:function(resp){
+           	window.location.replace("/charges")
+           	console.log(resp)
+
+           }
+        });
+  //   	token.id can be used to create a charge or customer.
+		// token.email contains the email address entered by the user. 
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+    }
+  });
+
+  $('#customButton').on('click', function(e) {
+    // Open Checkout with further options
+    handler.open({
+      name: '<%=current_user.name%>',
+      description: $('#description').val(),
+      amount: $('#amount').val()*100
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>
+
+

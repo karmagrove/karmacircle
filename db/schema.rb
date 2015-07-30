@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725122714) do
+ActiveRecord::Schema.define(version: 20150730173911) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20150725122714) do
     t.string   "website"
     t.string   "description"
     t.string   "business_name"
+    t.integer  "transaction_cost"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

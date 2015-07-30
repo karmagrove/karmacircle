@@ -1,13 +1,14 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :admin, :silver, :gold, :platinum, :customer, :charity_admin]
+  enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron]
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_default_plan, :if => :new_record?
-  
+  after_initialize :set_transaction_cost, :if => :new_record?
   # after_create :sign_up_for_mailing_list
   # devise :omniauthable
 
   belongs_to :plan
   validates_associated :plan 
+  has_many :charity_users
 
   def set_default_role
     self.role ||= :user
@@ -15,6 +16,13 @@ class User < ActiveRecord::Base
 
   def set_default_plan
     self.plan ||= Plan.last
+  end
+
+  def set_transaction_cost
+    self.transaction_cost = 100
+    if self.plan.name == "Partner" then
+      self.transaction_cost = 10
+    end
   end
 
   # Include default devise modules. Others available are:

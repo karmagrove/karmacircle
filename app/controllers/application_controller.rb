@@ -7,12 +7,10 @@ class ApplicationController < ActionController::Base
     case current_user.role
       when 'admin'
         users_path
-      when 'silver'
-        content_silver_path
-      when 'gold'
-        content_gold_path
-      when 'platinum'
-        content_platinum_path
+      when 'partner'
+        content_partner_path
+      when 'patron'
+        content_patron_path  
       when 'customer'
         content_customer_path
       else

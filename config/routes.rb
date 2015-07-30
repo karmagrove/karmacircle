@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get "content/silver"
-  get "content/gold"
-  get "content/platinum"
+  get "content/patron"
   get "content/partner"
   get "content/charity"
   mount Payola::Engine => '/payola', as: :payola

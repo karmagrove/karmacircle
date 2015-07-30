@@ -6,8 +6,10 @@ class CharityUsersController < ApplicationController
 	end
 
 	def create
-	  @charity_user = CharityUser.new(charity_user_params)
 	  @user = current_user
+	  params[:user_id] = @user.id
+	  @charity_user = CharityUser.new(charity_user_params)
+	  @charity_user.user_id = @user.id
 	  respond_to do |format|
         if @charity_user.save
           format.html { redirect_to @user, notice: 'charity was successfully added to your account.' }

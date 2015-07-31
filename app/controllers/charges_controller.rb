@@ -44,6 +44,8 @@ def create
   )
     Rails.logger.info "charge.inspect"
     Rails.logger.info charge.inspect
+    donation_amount = charge.amount*(current_user.donation_rate/100)
+    @donorCharge = DonationCharge.new(donation_amount: donation_amount)
   end
 
   # charge = Stripe::Charge.create(

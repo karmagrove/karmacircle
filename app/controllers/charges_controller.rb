@@ -8,7 +8,6 @@ def create
   # Amount in cents
   @amount = 500
 
- 
 
   #Stripe.api_key = PLATFORM_SECRET_KEY
   Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
@@ -43,6 +42,8 @@ def create
   },
   {:stripe_account => current_user.uid}
   )
+    Rails.logger.info "charge.inspect"
+    Rails.logger.info charge.inspect
   end
 
   # charge = Stripe::Charge.create(

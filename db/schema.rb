@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730173911) do
+ActiveRecord::Schema.define(version: 20150731104140) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -36,6 +36,33 @@ ActiveRecord::Schema.define(version: 20150730173911) do
 
   add_index "charity_users", ["charity_id"], name: "index_charity_users_on_charity_id"
   add_index "charity_users", ["user_id"], name: "index_charity_users_on_user_id"
+
+  create_table "donation_charges", force: :cascade do |t|
+    t.string   "payment_reference"
+    t.integer  "charity_id"
+    t.integer  "donation_amount"
+    t.integer  "revenue"
+    t.integer  "status"
+    t.integer  "donation_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "donation_charges", ["charity_id"], name: "index_donation_charges_on_charity_id"
+  add_index "donation_charges", ["donation_id"], name: "index_donation_charges_on_donation_id"
+
+  create_table "donations", force: :cascade do |t|
+    t.string   "payment_reference"
+    t.integer  "charity_id"
+    t.integer  "donation_amount"
+    t.integer  "status"
+    t.integer  "donor_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "donations", ["charity_id"], name: "index_donations_on_charity_id"
+  add_index "donations", ["donor_id"], name: "index_donations_on_donor_id"
 
   create_table "payola_affiliates", force: :cascade do |t|
     t.string   "code"

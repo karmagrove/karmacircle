@@ -4,6 +4,9 @@
   <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
   <% if current_user.id %>
     <li><%= link_to 'My Charities', user_charity_users_path({ user_id: current_user.id }) %></li>
+    <li><%= link_to 'New Sale', "/content/#{current_user.role}" %></li>
+    <li><%= link_to 'Donations', "/content/#{current_user.role}" %></li>
+    <li><%= link_to 'My Customers', "/charges" %></li>
   <% end %>  
 <% else %>
   <li><%= link_to 'Sign in', new_user_session_path %></li>

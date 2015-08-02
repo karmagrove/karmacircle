@@ -3,17 +3,23 @@
     <h3>Admin</h3>
     <p><%= link_to 'User count:', users_path %> <%= User.count %></p>
   <% else %>
+    <% if current_user.charity_users %>
+      <p><h3> Current charity you support with <%= current_user.donation_rate %>% of revenue: <%= current_user.charity_users.first.charity.name %> </h3></p>
+    <% else %>
+    <h3> Complete your profile - select your charity </h3>
+    <% end %>
 
-    <h2 style="text-align:center">Update your bank account to begin charging customers and receive the money every few days!</h2>
-    <%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
-  
+    <% if current_user.access_code and current_user.publishable_key %>  
+      <%= render "content/form" %>
+    <% else %>
+     <h2 style="text-align:center">Update your bank account to begin charging customers and receive the money every few days!</h2>
+     <%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
+    <% end %>
 
-    <h3 style="text-align:center">You've signed up. Download a free book on conscious capitalism.</h3>
-    <%= link_to 'Download Conscious Capitalism PDF', products_path('What_Is_Conscious_Capitalism.pdf'), class: 'btn btn-success btn-large center', style: 'text-align:center'%>
-
-
-    <h3> Complete your profile - select your charities </h3>
     
+
+    <h3 style="text-align:center"> Download a free book on conscious capitalism.</h3>
+    <%= link_to 'Download Conscious Capitalism PDF', products_path('What_Is_Conscious_Capitalism.pdf'), class: 'btn btn-success btn-large center', style: 'text-align:center'%>
   <% end %>
 
 

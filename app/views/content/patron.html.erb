@@ -21,6 +21,7 @@ Description: <input id="description" default="description of sale"></input> <br 
     image: '/assets/karma-circle.png',
     token: function(token) {
     	console.log(token.id)
+      console.log(token.email)
     	$.ajax({
            type: "POST",
            url: "/charges",

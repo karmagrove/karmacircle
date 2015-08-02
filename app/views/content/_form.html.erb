@@ -9,7 +9,6 @@
 </script>
  -->
 <script src="https://checkout.stripe.com/checkout.js"></script>
-
 Amount:    <input id="amount"></input> <br />
 Description: <input id="description" default="description of sale"></input> <br />
 <button id="customButton">Purchase</button>
@@ -25,7 +24,9 @@ Description: <input id="description" default="description of sale"></input> <br 
            type: "POST",
            url: "/charges",
            data: {"stripeToken":token.id,
-           "stripeEmail": token.email},
+           "stripeEmail": token.email,
+           amount: $('#amount').val()*100
+         },
            success:function(resp){
            	window.location.replace("/charges")
            	console.log(resp)

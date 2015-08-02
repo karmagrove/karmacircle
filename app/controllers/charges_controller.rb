@@ -1,6 +1,11 @@
 class ChargesController < ApplicationController
 
 
+def index
+  Stripe.api_key = current_user.access_code
+  @customers = Stripe::Customer.all(:limit => 3)
+end
+
 def new
 end
 
@@ -22,6 +27,7 @@ def create
 
 # Create the charge on Stripe's servers - this will charge the user's card
   Rails.logger.info "current_user.email #{current_user.email}"
+  Rails.logger.info "params #{params.inspect}"
   if current_user.email == "joshua@karmagrove.com"
     charge = Stripe::Charge.create({
     :amount => 1000, # amount in cents
@@ -42,12 +48,23 @@ def create
   },
   {:stripe_account => current_user.uid}
   )
-    Rails.logger.info "charge.inspect"
-    Rails.logger.info charge.inspect
-    donation_amount = charge.amount*(current_user.donation_rate/100)
-    @donorCharge = DonationCharge.new(donation_amount: donation_amount)
+  
   end
-
+  Rails.logger.info "charge.inspect"
+  Rails.logger.info charge.inspect
+  donation_amount = charge.amount*(current_user.donation_rate/100)
+  charity_id = current_user.charity_users.first.id
+  @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
+    payment_reference: charge.id, charity_id: charity_id, 
+    revenue: charge.amount, customer_id: customer.id, donor_id:current_user.id)
+  Rails.logger.info "donorcharge.inspect"
+  Rails.logger.info @donorCharge.inspect
+  if @donorCharge.save
+    format.html { redirect_to @user, notice: 'Charge made' }
+    format.json { render :show, status: :created, location: @user }
+  else
+     format.html { redirect_to @user, notice: 'Charge failed' }
+  end
   # charge = Stripe::Charge.create(
   #   :customer    => customer.id,
   #   :amount      => @amount,

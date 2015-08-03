@@ -4,6 +4,8 @@ class ChargesController < ApplicationController
 def index
   Stripe.api_key = current_user.access_code
   @customers = Stripe::Customer.all(:limit => 3)
+  @charges = Stripe::Charge.all
+  Rails.logger.info(@charges.inspect)
 end
 
 def new

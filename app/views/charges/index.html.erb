@@ -1,5 +1,12 @@
+<h1> You customers </h1>
 <% @customers.each do |c| %>
 
-<%= c.email %>
+<%= c.email %> <br />
+
+<% end %>
+<h1> Your charges </h1>
+<% @charges.each do |c| %>
+
+<%= c.amount %> <br />
 
 <% end %>

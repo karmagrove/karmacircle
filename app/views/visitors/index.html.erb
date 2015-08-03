@@ -3,7 +3,7 @@
     <h3>Admin</h3>
     <p><%= link_to 'User count:', users_path %> <%= User.count %></p>
   <% else %>
-    <% if current_user.charity_users %>
+    <% if current_user.charity_users.length > 0 %>
       <p><h3> Current charity you support with <%= current_user.donation_rate %>% of revenue: <%= current_user.charity_users.first.charity.name %> </h3></p>
     <% else %>
     <h3> Complete your profile - select your charity </h3>

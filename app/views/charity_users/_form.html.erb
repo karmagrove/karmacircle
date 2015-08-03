@@ -1,8 +1,11 @@
-Available charities
+<h1> Available charities </h1>
+<% if current_user.charity_users.length > 0 %>
+	Currently you support: <%= current_user.charity_users.first.charity.name %>
+<% end %>
 
 <%= form_for :charity_user do |f| %>
 
-<%= collection_select(:charity_user, :charity_id, Charity.all, :id, :name) %>
+<%= collection_select(:charity_user, :charity_id, Charity.all, :id, :name ) %>
   <div class="actions">
     <%= f.submit %>
   </div>

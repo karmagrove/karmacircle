@@ -13,9 +13,9 @@ end
 
 def create
   # Amount in cents
-  @amount = 500
-
-
+  #@amount = (params[:amount].to_f * 100).to_i
+  @amount = params[:amount]
+  Rails.logger.info("@amount:#{@amount}")
   #Stripe.api_key = PLATFORM_SECRET_KEY
   Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
   token = params[:stripeToken]
@@ -32,7 +32,7 @@ def create
   Rails.logger.info "params #{params.inspect}"
   if current_user.email == "joshua@karmagrove.com"
     charge = Stripe::Charge.create({
-    :amount => 1000, # amount in cents
+    :amount => @amount, # amount in cents
     :currency => "usd",
     :customer => customer,
     :description => "Example charge"
@@ -42,7 +42,7 @@ def create
   else
     application_fee = current_user.transaction_cost
     charge = Stripe::Charge.create({
-    :amount => 1000, # amount in cents
+    :amount => @amount, # amount in cents
     :currency => "usd",
     :customer => customer,
     :description => "Example charge",
@@ -54,14 +54,17 @@ def create
   end
   Rails.logger.info "charge.inspect"
   Rails.logger.info charge.inspect
-  donation_amount = charge.amount*(current_user.donation_rate/100)
+  donation_amount = (charge.amount*(current_user.donation_rate/100.to_f)).to_i
+  Rails.logger.info("donation_amount: #{donation_amount}")
   charity_id = current_user.charity_users.first.id
+  # Donation.where
   @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
     payment_reference: charge.id, charity_id: charity_id, 
-    revenue: charge.amount, customer_id: customer.id, donor_id:current_user.id)
+    revenue: charge.amount, customer_id: customer.id, 
+    donor_id:current_user.id)
   Rails.logger.info "donorcharge.inspect"
   Rails.logger.info @donorCharge.inspect
-  if @donorCharge.save
+  if @donorCharge.save(:status => "paid on stripe")
     format.html { redirect_to @user, notice: 'Charge made' }
     format.json { render :show, status: :created, location: @user }
   else
@@ -80,6 +83,12 @@ rescue Stripe::CardError => e
   redirect_to charges_path
 end
 
+private
+  
+  def secure_params
+    params.require(:donor_charge).permit(:donation_amount,
+    :payment_reference, :charity_id, :revenue, :customer_id, :donor_id)
+  end
 
 
 end

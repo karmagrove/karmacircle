@@ -64,12 +64,16 @@ def create
     donor_id:current_user.id)
   Rails.logger.info "donorcharge.inspect"
   Rails.logger.info @donorCharge.inspect
+
   if @donorCharge.save(:status => "paid on stripe")
     format.html { redirect_to @user, notice: 'Charge made' }
     format.json { render :show, status: :created, location: @user }
   else
      format.html { redirect_to @user, notice: 'Charge failed' }
+     format.json { render json: @user.errors, status: :unprocessable_entity }
   end
+        
+        
   # charge = Stripe::Charge.create(
   #   :customer    => customer.id,
   #   :amount      => @amount,

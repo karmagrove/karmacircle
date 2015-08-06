@@ -26,6 +26,7 @@ def create
       },
     {:stripe_account => current_user.uid}
   )
+  description = params[:description]
 
 # Create the charge on Stripe's servers - this will charge the user's card
   Rails.logger.info "current_user.email #{current_user.email}"
@@ -35,7 +36,7 @@ def create
     :amount => @amount, # amount in cents
     :currency => "usd",
     :customer => customer,
-    :description => "Example charge"
+    :description => description
   },
   {:stripe_account => current_user.uid}
   )
@@ -45,7 +46,7 @@ def create
     :amount => @amount, # amount in cents
     :currency => "usd",
     :customer => customer,
-    :description => "Example charge",
+    :description => description,
     :application_fee => application_fee, # amount in cents
   },
   {:stripe_account => current_user.uid}

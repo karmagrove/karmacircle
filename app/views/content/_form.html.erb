@@ -25,7 +25,8 @@ Description: <input id="description" default="description of sale"></input> <br 
            url: "/charges",
            data: {"stripeToken":token.id,
            "stripeEmail": token.email,
-           amount: $('#amount').val()*100
+           amount: $('#amount').val()*100,
+           description: $('#description').val()
          },
            success:function(resp){
            	window.location.replace("/charges")

@@ -66,7 +66,7 @@ def create
   Rails.logger.info "donorcharge.inspect"
   Rails.logger.info @donorCharge.inspect
 
-  if @donorCharge.save(:status => "paid on stripe")
+  if @donorCharge.save(:status => "unpaid")
     format.html { redirect_to @user, notice: 'Charge made' }
     format.json { render :show, status: :created, location: @user }
   else

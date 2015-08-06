@@ -47,12 +47,12 @@ ActiveRecord::Schema.define(version: 20150801191655) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "customer_id"
-    t.integer  "donor_id"
+    t.integer  "user_id"
   end
 
   add_index "donation_charges", ["charity_id"], name: "index_donation_charges_on_charity_id"
   add_index "donation_charges", ["donation_id"], name: "index_donation_charges_on_donation_id"
-  add_index "donation_charges", ["donor_id"], name: "index_donation_charges_on_donor_id"
+  add_index "donation_charges", ["user_id"], name: "index_donation_charges_on_user_id"
 
   create_table "donations", force: :cascade do |t|
     t.string   "payment_reference"

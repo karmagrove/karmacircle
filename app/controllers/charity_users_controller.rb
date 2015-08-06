@@ -41,7 +41,7 @@ class CharityUsersController < ApplicationController
 	def index
 	  if current_user	
 	    @charity_users = CharityUser.where(:user_id => current_user.id)
-	    @charities = Charity.where(:status => "approved")
+	    @charities = Charity.where(:status => 2)
 	  else
 	  	redirect_to "/"
 	  end

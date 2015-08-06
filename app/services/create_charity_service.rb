@@ -8,7 +8,7 @@ class CreateCharityService
         charity.email = "uncertain@genesis.org"
         charity.city = "Dallas"
         charity.state = "TX"
-        charity.status = "approved"
+        charity.status = "suggested"
     end
 
     charity = Charity.find_or_create_by!(name: "Mosaic Services") do |charity|

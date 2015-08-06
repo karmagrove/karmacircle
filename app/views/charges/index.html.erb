@@ -29,13 +29,13 @@
     <%= c.description %> <br />
     </div>
     <div class="col-md-4">
-    <% if @d = DonationCharge.find_by_payment_reference(c.id) %> <br />
-      
-      $<%= @d.donation_amount/100 %> 
+    <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
+      $<%= @d.donation_amount/100.to_f %> 
       <% if @d.charity %> 
          <%= @d.charity.name %> 
       <% end %>
     <% end %>  
+    <br />
     </div>
   </div>
   

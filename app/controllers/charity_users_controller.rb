@@ -24,6 +24,7 @@ class CharityUsersController < ApplicationController
 	def create
 	  @user = current_user
 	  params[:user_id] = @user.id
+	  CharityUser.delete_all(:user_id=> @user.id)
 	  @charity_user = CharityUser.new(charity_user_params)
 	  @charity_user.user_id = @user.id
 	  respond_to do |format|

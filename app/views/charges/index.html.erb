@@ -8,13 +8,13 @@
 <h1> Your charges </h1>
 <div class="table">
 <div class="row header">  
-	<div class="column col-span-1">
+	 <div class="col-md-4">
     <h2>Amount </h2>
     </div>
-    <div class="column col-span-1">
+    <div class="col-md-4" >
     <h2> Description </h2>
     </div>
-    <div class="column col-span-1">
+    <div class="col-md-4">
     <h2> Donation </h2>
     </div>
 </div>
@@ -22,15 +22,20 @@
   
 
   <div class="row">
-    <div class="column col-span-1">
+    <div class="col-md-4">
     $<%= (c.amount / 100) %> <br />
     </div>
-    <div class="column col-span-1">
+    <div class="col-md-4">
     <%= c.description %> <br />
     </div>
-    <div class="column col-span-1">
-    <% @d = DonationCharge.find_by_payment_reference(c.id) %> <br />
-    <%= @d.donation_amount/100 %> <%= @d.charity.name %> <br />
+    <div class="col-md-4">
+    <% if @d = DonationCharge.find_by_payment_reference(c.id) %> <br />
+      
+      $<%= @d.donation_amount/100 %> 
+      <% if @d.charity %> 
+         <%= @d.charity.name %> 
+      <% end %>
+    <% end %>  
     </div>
   </div>
   

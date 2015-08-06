@@ -57,7 +57,7 @@ def create
   Rails.logger.info charge.inspect
   donation_amount = (charge.amount*(current_user.donation_rate/100.to_f)).to_i
   Rails.logger.info("donation_amount: #{donation_amount}")
-  charity_id = current_user.charity_users.first.id
+  charity_id = current_user.charity_users.first.charity_id
   # Donation.where
   @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
     payment_reference: charge.id, charity_id: charity_id, 

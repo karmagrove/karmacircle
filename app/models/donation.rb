@@ -23,6 +23,6 @@ class Donation < ActiveRecord::Base
          )        
 
   	  end
-
+    end
   end
 end

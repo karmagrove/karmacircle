@@ -5,7 +5,7 @@ class CreateDonations < ActiveRecord::Migration
       t.references :charity, index: true, foreign_key: true
       t.integer :donation_amount
       t.integer :status
-      t.references :donor, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end

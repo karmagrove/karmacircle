@@ -19,7 +19,7 @@ class CreateCharityService
         charity.email = "uncertain@mosaicservices.org"
         charity.city = "Dallas"
         charity.state = "TX"
-        charity.status = "unapproved"
+        charity.status = "suggested"
 
     end
 
@@ -31,7 +31,7 @@ class CreateCharityService
         charity.email = "uncertain@greybears.org"
         charity.city = "Santa Cruz"
         charity.state = "CA"
-        charity.status = "unapproved"
+        charity.status = "suggested"
     end
 
     charity = Charity.find_or_create_by!(name: "Elephants and Bees") do |charity|
@@ -53,7 +53,7 @@ class CreateCharityService
         charity.email = "uncertain@woundedwarriors.org"
         charity.city = "allover"
         charity.state = "All of them"
-        charity.status = "unapproved"
+        charity.status = "suggested"
     end
   end
 end

@@ -59,13 +59,13 @@ ActiveRecord::Schema.define(version: 20150801191655) do
     t.integer  "charity_id"
     t.integer  "donation_amount"
     t.integer  "status"
-    t.integer  "donor_id"
+    t.integer  "user_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
 
   add_index "donations", ["charity_id"], name: "index_donations_on_charity_id"
-  add_index "donations", ["donor_id"], name: "index_donations_on_donor_id"
+  add_index "donations", ["user_id"], name: "index_donations_on_user_id"
 
   create_table "payola_affiliates", force: :cascade do |t|
     t.string   "code"

@@ -19,7 +19,7 @@ class CreateCharityService
         charity.email = "uncertain@mosaicservices.org"
         charity.city = "Dallas"
         charity.state = "TX"
-        charity.status = "approved"
+        charity.status = "unapproved"
 
     end
 
@@ -31,14 +31,14 @@ class CreateCharityService
         charity.email = "uncertain@greybears.org"
         charity.city = "Santa Cruz"
         charity.state = "CA"
-        charity.status = "approved"
+        charity.status = "unapproved"
     end
 
     charity = Charity.find_or_create_by!(name: "Elephants and Bees") do |charity|
         charity.name = "Elephants and Bees"
         charity.description = "Giving beehive fences to impoverished farmers to create honey crop and protect elephants."
         charity.url = "www.elephantsandbeess.org"
-        charity.stripe_id = "example_stripe_id_to_pay_them"
+        charity.stripe_id = "rp_6kOtLdFPSggt1D"
         charity.email = "uncertain@elephantsandbees.org"
         charity.city = "Africa"
         charity.state = "Africa"
@@ -53,7 +53,7 @@ class CreateCharityService
         charity.email = "uncertain@woundedwarriors.org"
         charity.city = "allover"
         charity.state = "All of them"
-        charity.status = "approved"
+        charity.status = "unapproved"
     end
   end
 end

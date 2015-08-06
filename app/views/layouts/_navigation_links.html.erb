@@ -9,7 +9,7 @@
   <% end %>  
 <% else %>
   <li><%= link_to 'Sign in', new_user_session_path %></li>
-  <li><%= link_to 'Sign up', new_user_registration_path, data: { no_turbolink: true } %></li>
+  <li><%= link_to 'Sign up', new_user_registration_path(:plan => "patron"), data: { no_turbolink: true, :plan => "patron" } %></li>
 <% end %>
 <% if user_signed_in? %>
   <% if current_user.try(:admin?) %>

@@ -6,7 +6,7 @@
     <% if current_user.charity_users.length > 0 %>
       <p><h3> Current charity you support with <%= current_user.donation_rate %>% of revenue: <%= current_user.charity_users.first.charity.name %> </h3></p>
     <% else %>
-    <h3> Complete your profile - select your charity </h3>
+    <h3> <a href="/users/<%=current_user.id%>/charity_users"> Complete your profile - select your charity </a></h3>
     <% end %>
 
     <% if current_user.access_code and current_user.publishable_key %>  
@@ -24,6 +24,9 @@
 
 
 <% else %>
+    <div class="row col-sm-2 plans">
+  <img src="/assets/karma-circle.png"> </img>
+  </div>
 
   <div id="welcome" class="span7">
     <h1> Become a Merchant of Conscious Community</h1>
@@ -51,36 +54,46 @@ Every month, we <strong>donate</strong> the <br>amount to <strong> your charity<
   </ul> -->
     
 </div>
+  
 
-  <div class="row col-sm-12 plans">
+ <!--  <div class="row col-sm-12 plans">
     <h1> </h1>
     <h3> We enable you to charge your customers, send invoices, and set aside a portion to charity for each of your sales. We also make it easy for you to tell your customers about your conscious business practices enabling you to be more connected to the people in the communities you serve </h3>
-  </div>
+  </div> -->
+<!-- 
+   <div class="row col-sm-12 plans">
+   <div class="plan"><h2> Karma Grove circle payments offers two ways to begin accepting cards and giving as you receive</h2></div>
+   </div> -->
 
    <div class="row col-sm-12 plans">
     <div class="col-sm-6 well">
-      <div class="plan"><h2>Partner </h2></div>
+      <div class="plan "><h2>Partner </h2></div>
       <ul class="list-unstyled">
-        <li>1% of your revenue goes to charity you choose!</li>
+        <!-- <li>1% of your revenue goes to charity you choose for minimal transaction cost!</li> -->
       </ul>
-      <h3>$29/month + $0.10 per transaction</h3>
+      <h3>$29/month + $0.10 per transaction*</h3>
       <%= link_to 'Subscribe', new_user_registration_path(plan: 'partner'), :class => 'btn btn-primary' %>
     </div>
 
     <div class="col-sm-6 well featured">
-      <div class="plan featured-plan"><h2>Patron </h2></div>
+      <div class="plan "><h2>Patron </h2></div>
       <ul class="list-unstyled">
-        <li>At least 1% of your revenue goes to charity you choose!</li>
+        <!-- <li>1% of your revenue goes to charity you choose and you pay as you go!</li> -->
       </ul>
-      <h3>$1.00 per transaction and NO MONTHLY FEES</h3>
+      <h3>$1.00 per transaction*</h3>
       <%= link_to 'Subscribe', new_user_registration_path(plan: 'patron'), :class => 'btn btn-primary' %>
 
     </div>
   </div>
 
+
+<div class="row col-sm-12 plans">
+    <h1> </h1>
+    <h3> If you represent a charity you can sign up below.  We allow you to choose the minimum amount you will receive, and once a month you will get donations from verified individuals who have chosen you to receive a portion of their revenue. </h3>
+  </div> 
    <div class="row col-sm-12 plans">
     <div class="col-sm-12 well">
-      <div class="plan"><h2> Charity Sign up </h2> </div>
+      <div class="plan featured-plan"><h2> Charity Sign up </h2> </div>
       <ul class="list-unstyled">
         <li>Do you represent a Charity and wish to receive donations from our conscious capitalists?</li>
       </ul>
@@ -88,5 +101,10 @@ Every month, we <strong>donate</strong> the <br>amount to <strong> your charity<
       <%= link_to 'Apply to Receive Donations', new_user_registration_path(plan: 'charity'), :class => 'btn btn-primary' %>
     </div>   
   </div>
+
+<div class="row col-sm-12 plans">
+* Both plans have regular credit card processing fees as handled by stripe payments.  These are 2.3% plus $.30 per transaction.  
+</div>
+
 
 <% end %>

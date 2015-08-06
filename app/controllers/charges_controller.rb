@@ -62,7 +62,7 @@ def create
   @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
     payment_reference: charge.id, charity_id: charity_id, 
     revenue: charge.amount, customer_id: customer.id, 
-    donor_id:current_user.id)
+    user_id:current_user.id)
   Rails.logger.info "donorcharge.inspect"
   Rails.logger.info @donorCharge.inspect
 
@@ -92,7 +92,7 @@ private
   
   def secure_params
     params.require(:donor_charge).permit(:donation_amount,
-    :payment_reference, :charity_id, :revenue, :customer_id, :donor_id)
+    :payment_reference, :charity_id, :revenue, :customer_id, :user_id)
   end
 
 

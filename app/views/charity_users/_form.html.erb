@@ -3,7 +3,7 @@
 	Currently you support: <%= current_user.charity_users.first.charity.name %>
 
   <%= form_for :update_charity_user, :id => current_user.charity_users.first.id do |f| %>
-    <%= collection_select(:charity_user, :charity_id, Charity.all, :id, :name) %>
+    <%= collection_select(:charity_user, :charity_id, @charities, :id, :name) %>
       <div class="actions">
         <%= f.submit %>
       </div>
@@ -15,7 +15,7 @@
   
   <%= form_for :charity_user do |f| %>
   
-    <%= collection_select(:charity_user, :charity_id, Charity.all, :id, :name ) %>
+    <%= collection_select(:charity_user, :charity_id, @charities, :id, :name ) %>
     <div class="actions">
       <%= f.submit %>
     </div>

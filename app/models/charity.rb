@@ -9,4 +9,8 @@ class Charity < ActiveRecord::Base
 	def set_default_status
     self.status ||= :suggested
     end
+
+    def self.approved_charities
+    	Charity.where(:status => "approved")
+    end
 end

@@ -31,7 +31,7 @@ def create
 # Create the charge on Stripe's servers - this will charge the user's card
   Rails.logger.info "current_user.email #{current_user.email}"
   Rails.logger.info "params #{params.inspect}"
-  if current_user.email == "joshua@karmagrove.com"
+  if (current_user.email == "joshua@karmagrove.com") or (current_user.email == "joshua.montross@gmail.com") then
     charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
     :currency => "usd",

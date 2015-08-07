@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get "content/patron"
   get "content/partner"
   get "content/charity"
+  get "/about", :to =>  "visitors#about"
+
   get "invoices/new"
   mount Payola::Engine => '/payola', as: :payola
   root to: 'visitors#index'

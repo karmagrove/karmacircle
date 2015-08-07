@@ -8,6 +8,6 @@ class UserMailer < ActionMailer::Base
   def send_receipt(customer, donationCharge)
   	@customer = customer
   	@donationCharge = donationCharge
-  	mail(:to => customer.email, :subject => "Thank you for your purchase")
+  	mail(:to => customer, :subject => "Thank you for your purchase")
   end
 end

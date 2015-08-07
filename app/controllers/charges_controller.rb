@@ -65,9 +65,8 @@ def create
     user_id:current_user.id)
   Rails.logger.info "donorcharge.inspect"
   Rails.logger.info @donorCharge.inspect
-  UserMailer.send_receipt(params[:stripeEmail],@donorCharge).send
-
   if @donorCharge.save(:status => "unpaid")
+    UserMailer.send_receipt(params[:stripeEmail],@donorCharge).send
     format.html { redirect_to @user, notice: 'Charge made' }
     format.json { render :show, status: :created, location: @user }
   else

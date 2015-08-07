@@ -16,8 +16,8 @@ def create
   #@amount = (params[:amount].to_f * 100).to_i
   @amount = params[:amount]
   Rails.logger.info("@amount:#{@amount}")
-  #Stripe.api_key = PLATFORM_SECRET_KEY
-  Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
+  Stripe.api_key = ENV['STRIPE_API_KEY']
+  #Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
   token = params[:stripeToken]
   
   customer = Stripe::Customer.create({

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :plan
   validates_associated :plan 
   has_many :charity_users
+  has_many :donation_charges
 
   def set_default_role
     self.role ||= :user

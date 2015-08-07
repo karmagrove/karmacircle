@@ -67,6 +67,7 @@ def create
   Rails.logger.info @donorCharge.inspect
   if @donorCharge.save(:status => "unpaid")
     UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
+    UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
     format.html { redirect_to @user, notice: 'Charge made' }
     format.json { render :show, status: :created, location: @user }
   else

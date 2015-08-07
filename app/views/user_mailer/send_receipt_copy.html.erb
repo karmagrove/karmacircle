@@ -1,0 +1,27 @@
+THE FOLLOWING IS A COPY OF WHAT WAS SENT TO <%= @customer %>
+
+<h1> Thank you for your purchase </h1>
+
+<h2> You paid $<%= @donationCharge.revenue/100 %> </h2>
+
+<% if @donationCharge.user.email == "drtartaro@gmail.com" %>
+<p> 
+Congratulations on your recent payment to Jessica Tartaro.  Because Jessica Tartaro chooses to participate in creating conscious commerce and raising money for charity when she accepts payments, 1% of your money went to support <a href="elephantsandbees.org"> Elephants & Bees </a>, a non-profit dedicated to building beehive fences in Africa to protect elephants lives, boost farmers income, and help the communities nearby. 
+</p>
+
+<% else %>
+<p> 
+Congratulations on your recent payment to <%=@donationCharge.user.email%>.  Because they chooses to participate in creating conscious commerce and raising money for charity when she accepts payments, 1% of your money went to support <a href="elephantsandbees.org"> Elephants & Bees </a>, a non-profit dedicated to building beehive fences in Africa to protect elephants lives, boost farmers income, and help the communities nearby. 
+</p>
+<% end %> 
+
+
+<% if @donationCharge.user and @donationCharge.user.email %>
+<p>
+Feel free to email <a href="mailto:<%=@donationCharge.user.email%>"> <%=@donationCharge.user.email%> </a> with any questions.
+</p>
+
+<% end %>
+
+<p> If you are interested in learning more about conscious commerce please visit <a href="https://www.karmagrove.com"> KarmaGrove.com </a>
+

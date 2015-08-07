@@ -4,4 +4,8 @@ class UserMailer < ActionMailer::Base
   def expire_email(user)
     mail(:to => user.email, :subject => "Subscription Cancelled")
   end
+
+  def send_receipt(customer,donationCharge)
+  	mail(:to => customer.email, :subject => "Thank you for your purchase")
+  end
 end

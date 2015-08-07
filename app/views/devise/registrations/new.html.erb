@@ -1,6 +1,15 @@
 <% content_for :head do %>
   <%= render 'payola/transactions/stripe_header' %>
 <% end %>
+
+<% if params[:plan] == "partner" %>
+<div class="col-sm-12 well featured center">
+<p>
+<h1 style="text-align:center"> Partner Plan </h1>
+<h2 style="text-align:center"> 29.00 per month with .10 cents per transaction cost </h2>
+</p>
+</div>
+<% end %>
 <div class="authform">
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form',
         :class => 'payola-onestep-subscription-form',

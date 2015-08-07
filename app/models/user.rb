@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron]
+  enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron, :subscriber]
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_default_plan, :if => :new_record?
   after_initialize :set_transaction_cost, :if => :new_record?
-  # after_create :sign_up_for_mailing_list
+  after_create :sign_up_for_mailing_list
   # devise :omniauthable
 
   belongs_to :plan

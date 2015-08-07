@@ -28,7 +28,7 @@ Rails.application.configure do
   config.assets.debug = true
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.sendgrid.net",
+    address: "smtp.mailgun.org",
     port: 587,
     domain: Rails.application.secrets.domain_name,
     authentication: "plain",

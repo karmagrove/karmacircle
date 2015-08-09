@@ -65,24 +65,17 @@ def create
     user_id:current_user.id)
   Rails.logger.info "donorcharge.inspect"
   Rails.logger.info @donorCharge.inspect
+  @user = current_user
   if @donorCharge.save(:status => "unpaid")
     UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
     UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
-    format.html { redirect_to @user, notice: 'Charge made' }
-    format.json { render :show, status: :created, location: @user }
+    redirect_to "/",  notice: 'Charge made'
+    #format.html { redirect_to "/", notice: 'Charge made'}
+    #format.json { render :show, status: :created, location: @user }
   else
      format.html { redirect_to @user, notice: 'Charge failed' }
      format.json { render json: @user.errors, status: :unprocessable_entity }
   end
-        
-        
-  # charge = Stripe::Charge.create(
-  #   :customer    => customer.id,
-  #   :amount      => @amount,
-  #   :description => 'Rails Stripe customer',
-  #   :currency    => 'usd'
-  # )
-  
 
 rescue Stripe::CardError => e
   flash[:error] = e.message

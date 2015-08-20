@@ -55,5 +55,30 @@ class CreateCharityService
         charity.state = "All of them"
         charity.status = "suggested"
     end
+
+    charity = Charity.find_or_create_by!(name: "BioNova Health") do |charity|
+        charity.name = "BioNova Health"
+        charity.description = "Giving beehive fences to impoverished farmers to create honey crop and protect elephants."
+        charity.url = "http://www.bionova.org/"
+        charity.stripe_id = "rp_6pXrY6j7sBxAO0"
+        charity.email = "m@bionova.org"
+        charity.city = "Global"
+        charity.state = "Global"
+        charity.status = "approved"
+    end
+
+    charity = Charity.find_or_create_by!(name: "Empowerment Works") do |charity|
+        charity.name = "Empowerment Works"
+        charity.description = "Empowerment WORKS, providing project coaching, fundraising tools and other capacity building tools to over 50 extraordinary empowerment based initiatives in the US and around the world. www.EmpowermentWORKS.org"
+        charity.url = "http://www.empowermentworks.org"
+        charity.stripe_id = "rp_6pY7XFbU2VRxpO"
+        charity.email = "melanie@empowermentworks.org"
+        charity.city = "San Francisco"
+        charity.state = "CA, and all fifty states"
+        charity.status = "approved"
+    end
+
+
+
   end
 end

@@ -76,7 +76,7 @@ Every month, we <strong>donate</strong> the total <br>amount to <strong> your ch
    <div class="row col-sm-12 plans well">
    <h1> Featured Charities </h1>
      <div class="item col-sm-4">
-      <%=  image_tag("elephants-and-bees-logo-web.png") %>
+      <%= link_to image_tag("elephants-and-bees-logo-web.png"), "http://elephantsandbees.com/", :target => "_blank" %>
       <div class="carousel-caption">
         <h2>
         <!-- <p> Save elephants lives, boost crop yields, and make honey money </p> -->
@@ -85,14 +85,14 @@ Every month, we <strong>donate</strong> the total <br>amount to <strong> your ch
   </div>
 
   <div class="item col-sm-4">
-    <%=  link_to image_tag("empowerment_works.png"), "/about" %>
+    <%=  link_to image_tag("empowerment_works.png"), "http://www.empowermentworks.org", :target => "_blank" %>
     <div class="carousel-caption">
       <!-- <p> Empowering the planet </p> -->
     </div>
   </div>
 
   <div class="item col-sm-4">
-    <%=  link_to image_tag("BioNova.png"), "/about" %>
+    <%=  link_to image_tag("BioNova.png"), "http://www.bionova.org/", :target => "_blank" %>
     <div class="carousel-caption">
       <!-- <p> Promote independence </p> -->
     </div>

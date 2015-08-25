@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   enum role: [:user, :admin, :silver, :gold, :platinum, :customer, :charity]
+  @@mapped_roles = roles
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_default_plan, :if => :new_record?
   # after_create :sign_up_for_mailing_list
@@ -8,18 +9,11 @@ class User < ActiveRecord::Base
   belongs_to :plan
   validates_associated :plan
 
-  def set_default_role
-    self.role ||= :user
-  end
-
-  def set_default_plan
-    self.plan ||= Plan.last
-  end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   def sign_up_for_mailing_list
     MailingListSignupJob.perform_later(self)
@@ -33,8 +27,27 @@ class User < ActiveRecord::Base
       :double_optin => false,
       :update_existing => true,
       :send_welcome => true
-    })
+      })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
+  end
+
+  class << self # Class methods ============
+
+    def return_(role="users")
+      singular_role= role.pluralize.singularize
+      where(role: @@mapped_roles[singular_role])
+    end
+
+  end # ======================================
+
+  private
+
+  def set_default_role
+    self.role ||= :user
+  end
+
+  def set_default_plan
+    self.plan ||= Plan.last
   end
 
 end

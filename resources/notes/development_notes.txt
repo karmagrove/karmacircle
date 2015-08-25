@@ -1,0 +1,27 @@
+## About
+
+Source Code: https://github.com/karmagrove/karmacircle
+
+## Similar Frameworks
+
+Flatter:
+  + https://flattr.com/howflattrworks
+  + Maximum budget per month
+
+DonorPro:
+  + http://www.donorpro.com/
+  + Friend-raising: supports are connected to charities, allowed to raise on behalf
+
+  Notes:
+  ======
+
+  + Can give to any charity (not just enviro)
+  + auto tax deducations
+  + partition sale into charity donation
+  + Voting on charities
+  + having that charity in approval and all the tax stuf
+
+  1. Charity sign-up
+  2.processing transactions on behalf of people who have connected there stripe accounts
+
+  http://circle.karmagrove.com/users/sign_up?plan=charity

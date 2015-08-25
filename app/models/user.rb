@@ -1,14 +1,27 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :admin, :silver, :gold, :platinum, :customer, :charity]
+
+  enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron, :subscriber]
   @@mapped_roles = roles
+
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_default_plan, :if => :new_record?
-  # after_create :sign_up_for_mailing_list
+  after_initialize :set_transaction_cost, :if => :new_record?
+  after_create :sign_up_for_mailing_list
   # devise :omniauthable
 
   belongs_to :plan
   validates_associated :plan
+  has_many :charity_users
+  has_many :donation_charges
 
+
+  def set_transaction_cost
+    self.transaction_cost = 100
+    self.donation_rate = 1
+    if self.plan.name == "Partner" then
+      self.transaction_cost = 10
+    end
+  end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -17,6 +30,14 @@ class User < ActiveRecord::Base
 
   def sign_up_for_mailing_list
     MailingListSignupJob.perform_later(self)
+  end
+
+  def has_plan?
+    if self.plan
+      return true
+    else
+      return false
+    end
   end
 
   def subscribe

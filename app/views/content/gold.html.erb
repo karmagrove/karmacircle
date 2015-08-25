@@ -1,38 +1,58 @@
-<h1>Content#gold</h1>
+<h1> Make new sale </h1>
+
+<!-- <p><%= link_to("Make a new sale", new_charge_path( {:foo => "bar"})) %> </p> -->
+<!--  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>if (typeof jQuery === 'undefined') {
+  document.write(unescape('%3Cscript%20src%3D%22/path/to/your/scripts/jquery-2.1.4.min.js%22%3E%3C/script%3E'));
+};
+</script>
+ -->
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+Amount:    <input id="amount"></input> <br />
+Description: <input id="description" default="description of sale"></input> <br />
+<button id="customButton">Purchase</button>
+
+<script>
+
+  var handler = StripeCheckout.configure({
+    key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
+    image: '/assets/karma-circle.png',
+    token: function(token) {
+    	console.log(token.id)
+    	$.ajax({
+           type: "POST",
+           url: "/charges",
+           data: {"stripeToken":token.id,
+           "stripeEmail": token.email},
+           success:function(resp){
+           	window.location.replace("/charges")
+           	console.log(resp)
+
+           }
+        });
+  //   	token.id can be used to create a charge or customer.
+		// token.email contains the email address entered by the user. 
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+    }
+  });
+
+  $('#customButton').on('click', function(e) {
+    // Open Checkout with further options
+    handler.open({
+      name: '<%=current_user.name%>',
+      description: $('#description').val(),
+      amount: $('#amount').val()*100
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>
 
 
-<%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
-<p>Update your bank account to begin charging customers!</p>
-
-
-Stripe.bankAccount.createToken({
-  country: $('.country').val(),
-  currency: $('.currency').val(),
-  routing_number: $('.routing-number').val(),
-  account_number: $('.account-number').val()
-}, stripeResponseHandler);
-
-110000000
-
-000123456789
-
-4242424242424242
-
-stripe_managed_connect
-
-
-
-# https://stripe.com/connect/default/oauth/test?scope=read_write&code=ac_6Z8EXOmEGigea2gtkMr57HgpDUdpI2FT
-After connecting with Stripe, your users will be redirected to a page of your choosing (this is just the default). Make sure to change the test redirect URI under your application settings to something that makes sense on your own server (or localhost).
-
-To finish the process of getting an access_token for your user's account, you'll need to make one extra API request with the authorization code we passed back. In this case, the code is ac_6Z8EXOmEGigea2gtkMr57HgpDUdpI2FT, taken directly from the GET parameters on the redirect.
-
-For example, try this curl request :
-
-export STRIPE_CLIENT_ID=ca_6Z7I6felXnzUiTsikkerSt9PZCLQLo44;
-
-curl -X POST https://connect.stripe.com/oauth/token \
--d client_secret=sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e \
--d code=ac_6Z8EXOmEGigea2gtkMr57HgpDUdpI2FT \
--d grant_type=authorization_code
-        

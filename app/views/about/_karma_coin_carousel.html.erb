@@ -1,0 +1,64 @@
+<br />
+
+<div id="about-carousel" class="carousel slide" data-ride="carousel">
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+  <div class="item active">
+    <%=  link_to image_tag("karmabar.jpg"), "/Karma-Coin" %>
+    <div class="carousel-caption">
+      <p> The superfoods' color reveals the vibrant life nourishing nutrient profile </p>
+    </div>
+  </div>
+      <!-- <div class="item" style="left:58px"> -->
+    <!-- <%=  link_to image_tag("karma_coin_hand.gif"), "/Karma-Coin" %>
+    <!-- <div class="carousel-caption">
+      <p> Giving is receiving </p>
+    </div>
+  </div> -->
+    <div class="item ">
+     <%=  link_to image_tag("walnut_whole_half.jpg"), "/Get-Involved" %>
+     <div class="carousel-caption">
+      <p>Walnuts reduce risk of blood clots and prevent heart disease </p>
+    </div>
+    <!-- Source http://www.mayoclinic.com/health/nuts/HB00085 -->
+  </div>
+
+  <div class="item">
+    <%=  link_to image_tag("Goji-berries.jpg"), "/Karma-Coin" %>
+    <div class="carousel-caption">
+      <p> Goji Berries are packed with free radical fighting antioxidants </p>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- Controls -->
+<a class="carousel-control left" href="#about-carousel" data-slide="prev">&lsaquo;
+</a>
+<a class="carousel-control right" href="#about-carousel" data-slide="next">&rsaquo;</a>
+</div>
+
+<script>
+$(document).ready(function(){
+
+  $('.carousel').carousel({
+    pause: "hover",
+    interval: 10000,
+    wrap: true
+  });
+
+
+  $('.carousel').swiperight(function() {
+    $(".carousel").carousel('prev');
+  });
+
+  $('.carousel').swipeleft(function() {
+    $(".carousel").carousel('next');
+  });
+
+});
+</script>
+
+<br />

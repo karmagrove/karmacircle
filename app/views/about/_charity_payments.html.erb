@@ -1,0 +1,10 @@
+<% @charity_payments.each do |charity_payment| %>
+
+<%=charity_payment.charity.legal_name %> was given $<%=charity_payment.amount/100%> on <%= charity_payment.pretty_date %><% if charity_payment.batch_charity_payments.first.batch.batch_name %> at <%= charity_payment.batch_charity_payments.first.batch.batch_name%><%end%>. <br />
+<%if charity_payment.payment_image_url %>
+<div class="img">
+<%=  image_tag(charity_payment.payment_image_url) %>
+</div>
+<% end %>
+
+<% end %>

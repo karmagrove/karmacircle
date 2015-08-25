@@ -17,6 +17,11 @@ class RegistrationsController < Devise::RegistrationsController
     plan = Plan.find_by!(id: params[:user][:plan_id].to_i)
     resource.role = User.roles[plan.stripe_id] unless resource.admin?
     resource.save
+    if resource.role == "charity"
+      #something special.
+      @charity = Charity.new(:name => params[:charity_name])
+      @charity.save
+    end
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
@@ -33,7 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
       render json:
         {error: resource.errors.full_messages.to_sentence},
         status: 400
-    end
+    end 
   end
 
   def change_plan

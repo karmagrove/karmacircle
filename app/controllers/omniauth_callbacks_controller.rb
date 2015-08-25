@@ -19,4 +19,8 @@ class OmniauthCallbacksController < ApplicationController
     end
   end
 
+  # def failire
+  #    redirect_to new_user_registration_url
+  # end
+
 end

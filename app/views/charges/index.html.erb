@@ -1,0 +1,44 @@
+<h1> Your customers </h1>
+<% @customers.each do |c| %>
+
+<%= c.email %> <br />
+
+<% end %>
+
+<h1> Your charges </h1>
+<div class="table">
+<div class="row header">  
+	 <div class="col-md-4">
+    <h2>Amount </h2>
+    </div>
+    <div class="col-md-4" >
+    <h2> Description </h2>
+    </div>
+    <div class="col-md-4">
+    <h2> Donation </h2>
+    </div>
+</div>
+  <% @charges.each do |c| %>
+  
+
+  <div class="row">
+    <div class="col-md-4">
+    $<%= (c.amount / 100) %> <br />
+    </div>
+    <div class="col-md-4">
+    <%= c.description %> <br />
+    </div>
+    <div class="col-md-4">
+    <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
+      $<%= @d.donation_amount/100.to_f %> 
+      <% if @d.charity %> 
+         <%= @d.charity.name %> 
+      <% end %>
+    <% end %>  
+    <br />
+    </div>
+  </div>
+  
+  
+  <% end %>
+</div>  

@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!
+ # before_action :authenticate_user!
   before_action :identify_product
 
   def show

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709223428) do
+ActiveRecord::Schema.define(version: 20150801191655) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -23,7 +23,49 @@ ActiveRecord::Schema.define(version: 20150709223428) do
     t.string   "state"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "status"
   end
+
+  create_table "charity_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "charity_id"
+    t.integer  "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "charity_users", ["charity_id"], name: "index_charity_users_on_charity_id"
+  add_index "charity_users", ["user_id"], name: "index_charity_users_on_user_id"
+
+  create_table "donation_charges", force: :cascade do |t|
+    t.string   "payment_reference"
+    t.integer  "charity_id"
+    t.integer  "donation_amount"
+    t.integer  "revenue"
+    t.integer  "status"
+    t.integer  "donation_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "customer_id"
+    t.integer  "user_id"
+  end
+
+  add_index "donation_charges", ["charity_id"], name: "index_donation_charges_on_charity_id"
+  add_index "donation_charges", ["donation_id"], name: "index_donation_charges_on_donation_id"
+  add_index "donation_charges", ["user_id"], name: "index_donation_charges_on_user_id"
+
+  create_table "donations", force: :cascade do |t|
+    t.string   "payment_reference"
+    t.integer  "charity_id"
+    t.integer  "donation_amount"
+    t.integer  "status"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "donations", ["charity_id"], name: "index_donations_on_charity_id"
+  add_index "donations", ["user_id"], name: "index_donations_on_user_id"
 
   create_table "payola_affiliates", force: :cascade do |t|
     t.string   "code"
@@ -170,6 +212,7 @@ ActiveRecord::Schema.define(version: 20150709223428) do
     t.string   "website"
     t.string   "description"
     t.string   "business_name"
+    t.integer  "transaction_cost"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

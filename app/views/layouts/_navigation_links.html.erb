@@ -2,9 +2,14 @@
 <% if user_signed_in? %>
   <li><%= link_to 'Edit account', edit_user_registration_path %></li>
   <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
+  <% if current_user.id %>
+    <li><%= link_to 'My Charities', user_charity_users_path({ user_id: current_user.id }) %></li>
+    <li><%= link_to 'My Sales', "/charges" %></li>
+  <% end %>  
 <% else %>
+  <li><%= link_to 'About', "/about" %></li>
   <li><%= link_to 'Sign in', new_user_session_path %></li>
-  <li><%= link_to 'Sign up', new_user_registration_path, data: { no_turbolink: true } %></li>
+  <li><%= link_to 'Sign up', new_user_registration_path(:plan => "patron"), data: { no_turbolink: true, :plan => "patron" } %></li>
 <% end %>
 <% if user_signed_in? %>
   <% if current_user.try(:admin?) %>

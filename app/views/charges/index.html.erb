@@ -19,7 +19,7 @@
     <h2> Description </h2>
     </div>
     <div class="col-md-3">
-    <h2> Donation </h2>
+    <h2> Charity Donation Status </h2>
     </div>
 </div>
   <% @charges.each do |c| %>
@@ -29,7 +29,6 @@
     <div class="col-md-3">
     <%= Time.at(c.created).strftime("%Y-%m-%d") %> <br />
     </div>
-
     <div class="col-md-3">
     $<%= (c.amount / 100) %> <br />
     </div>
@@ -42,11 +41,27 @@
       <% if @d.charity %> 
          <%= @d.charity.name %> 
       <% end %>
+      <span class="donation-charge-status">
+        (<%= @d.status %>) 
+      </span>
     <% end %>  
     <br />
     </div>
   </div>
-  
-  
   <% end %>
-</div>  
+</div> 
+<div class="row">
+  <div class="col-md-12">
+  <h4>
+  Unpaid Explanation
+  </h4>
+
+  <p>
+  Expected to be paid on September 1st
+  </p>
+  <p>
+  If you wish to change which charity you are giving to before they are paid, please <a href="mailto:joshua@karmagrove.com?subject=change%20charity%20request">contact us 
+  </a>
+  </div>
+</div>
+

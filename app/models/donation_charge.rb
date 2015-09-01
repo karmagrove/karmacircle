@@ -9,6 +9,8 @@ class DonationCharge < ActiveRecord::Base
   
 
   def set_default_status
-  	self.status || :unpaid
+  	self.status ||= :unpaid
+  	self.save
   end
+
 end

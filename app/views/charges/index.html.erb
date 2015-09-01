@@ -8,13 +8,17 @@
 <h1> Your charges </h1>
 <div class="table">
 <div class="row header">  
-	 <div class="col-md-4">
+     <div class="col-md-3">
+    <h2>Transaction Date </h2>
+    </div>
+
+	 <div class="col-md-3">
     <h2>Amount </h2>
     </div>
-    <div class="col-md-4" >
+    <div class="col-md-3" >
     <h2> Description </h2>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
     <h2> Donation </h2>
     </div>
 </div>
@@ -22,13 +26,17 @@
   
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
+    <%= Time.at(c.created).strftime("%Y-%m-%d") %> <br />
+    </div>
+
+    <div class="col-md-3">
     $<%= (c.amount / 100) %> <br />
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
     <%= c.description %> <br />
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
     <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
       $<%= @d.donation_amount/100.to_f %> 
       <% if @d.charity %> 

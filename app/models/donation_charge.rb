@@ -3,7 +3,7 @@ class DonationCharge < ActiveRecord::Base
   belongs_to :donation
   belongs_to :donor
   belongs_to :user
-  enum status: [:unpaid, :denied, :paid]
+  enum status: [:unpaid, :pending, :denied, :paid]
   
   after_initialize :set_default_status, :if => :new_record?
   

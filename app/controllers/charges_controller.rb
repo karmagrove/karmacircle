@@ -42,6 +42,9 @@ def create
   )
   else
     application_fee = current_user.transaction_cost
+    donation_amount = (@amount*(current_user.donation_rate/100.to_f)).to_i
+    application_fee = application_fee + donation_amount
+    ## to make the donations come out with the application fee. 
     charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
     :currency => "usd",
@@ -66,7 +69,7 @@ def create
   Rails.logger.info "donorcharge.inspect"
   Rails.logger.info @donorCharge.inspect
   @user = current_user
-  if @donorCharge.save(:status => "unpaid")
+  if @donorCharge.save(:status => "pending")
     UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
     UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
     redirect_to "/",  notice: 'Charge made'

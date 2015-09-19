@@ -6,7 +6,17 @@
 <div class="col-sm-12 well featured center">
 <p>
 <h1 style="text-align:center"> Partner Plan </h1>
-<h2 style="text-align:center"> 29.00 per month with .10 cents per transaction cost </h2>
+<h2 style="text-align:center"> $29.00 per month with .10 cents per transaction cost </h2>
+<h3 style="text-align:center"> plus 2.9% + 0.20 credit card processing fees </h3>
+</p>
+</div>
+<% end %>
+<% if params[:plan] == "patron" %>
+<div class="col-sm-12 well featured center">
+<p>
+<h1 style="text-align:center"> Partner Plan </h1>
+<h2 style="text-align:center"> $0.00 per month and $1.00 per transaction  </h2>
+<h3 style="text-align:center"> plus 2.9% + 0.20 credit card processing fees </h3>
 </p>
 </div>
 <% end %>
@@ -17,6 +27,7 @@
         'data-payola-plan-type' => resource.plan.plan_class,
         'data-payola-plan-id' => resource.plan.id}) do |f| %>
     <h3>Sign up</h3>
+    <h4> Your card will not be charged.  We only ask for a card to verify your identity.  </h4>
     <div>
       <br />
       <span id="error_explanation" class="payola-payment-error"></span>

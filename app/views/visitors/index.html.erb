@@ -13,7 +13,11 @@
       <%= render "content/form" %>
     <% else %>
      <h2 style="text-align:center">Update your bank account to begin charging customers and receive the money every few days!</h2>
+     
+     <h3> Please connect with stripe, which is our secure payments provider for processing credit cards and depositing your sales into your account as well as depositing donations to your charity of choice.  They will ask for your bank account and routing number.
+     </h3>
      <%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
+    
     <% end %>
 
       <br />

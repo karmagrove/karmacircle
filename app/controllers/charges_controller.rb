@@ -31,6 +31,12 @@ def create
 # Create the charge on Stripe's servers - this will charge the user's card
   Rails.logger.info "current_user.email #{current_user.email}"
   Rails.logger.info "params #{params.inspect}"
+  application_fee = current_user.transaction_cost
+  donation_amount = (@amount*(current_user.donation_rate/100.to_f)).to_i
+  Rails.logger.info("current_user.donation_rate: ")
+  Rails.logger.info("donation_amount #{donation_amount}")
+  application_fee = application_fee + donation_amount
+  Rails.logger.info("application_fee #{application_fee}")
   if (current_user.email == "joshua@karmagrove.com") or (current_user.email == "joshua.montross@gmail.com") then
     charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
@@ -43,6 +49,7 @@ def create
   else
     application_fee = current_user.transaction_cost
     donation_amount = (@amount*(current_user.donation_rate/100.to_f)).to_i
+    Rails.logger.info("donation_amount #{donation_amount}")
     application_fee = application_fee + donation_amount
     ## to make the donations come out with the application fee. 
     charge = Stripe::Charge.create({

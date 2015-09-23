@@ -13,4 +13,5 @@ class DonationCharge < ActiveRecord::Base
   	self.save
   end
 
+
 end

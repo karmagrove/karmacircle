@@ -40,6 +40,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def calculate_application_fee
+    application_fee = current_user.transaction_cost
+    donation_amount = (@amount*(current_user.donation_rate/100.to_f)).to_i
+    Rails.logger.info("current_user.donation_rate: ")
+    Rails.logger.info("donation_amount #{donation_amount}")
+    application_fee = application_fee + donation_amount
+  end
+
   def subscribe
     mailchimp = Gibbon::API.new(Rails.application.secrets.mailchimp_api_key)
     result = mailchimp.lists.subscribe({

@@ -31,6 +31,8 @@ def create
 # Create the charge on Stripe's servers - this will charge the user's card
   Rails.logger.info "current_user.email #{current_user.email}"
   Rails.logger.info "params #{params.inspect}"
+
+  ## current_user.calculate_application_fee
   application_fee = current_user.transaction_cost
   donation_amount = (@amount*(current_user.donation_rate/100.to_f)).to_i
   Rails.logger.info("current_user.donation_rate: ")

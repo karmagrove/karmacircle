@@ -48,6 +48,14 @@ Contributing
 Credits
 -------
 
+Todo
+-------
+## Make it so people can create customers without having stripe account.  
+## Make it so automatically it goes to stripe when people sign up
+## make it so the site is as professional looking as paypal.
+## Remove credit card requirement for plans that don't need them
+## add automatic redirect to stripe after login.... after 5 seconds... and tell them they will be redirected.
+
 License
 -------
 Don't steal this. Creative Commons.

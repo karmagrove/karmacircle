@@ -16,6 +16,13 @@ class Donation < ActiveRecord::Base
          :currency => "usd",
          :recipient => charity.stripe_id
     }
+
+    if reference.length > 0
+      Rails.logger.info("source_transaction")
+      params[:source_transaction] = reference
+      Rails.logger.info(params.inspect)
+      # ch_70tTXntmoX1FAu
+    end
     success = false
     begin
       success = true

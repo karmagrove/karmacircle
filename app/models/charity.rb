@@ -5,6 +5,7 @@ class Charity < ActiveRecord::Base
 	has_many :donations
 
 	after_initialize :set_default_status, :if => :new_record?
+	#scope :
 
 	def set_default_status
     self.status ||= :suggested

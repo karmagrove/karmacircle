@@ -1,7 +1,7 @@
 class CharitiesController < ApplicationController
   before_action :set_charity, only: [:show, :edit, :update, :destroy]
   before_action :admin_only, :except => [:new, :index]
-  before_action :plan_only, :new
+  before_action :plan_only, :new, :except => [:index]
 
   # GET /charities
   # GET /charities.json
@@ -71,7 +71,7 @@ class CharitiesController < ApplicationController
 
     def plan_only
       unless current_user
-        redirect_to "/", :alert => "Access denied. You must have a plan to suggest a charity. Sign up for Jade or Emerald."
+        redirect_to "/", :alert => "Access denied. You must have a plan to suggest a charity. Sign up as a member now for free."
       end
     end
 

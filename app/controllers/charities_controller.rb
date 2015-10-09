@@ -71,7 +71,7 @@ class CharitiesController < ApplicationController
 
     def plan_only
       unless current_user
-        redirect_to "/", :alert => "Access denied. You must have a plan to suggest a charity. Sign up as a member now for free."
+        redirect_to "/", :alert => "Access denied. You must be a member to suggest a charity.  Explore with us as a member now for free."
       end
     end
 

@@ -1,5 +1,5 @@
 class Charity < ActiveRecord::Base
-	enum status: [:suggested, :claimed, :approved]
+	enum status: [:suggested, :claimed, :approved, :approved_not_5013c]
 	has_many :charity_users
 	has_many :donation_charges
 	has_many :donations

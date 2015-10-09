@@ -11,7 +11,8 @@
       <th>Email</th>
       <th>City</th>
       <th>State</th>
-      <% if current_user %>
+      <th>Status</th>
+      <% if current_user.admin? %>
       <th colspan="3"></th>
       <% end %>
     </tr>
@@ -26,7 +27,8 @@
         <td><%= charity.email %></td>
         <td><%= charity.city %></td>
         <td><%= charity.state %></td>
-        <% if current_user %>
+        <td><%= charity.status %></td>
+        <% if current_user.admin? %>
         <td><%= link_to 'Show', charity %></td>
         <td><%= link_to 'Edit', edit_charity_path(charity) %></td>
         <td><%= link_to 'Destroy', charity, method: :delete, data: { confirm: 'Are you sure?' } %></td>

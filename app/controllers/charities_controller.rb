@@ -6,7 +6,7 @@ class CharitiesController < ApplicationController
   # GET /charities
   # GET /charities.json
   def index
-    @charities = Charity.all
+    @charities = Charity.all.sort_by {|c| c.status}
   end
 
   # GET /charities/1

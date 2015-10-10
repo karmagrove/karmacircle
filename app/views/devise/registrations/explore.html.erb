@@ -1,0 +1,41 @@
+<% content_for :head do %>
+  <%= render 'payola/transactions/stripe_header' %>
+<% end %>
+
+<div class="col-sm-12 well featured center">
+<p>
+<h1 style="text-align:center"> Membership Plan </h1>
+<h2 style="text-align:center"> FREE to explore </h2>
+</p>
+</div>
+<div class="authform">
+  <%= form_for(:user) do |f| %>
+    <h3>Sign up</h3>
+    <h4> You will only be charged when you use us. </h4>
+    <div>
+      <br />
+      <span id="error_explanation" class="payola-payment-error"></span>
+      <br />
+      <br />
+    </div>
+    <div class="form-group">
+      <%= f.label 'Subscription plan' %>
+      
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, :autofocus => true, class: 'form-control', data: { payola: 'email' }  %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+    <%# unless resource.plan.name == "Charity" %>
+    
+    <%= f.submit 'Sign up', :class => 'button right' %>
+  <% end %>
+</div>

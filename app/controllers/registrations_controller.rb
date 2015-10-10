@@ -2,6 +2,10 @@ class RegistrationsController < Devise::RegistrationsController
   include Payola::StatusBehavior
   before_action :cancel_subscription, only: [:destroy]
 
+  def explore
+
+  end
+
   def new
     build_resource({})
     unless params[:plan].nil?

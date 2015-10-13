@@ -1,0 +1,104 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @product.price %>
+</p>
+
+<h1> Purchase Now </h1>
+
+<!-- <p><%= link_to("Make a new sale", new_charge_path( {:foo => "bar"})) %> </p> -->
+<!--  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>if (typeof jQuery === 'undefined') {
+  document.write(unescape('%3Cscript%20src%3D%22/path/to/your/scripts/jquery-2.1.4.min.js%22%3E%3C/script%3E'));
+};
+</script>
+ -->
+<script src="https://checkout.stripe.com/checkout.js"></script>
+ <input hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
+ <input hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
+<button id="customButton">Purchase Now</button> <br />
+<!-- <button id="customButton">Send invoice</button> -->
+<script>
+
+  var handler = StripeCheckout.configure({
+    key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
+    image: '/assets/karma-circle.png',
+    token: function(token) {
+      console.log(token.id)
+      $.ajax({
+           type: "POST",
+           url: "/charges",
+           data: {"stripeToken":token.id,
+           "stripeEmail": token.email,
+           amount: $('#amount').val()*100,
+           description: $('#description').val()
+         },
+           success:function(resp){
+            window.location.replace("/charges")
+            console.log(resp)
+
+           }
+        });
+  //    token.id can be used to create a charge or customer.
+    // token.email contains the email address entered by the user. 
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+    }
+  });
+
+  $('#customButton').on('click', function(e) {
+    // Open Checkout with further options
+    handler.open({
+      description: $('#description').val(),
+      amount: $('#amount').val()*100
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>
+
+
+
+
+
+<% if current_user and (current_user.id == params[:user_id]) %>
+<p>
+  <strong>Public:</strong>
+  <%= @product.public %>
+</p>
+
+<p>
+  <strong>Donation percent:</strong>
+  <%= @product.donation_percent %>
+</p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @product.image_url %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @product.user %>
+</p>
+
+<%= link_to 'Edit', edit_user_product_path(:user_id =>current_user.id, :product=> @product) %> |
+<%= link_to 'Back', user_products_path(:user_id =>current_user.id) %>
+<% end %>
+

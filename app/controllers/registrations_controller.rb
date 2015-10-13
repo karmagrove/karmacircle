@@ -27,6 +27,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     # build_resource(sign_up_params)
 
+    ## all this is to get the damn
     if params[:user][:no_plan_id]
       # params[:user][:role]=1
       (set_flash_message :notice, "email taken" and redirect_to("/explore") and return true) if @user = User.find_by_email(params[:user][:email])
@@ -44,7 +45,7 @@ class RegistrationsController < Devise::RegistrationsController
             set_flash_message :notice, :signed_up if is_flashing_format?
             current_user.save
             current_user.plan = Plan.find(4)
-  
+            current_user.role = "Patron"
             #sign_up(resource_name, resource)
             #become_member
             Rails.logger.info("current_user.inspect")

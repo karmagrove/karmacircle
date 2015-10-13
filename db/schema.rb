@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012080135) do
+ActiveRecord::Schema.define(version: 20151013031440) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -66,6 +66,30 @@ ActiveRecord::Schema.define(version: 20151012080135) do
 
   add_index "donations", ["charity_id"], name: "index_donations_on_charity_id"
   add_index "donations", ["user_id"], name: "index_donations_on_user_id"
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "address"
+    t.string   "city"
+    t.integer  "zip_code"
+    t.string   "state"
+    t.datetime "end_time"
+    t.datetime "start_time"
+    t.boolean  "published"
+    t.integer  "total_donated"
+    t.integer  "total_sales"
+    t.integer  "revenue_donation_percent"
+    t.integer  "status"
+    t.string   "event_image_url"
+    t.integer  "user_id"
+    t.string   "organizer_name"
+    t.string   "organizer_description"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id"
 
   create_table "payola_affiliates", force: :cascade do |t|
     t.string   "code"
@@ -174,6 +198,20 @@ ActiveRecord::Schema.define(version: 20151012080135) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string   "description"
+    t.string   "name"
+    t.integer  "price"
+    t.boolean  "public"
+    t.integer  "donation_percent"
+    t.string   "image_url"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "products", ["user_id"], name: "index_products_on_user_id"
+
   create_table "sellers", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -186,6 +224,34 @@ ActiveRecord::Schema.define(version: 20151012080135) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "ticket_purchases", force: :cascade do |t|
+    t.integer  "ticket_id"
+    t.string   "payment_reference_url"
+    t.string   "buyer_email"
+    t.integer  "user_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "ticket_purchases", ["ticket_id"], name: "index_ticket_purchases_on_ticket_id"
+  add_index "ticket_purchases", ["user_id"], name: "index_ticket_purchases_on_user_id"
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer  "event_id"
+    t.string   "ticket_name"
+    t.integer  "quantity_available"
+    t.integer  "price"
+    t.string   "description"
+    t.datetime "sales_start"
+    t.datetime "sales_end"
+    t.integer  "ticket_minimum"
+    t.integer  "ticket_maximum"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "tickets", ["event_id"], name: "index_tickets_on_event_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

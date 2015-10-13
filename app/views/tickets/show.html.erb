@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @ticket.event %>
+</p>
+
+<p>
+  <strong>Ticket name:</strong>
+  <%= @ticket.ticket_name %>
+</p>
+
+<p>
+  <strong>Quantity available:</strong>
+  <%= @ticket.quantity_available %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @ticket.price %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ticket.description %>
+</p>
+
+<p>
+  <strong>Sales start:</strong>
+  <%= @ticket.sales_start %>
+</p>
+
+<p>
+  <strong>Sales end:</strong>
+  <%= @ticket.sales_end %>
+</p>
+
+<p>
+  <strong>Ticket minimum:</strong>
+  <%= @ticket.ticket_minimum %>
+</p>
+
+<p>
+  <strong>Ticket maximum:</strong>
+  <%= @ticket.ticket_maximum %>
+</p>
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>

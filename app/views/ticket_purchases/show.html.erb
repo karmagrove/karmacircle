@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ticket:</strong>
+  <%= @ticket_purchase.ticket %>
+</p>
+
+<p>
+  <strong>Payment reference url:</strong>
+  <%= @ticket_purchase.payment_reference_url %>
+</p>
+
+<p>
+  <strong>Buyer email:</strong>
+  <%= @ticket_purchase.buyer_email %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @ticket_purchase.user %>
+</p>
+
+<%= link_to 'Edit', edit_ticket_purchase_path(@ticket_purchase) %> |
+<%= link_to 'Back', ticket_purchases_path %>

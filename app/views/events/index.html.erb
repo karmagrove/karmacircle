@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Zip code</th>
+      <th>State</th>
+      <th>End time</th>
+      <th>Start time</th>
+      <th>Published</th>
+      <th>Total donated</th>
+      <th>Total sales</th>
+      <th>Revenue donation percent</th>
+      <th>Status</th>
+      <th>Event image url</th>
+      <th>User</th>
+      <th>Organizer name</th>
+      <th>Organizer description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.name %></td>
+        <td><%= event.description %></td>
+        <td><%= event.address %></td>
+        <td><%= event.city %></td>
+        <td><%= event.zip_code %></td>
+        <td><%= event.state %></td>
+        <td><%= event.end_time %></td>
+        <td><%= event.start_time %></td>
+        <td><%= event.published %></td>
+        <td><%= event.total_donated %></td>
+        <td><%= event.total_sales %></td>
+        <td><%= event.revenue_donation_percent %></td>
+        <td><%= event.status %></td>
+        <td><%= event.event_image_url %></td>
+        <td><%= event.user %></td>
+        <td><%= event.organizer_name %></td>
+        <td><%= event.organizer_description %></td>
+        <td><%= link_to 'Show', event %></td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event', new_event_path %>

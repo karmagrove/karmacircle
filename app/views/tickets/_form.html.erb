@@ -1,0 +1,53 @@
+<%= form_for(@ticket) do |f| %>
+  <% if @ticket.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+
+      <ul>
+      <% @ticket.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :event_id %><br>
+    <%= f.text_field :event_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ticket_name %><br>
+    <%= f.text_field :ticket_name %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_available %><br>
+    <%= f.number_field :quantity_available %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :sales_start %><br>
+    <%= f.datetime_select :sales_start %>
+  </div>
+  <div class="field">
+    <%= f.label :sales_end %><br>
+    <%= f.datetime_select :sales_end %>
+  </div>
+  <div class="field">
+    <%= f.label :ticket_minimum %><br>
+    <%= f.number_field :ticket_minimum %>
+  </div>
+  <div class="field">
+    <%= f.label :ticket_maximum %><br>
+    <%= f.number_field :ticket_maximum %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

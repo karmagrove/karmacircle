@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @event.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @event.city %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @event.zip_code %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @event.state %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @event.end_time %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @event.start_time %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @event.published %>
+</p>
+
+<p>
+  <strong>Total donated:</strong>
+  <%= @event.total_donated %>
+</p>
+
+<p>
+  <strong>Total sales:</strong>
+  <%= @event.total_sales %>
+</p>
+
+<p>
+  <strong>Revenue donation percent:</strong>
+  <%= @event.revenue_donation_percent %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @event.status %>
+</p>
+
+<p>
+  <strong>Event image url:</strong>
+  <%= @event.event_image_url %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @event.user %>
+</p>
+
+<p>
+  <strong>Organizer name:</strong>
+  <%= @event.organizer_name %>
+</p>
+
+<p>
+  <strong>Organizer description:</strong>
+  <%= @event.organizer_description %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

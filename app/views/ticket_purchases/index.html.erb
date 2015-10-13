@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ticket Purchases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ticket</th>
+      <th>Payment reference url</th>
+      <th>Buyer email</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ticket_purchases.each do |ticket_purchase| %>
+      <tr>
+        <td><%= ticket_purchase.ticket %></td>
+        <td><%= ticket_purchase.payment_reference_url %></td>
+        <td><%= ticket_purchase.buyer_email %></td>
+        <td><%= ticket_purchase.user %></td>
+        <td><%= link_to 'Show', ticket_purchase %></td>
+        <td><%= link_to 'Edit', edit_ticket_purchase_path(ticket_purchase) %></td>
+        <td><%= link_to 'Destroy', ticket_purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ticket purchase', new_ticket_purchase_path %>

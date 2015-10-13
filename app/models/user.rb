@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron, :subscriber]
+  enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron, :subscriber, :member]
   @@mapped_roles = roles
 
   after_initialize :set_default_role, :if => :new_record?
@@ -10,10 +10,10 @@ class User < ActiveRecord::Base
   # devise :omniauthable
 
   belongs_to :plan
-  validates_associated :plan
+  # validates_associated :plan, :unless 
   has_many :charity_users
   has_many :donation_charges
-
+  
 
   def set_transaction_cost
     self.transaction_cost = 100
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook,:stripe_connect]
 
   def sign_up_for_mailing_list
     MailingListSignupJob.perform_later(self)
@@ -38,6 +38,17 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def self.find_or_create_by_facebook_id(facebook_id)
+    if User.exists?(:facebook_id =>facebook_id)
+      user = User.where(:facebook_id =>facebook_id)
+    else
+      user = User.new(:facebook_id => facebook_id)
+      # user.plan=7
+      user.save
+    end
+    return user
   end
 
   def calculate_application_fee

@@ -8,6 +8,9 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'omniauth-stripe-connect'
 gem 'turbolinks'
+gem 'omniauth-facebook'
+gem 'faraday','~> 0.8.6'
+gem "koala", "~> 1.7.0rc1"
 
 group :development, :test do
   gem 'byebug'

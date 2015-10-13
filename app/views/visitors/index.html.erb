@@ -37,19 +37,39 @@
 
 
 <% else %>
+
+<div class="hero  well">
+   
+
+
     <div class="row col-sm-2 plans">
+  <h2> Accept cards in 5 minutes  </h2>
     <%= image_tag "karma-circle.png" %>
-  
+    
+    <h2> Give 1% to charity </h2>
+
     </div>
 
   <div id="welcome" class="span7">
-    <h1> Become a Merchant of Conscious Community</h1>
-    <h2> Process Cards.  Get the money in three days.  </h2>
-    <h3> Sign up and give as you receive. Give 1% of your revenue to charity you choose.</h3>
-
+  <div class="hero">
+     <iframe class="hero-video" src="https://player.vimeo.com/video/141232208" width="75%" height="400px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
   </div>
 
-  
+
+  </div>
+</div>
+
+  <div class="plan "><h2> 
+    <div class="row">
+      <div class="row col-sm-5">
+      </div>
+      <div class="row col-sm-4">
+        <%= link_to 'Explore Membership', explore_path(plan: 'member'), :class => 'btn btn-primary' %>
+      </div>
+      <div class="row col-sm-3">
+      </div>
+    </div>
+  </h2></div>
 
  <!--  <div class="row col-sm-12 plans">
     <h1> </h1>
@@ -60,8 +80,8 @@
    <div class="plan"><h2> Karma Grove circle payments offers two ways to begin accepting cards and giving as you receive</h2></div>
    </div> -->
 
-   <div class="row col-sm-12 plans well">
-   <h1> Featured Charities </h1>
+<div class="row col-sm-12 plans well">
+  <h1> Featured Charities </h1>
      <div class="item col-sm-4">
       <%= link_to image_tag("elephants-and-bees-logo-web.png"), "http://elephantsandbees.com/", :target => "_blank" %>
       <div class="carousel-caption">
@@ -69,7 +89,7 @@
         <!-- <p> Save elephants lives, boost crop yields, and make honey money </p> -->
       </h2>
       </div>
-  </div>
+    </div>
 
   <div class="item col-sm-4">
     <%=  link_to image_tag("empowerment_works.png"), "http://www.empowermentworks.org", :target => "_blank" %>
@@ -84,11 +104,7 @@
       <!-- <p> Promote independence </p> -->
     </div>
   </div>
-
-
-  
-
-   </div>
+</div>
 
 
    
@@ -127,12 +143,12 @@ Every month, we <strong>donate</strong> the total <br>amount to <strong> your ch
     </div>
  -->
     <div class="col-sm-12 well featured">
-      <div class="plan "><h2>Become a Patron </h2></div>
+      <div class="plan "><h2>Become a Member </h2></div>
       <ul class="list-unstyled">
         <!-- <li>1% of your revenue goes to charity you choose and you pay as you go!</li> -->
       </ul>
-      <h3>$1.00 per transaction paid to Karma Grove on top of merchant fees*</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'patron'), :class => 'btn btn-primary' %>
+      <!-- <h3>%1 per transaction paid to Karma Grove 1% to on top of merchant fees 2.9% plus 20 cents*</h3> -->
+      <%= link_to 'Explore for free', explore_path, :class => 'btn btn-primary' %>
       <br />
       
       <%= link_to 'Do you do lots of transactions and want lower price per transaction?  ', new_user_registration_path(plan: 'partner'), :class => 'btn btn-small'

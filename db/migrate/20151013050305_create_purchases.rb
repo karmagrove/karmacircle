@@ -4,7 +4,7 @@ class CreatePurchases < ActiveRecord::Migration
       t.references :product, index: true, foreign_key: true
       t.string :buyer_email
       t.references :user, index: true, foreign_key: true
-      t.references :donationcharge, index: true, foreign_key: true
+      t.references :donation_charge, index: true, foreign_key: true
 
       t.timestamps null: false
     end

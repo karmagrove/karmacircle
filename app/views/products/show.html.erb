@@ -39,14 +39,16 @@
       console.log(token.id)
       $.ajax({
            type: "POST",
-           url: "/charges",
+           url: "/purchases",
            data: {"stripeToken":token.id,
            "stripeEmail": token.email,
            amount: $('#amount').val()*100,
-           description: $('#description').val()
+           description: $('#description').val(),
+           user_id: <%= params[:user_id] %>
+           
          },
            success:function(resp){
-            window.location.replace("/charges")
+            window.location.replace("/")
             console.log(resp)
 
            }

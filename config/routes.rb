@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   end
   #resources :charity_users
   resources :charges
+  resources :purchases
   resources :charities
 
   get 'auth/facebook/callback', to: 'sessions#create'

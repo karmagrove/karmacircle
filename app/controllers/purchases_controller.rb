@@ -1,15 +1,4 @@
-class ChargesController < ApplicationController
-
-
-def index
-  Stripe.api_key = current_user.access_code
-  @customers = Stripe::Customer.all(:limit => 3)
-  @charges = Stripe::Charge.all
-  Rails.logger.info(@charges.inspect)
-end
-
-def new
-end
+class PurchasesController < ApplicationController
 
 def create
   # Amount in cents
@@ -84,13 +73,15 @@ def create
   Rails.logger.info @donorCharge.inspect
   @user = seller
   if @donorCharge.save(:status => "pending")
+  	@purchase = Purchase.new(:donationcharge_id => @donorCharge.id, :buyer_email => params[:stripeEmail])
+    @purchase.save
     UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
     UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
-    redirect_to "/",  notice: 'Charge made'
+    redirect_to "/",  notice: 'Charge succeeded: check your email'
     #format.html { redirect_to "/", notice: 'Charge made'}
     #format.json { render :show, status: :created, location: @user }
   else
-     format.html { redirect_to @user, notice: 'Charge failed' }
+     format.html { redirect_to "/", notice: 'Charge failed' }
      format.json { render json: @user.errors, status: :unprocessable_entity }
   end
 

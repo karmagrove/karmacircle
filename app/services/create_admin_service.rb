@@ -8,8 +8,8 @@ class CreateAdminService
 
 
      user = User.find_or_create_by!(email: "joshua.montross@gmail.com") do |user|
-        user.password = "613613jd"
-        user.password_confirmation = "613613jd"
+        user.password = "test"
+        user.password_confirmation = "test"
         user.role = "patron"
       end
   end

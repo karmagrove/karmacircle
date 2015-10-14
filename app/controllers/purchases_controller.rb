@@ -30,7 +30,7 @@ def create
   application_fee = seller.transaction_cost
   donation_amount = (@amount*(seller.donation_rate/100.to_f)).to_i
   Rails.logger.info("seller.donation_rate: ")
-  Rails.logger.info("donation_amount #{donation_amount}")
+  #Rails.logger.info("donation_amount #{donation_amount}")
   application_fee = application_fee + donation_amount
   Rails.logger.info("application_fee #{application_fee}")
   if (seller.email == "joshua@karmagrove.com") or (seller.email == "joshua.montross@gmail.com") then
@@ -45,7 +45,7 @@ def create
   else
     application_fee = seller.transaction_cost
     donation_amount = (@amount*(seller.donation_rate/100.to_f)).to_i
-    Rails.logger.info("donation_amount #{donation_amount}")
+    Rails.logger.info("donation_amount #{donation_amount.to_s}")
     application_fee = application_fee + donation_amount
     ## to make the donations come out with the application fee. 
     charge = Stripe::Charge.create({

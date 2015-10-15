@@ -28,11 +28,15 @@ def create
 
   ## seller.calculate_application_fee
   application_fee = seller.transaction_cost
-  donation_amount = (@amount*(seller.donation_rate/100.to_f)).to_i
-  Rails.logger.info("seller.donation_rate: ")
-  #Rails.logger.info("donation_amount #{donation_amount}")
+  donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
+  Rails.logger.info("seller.donation_rate: #{seller.donation_rate}")
+  Rails.logger.info("donation_amount #{donation_amount}")
   application_fee = application_fee + donation_amount
   Rails.logger.info("application_fee #{application_fee}")
+      Rails.logger.info("donation_amount #{donation_amount.to_s}")
+    Rails.logger.info("application_fee #{application_fee.to_s}")
+    #application_fee = application_fee + donation_amount
+    Rails.logger.info("application_fee + donation_amount: #{application_fee.to_s}")
   if (seller.email == "joshua@karmagrove.com") or (seller.email == "joshua.montross@gmail.com") then
     charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
@@ -44,9 +48,13 @@ def create
   )
   else
     application_fee = seller.transaction_cost
-    donation_amount = (@amount*(seller.donation_rate/100.to_f)).to_i
+    donation_amount = (@amount*seller.donation_rate/100).to_i
+
     Rails.logger.info("donation_amount #{donation_amount.to_s}")
+    Rails.logger.info("application_fee #{application_fee.to_s}")
+
     application_fee = application_fee + donation_amount
+    Rails.logger.info("application_fee + donation_amount: #{application_fee.to_s}")
     ## to make the donations come out with the application fee. 
     charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
@@ -65,7 +73,7 @@ def create
   Rails.logger.info("donation_amount: #{donation_amount}")
   charity_id = seller.charity_users.first.charity_id
   # Donation.where
-  begin
+
   @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
     payment_reference: charge.id, charity_id: charity_id, 
     revenue: charge.amount, customer_id: customer.id, 

@@ -73,7 +73,8 @@ def create
   Rails.logger.info @donorCharge.inspect
   @user = seller
   if @donorCharge.save(:status => "pending")
-  	@purchase = Purchase.new(:donationcharge_id => @donorCharge.id, :buyer_email => params[:stripeEmail])
+  	@purchase = Purchase.new(:buyer_email => params[:stripeEmail])
+    @purchase.donation_charge_id = @donorCharge.id
     @purchase.save
     UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
     UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver

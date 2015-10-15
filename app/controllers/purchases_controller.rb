@@ -48,7 +48,7 @@ def create
   )
   else
     application_fee = seller.transaction_cost
-    donation_amount = (@amount*seller.donation_rate/100).to_i
+    donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
 
     Rails.logger.info("donation_amount #{donation_amount.to_s}")
     Rails.logger.info("application_fee #{application_fee.to_s}")

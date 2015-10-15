@@ -65,6 +65,7 @@ def create
   Rails.logger.info("donation_amount: #{donation_amount}")
   charity_id = seller.charity_users.first.charity_id
   # Donation.where
+  begin
   @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
     payment_reference: charge.id, charity_id: charity_id, 
     revenue: charge.amount, customer_id: customer.id, 
@@ -73,11 +74,15 @@ def create
   Rails.logger.info @donorCharge.inspect
   @user = seller
   if @donorCharge.save(:status => "pending")
-  	@purchase = Purchase.new(:buyer_email => params[:stripeEmail])
-    @purchase.donation_charge_id = @donorCharge.id
-    @purchase.save
-    UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
-    UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
+  	begin 
+      UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
+      UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
+      @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
+      @purchase.donation_charge_id = @donorCharge.id
+      @purchase.save
+    rescue
+    end
+
     redirect_to "/",  notice: 'Charge succeeded: check your email'
     #format.html { redirect_to "/", notice: 'Charge made'}
     #format.json { render :show, status: :created, location: @user }

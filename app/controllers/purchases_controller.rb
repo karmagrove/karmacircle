@@ -56,7 +56,8 @@ def create
     application_fee = application_fee + donation_amount
     Rails.logger.info("application_fee + donation_amount: #{application_fee.to_s}")
     ## to make the donations come out with the application fee. 
-    charge = Stripe::Charge.create({
+    begin 
+      charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
     :currency => "usd",
     :customer => customer,
@@ -66,6 +67,10 @@ def create
   {:stripe_account => seller.uid}
   )
   
+  rescue Exception => e
+    @notice = 'Charge failed'
+
+  end 
   end
   Rails.logger.info "charge.inspect"
   Rails.logger.info charge.inspect
@@ -88,10 +93,11 @@ def create
       @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
       @purchase.donation_charge_id = @donorCharge.id
       @purchase.save
+      @notice = 'Charge succeeded: check your email'
     rescue
     end
 
-    redirect_to "/",  notice: 'Charge succeeded: check your email'
+    redirect_to "/",  notice: @notice
     #format.html { redirect_to "/", notice: 'Charge made'}
     #format.json { render :show, status: :created, location: @user }
   else

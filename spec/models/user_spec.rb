@@ -10,4 +10,9 @@ describe User do
     expect(@user.email).to match 'user@example.com'
   end
 
+  it "calculates donation amount given an amount" do
+  	
+  	expect(@user.calculate_application_fee).to match '1'
+  end
+
 end

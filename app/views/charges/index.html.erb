@@ -12,11 +12,14 @@
     <h2>Transaction Date </h2>
     </div>
 
-	 <div class="col-md-3">
+	  <div class="col-md-2">
     <h2>Amount </h2>
     </div>
+    <div class="col-md-1">
+    <h2> Customer email </h2>
+    </div>
     <div class="col-md-3" >
-    <h2> User & Description </h2>
+    <h2> Description </h2>
     </div>
     <div class="col-md-3">
     <h2> Charity Donation Status </h2>
@@ -29,11 +32,13 @@
     <div class="col-md-3">
     <%= Time.at(c.created).strftime("%Y-%m-%d") %> <br />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-1">
     $<%= (c.amount / 100) %> <br />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <%= c.source.name %> <br />
+    </div>
+    <div class="col-md-3">
     <%= c.description %> <br />
     </div>
     <div class="col-md-3">

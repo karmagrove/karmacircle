@@ -9,6 +9,10 @@ https://dashboard.stripe.com/account/transfers
 
 https://stripe.com/docs/connect/payments-fees#charging-through-the-platform
 
+How to run app
+===========
+bundle install && rake db:migrate && rake db:seed
+
 =======
 KarmaGrove.com Circle Payments - Conscious Commerce System for selling, sending invoices and giving as you receive.
 ================

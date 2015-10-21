@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Karma Circle Membership" %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Karma Circle Membership" %>">
+    <title><%= content_for?(:title) ? yield(:title) : "Karma Circle Membership" %></title>
+
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
-    <%= yield(:head) %>
+		<%= yield(:head) %>
   </head>
+
   <body>
     <header>
       <%= render 'layouts/navigation' %>

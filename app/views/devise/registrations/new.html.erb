@@ -62,20 +62,6 @@
       <br /> 
       We ask for your credit card to begin to verify you are the rightful account holder and will not charge the card. 
     <% end %>
-    <div class="form-group">
-      <%= label_tag :card_number, "Credit Card Number" %>
-      <%= text_field_tag :card_number, nil, name: nil, class: 'form-control', data: { stripe: 'number' } %>
-    </div>
-    <div class="form-group">
-      <%= label_tag :card_code, "Card Security Code" %>
-      <%= text_field_tag :card_code, nil, name: nil, class: 'form-control', data: { stripe: 'cvc' } %>
-    </div>
-    <br />
-    <div class="form-group">
-      <%= label_tag :card_month, "Card Expiry" %>
-      <%= select_month nil, { use_two_digit_numbers: true}, { name: nil, data: { stripe: 'exp-month' } } %>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, { name: nil, data: { stripe: 'exp-year' } } %>
-    </div>
 
     <%= f.submit 'Sign up', :class => 'button right' %>
   <% end %>

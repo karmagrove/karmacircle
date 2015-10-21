@@ -19,7 +19,8 @@ group :development, :test do
   gem 'sqlite3'
 end
 
-gem 'bootstrap-sass'
+gem 'foundation-rails', '~> 5.5'
+gem 'font-awesome-rails'
 gem 'devise'
 gem 'gibbon'
 gem 'payola-payments'

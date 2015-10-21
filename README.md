@@ -12,6 +12,7 @@ https://stripe.com/docs/connect/payments-fees#charging-through-the-platform
 How to run app
 ===========
 bundle install && rake db:migrate && rake db:seed
+## you will need certain environment variables to be present.  email joshua@karmagrove.com if you want them. 
 
 =======
 KarmaGrove.com Circle Payments - Conscious Commerce System for selling, sending invoices and giving as you receive.

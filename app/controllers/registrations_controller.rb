@@ -65,9 +65,10 @@ class RegistrationsController < Devise::RegistrationsController
 
         #redirect_to "/"
     else
+      build_resource(sign_up_params)
+      plan = Plan.find_by!(id: params[:user][:plan_id].to_i)
       resource.role = User.roles[plan.stripe_id] unless resource.admin?
       resource.save
-      plan = Plan.find_by!(id: params[:user][:plan_id].to_i)
       if resource.role == "charity"
         #something special.
         @charity = Charity.new(:name => params[:charity_name])

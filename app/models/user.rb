@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   def set_transaction_cost
     self.transaction_cost = 100
     self.donation_rate = 1
-    if self.plan.name == "Partner" then
+    if self.plan and self.plan.name == "Partner" then
       self.transaction_cost = 10
     end
   end

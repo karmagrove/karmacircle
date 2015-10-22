@@ -1,0 +1,15 @@
+
+  <div class="row well">
+  <div class="col-sm-12">
+  <%= current_user.name %>
+
+      <% if current_user.charity_users.length > 0 %>
+     <div class="well">
+      <p><h3> Current charity you support with <%= current_user.donation_rate %>% of revenue: <%= current_user.charity_users.first.charity.name %> </h3></p>
+      </div>
+    <% else %>
+    <h3> <a href="/users/<%=current_user.id%>/charity_users"> Complete your profile - select your charity </a></h3>
+    <% end %>
+
+  </div>
+  </div>

@@ -1,40 +1,6 @@
 <% if user_signed_in? %>
-  <% if current_user.admin? %>
-    <h3>Admin</h3>
-    <p><%= link_to 'User count:', users_path %> <%= User.count %></p>
-  <% else %>
-    <% if current_user.charity_users.length > 0 %>
-      <p><h3> Current charity you support with <%= current_user.donation_rate %>% of revenue: <%= current_user.charity_users.first.charity.name %> </h3></p>
-    <% else %>
-    <h3> <a href="/users/<%=current_user.id%>/charity_users"> Complete your profile - select your charity </a></h3>
-    <% end %>
 
-    <% if current_user.access_code and current_user.publishable_key %>  
-      <%= render "content/form" %>
-    <% else %>
-     <h2 style="text-align:center">Update your bank account to begin charging customers and receive the money every few days!</h2>
-     
-     <h3> Please connect with stripe, which is our secure payments provider for processing credit cards and depositing your sales into your account as well as depositing donations to your charity of choice.  They will ask for your bank account and routing number.
-     </h3>
-     <%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
-    
-    <% end %>
-
-      <br />
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-8">
-
-      <div class="col-sm-12">
-        <% if current_user.charity_users.length > 0 %>
-          <p> <%= link_to(current_user.charity_users.first.charity.url,current_user.charity_users.first.charity.name) %> - <%= current_user.charity_users.first.charity.description %> </p>
-        <% end %>    
-      </div>
-     
-    <%= link_to 'Download Conscious Capitalism PDF', asset_path('What_Is_Conscious_Capitalism.pdf'), class: 'btn btn-success btn-large center', style: 'text-align:center'%>
-     </div>
-  <% end %>
-
+<%= render partial: "signed_in_user" %>
 
 <% else %>
 

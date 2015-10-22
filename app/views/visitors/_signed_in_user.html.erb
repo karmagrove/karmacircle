@@ -1,0 +1,29 @@
+
+  <% if current_user.admin? %>
+    <h3>Admin</h3>
+    <p><%= link_to 'User count:', users_path %> <%= User.count %></p>
+  <% else %>
+
+     <%= render partial: "charity_info" %>
+
+
+    <% if current_user.access_code and current_user.publishable_key %>  
+      <%= render "content/form" %>
+    <% else %>
+     <%= render partial: "activate" %>
+    <% end %>
+
+      <br />
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-8">
+
+      <div class="col-sm-12">
+        <% if current_user.charity_users.length > 0 %>
+          <p> <%= link_to(current_user.charity_users.first.charity.url,current_user.charity_users.first.charity.name) %> - <%= current_user.charity_users.first.charity.description %> </p>
+        <% end %>    
+      </div>
+     
+    <%= link_to 'Download Conscious Capitalism PDF', asset_path('What_Is_Conscious_Capitalism.pdf'), class: 'btn btn-success btn-large center', style: 'text-align:center'%>
+     </div>
+  <% end %>

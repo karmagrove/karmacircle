@@ -2,7 +2,6 @@
   <% if msg.is_a?(String) %>
 <div class="row">
   <div class="large-12 columns">
-    <br />
     <div data-alert class="alert-box <%= name.to_s == 'notice' ? 'success' : 'warning' %> radius">
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <a href="#" class="close">&times;</a>

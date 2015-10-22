@@ -7,6 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "Karma Circle Membership" %></title>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,400italic,300italic|Slabo+27px' rel='stylesheet' type='text/css'>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
@@ -14,12 +15,11 @@
   </head>
 
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
+    <%= render 'layouts/navigation' %>
+    <main role="main" class="main-content">
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
+		<%= render 'layouts/footer' %>
   </body>
 </html>

@@ -20,6 +20,7 @@ group :development, :test do
 end
 
 gem 'foundation-rails', '~> 5.5'
+gem 'compass-rails', github: "Compass/compass-rails", branch: "master"
 gem 'font-awesome-rails'
 gem 'devise'
 gem 'gibbon'

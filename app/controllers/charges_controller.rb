@@ -2,10 +2,15 @@ class ChargesController < ApplicationController
 
 
 def index
-  Stripe.api_key = current_user.access_code
-  @customers = Stripe::Customer.all(:limit => 3)
-  @charges = Stripe::Charge.all(:limit => 100)
+
+  if Stripe.api_key = current_user.access_code
+    @customers = Stripe::Customer.all(:limit => 3)
+    @charges = Stripe::Charge.all(:limit => 100)
   Rails.logger.info(@charges.inspect)
+  else
+    redirect_to "/",  notice: 'You must activate your account before you can view your charges' 
+  end
+
 end
 
 def new
@@ -40,6 +45,7 @@ def create
   ## seller.calculate_application_fee
   application_fee = seller.transaction_cost
   donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
+  Rails.logger.info("current_user.calculate_application_fee : #{current_user.calculate_application_fee}")
   Rails.logger.info("seller.donation_rate: ")
   Rails.logger.info("donation_amount #{donation_amount}")
   application_fee = application_fee + donation_amount
@@ -55,7 +61,7 @@ def create
   )
   else
     application_fee = seller.transaction_cost
-    donation_amount = (@amount*(seller.donation_rate/100.to_f)).to_i
+    donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
     Rails.logger.info("donation_amount #{donation_amount}")
     application_fee = application_fee + donation_amount
     ## to make the donations come out with the application fee. 

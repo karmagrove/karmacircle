@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "content/partner"
   get "content/charity"
   get "/about", :to =>  "visitors#about"
+  get '/pricing', :to => "visitors#pricing"
 
   get "invoices/new"
   mount Payola::Engine => '/payola', as: :payola

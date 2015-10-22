@@ -14,6 +14,12 @@ How to run app
 bundle install && rake db:migrate && rake db:seed
 ## you will need certain environment variables to be present.  email joshua@karmagrove.com if you want them. 
 
+Videos on what we are doing
+=======
+https://s3.amazonaws.com/karmagrove/Karmagrove.com+NEW+SCREEN+V1.mov
+https://s3.amazonaws.com/karmagrove/Karmagrove.com+NEW+SCREEN+V2.mov
+
+
 =======
 KarmaGrove.com Circle Payments - Conscious Commerce System for selling, sending invoices and giving as you receive.
 ================

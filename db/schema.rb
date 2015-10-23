@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013050305) do
+ActiveRecord::Schema.define(version: 20151022210048) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -90,6 +90,22 @@ ActiveRecord::Schema.define(version: 20151013050305) do
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id"
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "recipient_email"
+    t.string   "status"
+    t.integer  "donation_charge_id"
+    t.integer  "amount"
+    t.string   "secret"
+    t.string   "description"
+    t.string   "stripe_customer_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "invoices", ["donation_charge_id"], name: "index_invoices_on_donation_charge_id"
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id"
 
   create_table "payola_affiliates", force: :cascade do |t|
     t.string   "code"
@@ -216,12 +232,12 @@ ActiveRecord::Schema.define(version: 20151013050305) do
     t.integer  "product_id"
     t.string   "buyer_email"
     t.integer  "user_id"
-    t.integer  "donationcharge_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "donation_charge_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  add_index "purchases", ["donationcharge_id"], name: "index_purchases_on_donationcharge_id"
+  add_index "purchases", ["donation_charge_id"], name: "index_purchases_on_donation_charge_id"
   add_index "purchases", ["product_id"], name: "index_purchases_on_product_id"
   add_index "purchases", ["user_id"], name: "index_purchases_on_user_id"
 

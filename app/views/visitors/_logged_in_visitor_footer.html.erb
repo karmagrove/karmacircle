@@ -1,0 +1,20 @@
+<% if current_user.charity_users.length > 0 %>
+    <div class="row well">
+      <div class="col-sm-12">
+        
+          <p> <%= link_to(current_user.charity_users.first.charity.url,current_user.charity_users.first.charity.name) %> - <%= current_user.charity_users.first.charity.description %> </p>
+      
+      </div>
+     </div>
+    <% end %>    
+
+
+
+      <div class="row well">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-8">
+           <%= link_to 'Download Conscious Capitalism PDF', asset_path('What_Is_Conscious_Capitalism.pdf'), class: 'btn btn-success btn-large center', target: "_new", style: 'text-align:center'%>
+        </div>
+     
+      </div>

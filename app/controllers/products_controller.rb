@@ -2,11 +2,13 @@ class ProductsController < ApplicationController
 
    before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-   before_action :verify_owner, only: [:edit, :update, :destroy]
+   before_action :verify_owner, only: [:edit, :update, :destroy] 
+
+   before_action :set_user_products, only: [:index]
+   #before_action :admin_only, :only => [:index]
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
     Rails.logger.info("@products.inspect")
     Rails.logger.info(@products.inspect)
   end
@@ -76,6 +78,17 @@ class ProductsController < ApplicationController
   end
 
   private
+
+    def set_user_products
+      @products = Product.where(:user_id => params[:user_id])
+    end
+
+    def admin_only
+      unless current_user.admin?
+        redirect_to :back, :alert => "Access denied."
+      end
+    end
+  
 
     def product_url(product)
       return "/users/#{@product.user_id}/products/#{@product.id}"

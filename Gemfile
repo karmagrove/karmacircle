@@ -13,6 +13,7 @@ gem 'faraday','~> 0.8.6'
 gem "koala", "~> 1.7.0rc1"
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'

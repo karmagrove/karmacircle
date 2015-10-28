@@ -26,6 +26,9 @@
             'data-payola-base-path' => payola_path,
             'data-payola-plan-type' => resource.plan.plan_class,
             'data-payola-plan-id' => resource.plan.id}) do |f| %>
+              <br />
+              <br />
+              <br />
         <h3>Sign up</h3>
         <div class="form-group">
           <%= f.label 'Subscription plan' %>
@@ -49,11 +52,10 @@
           <%= label_tag :charity_name, "Charity Name" %>
           <%= text_field_tag :charity_name, nil, name: nil, class: 'form-control' %>
     
-          <br />
-          You will have the option to connect your charity to receive payments after you have been approved.
-          <br />
-          <br /> 
-          We ask for your credit card to begin to verify you are the rightful account holder and will not charge the card. 
+          <p>
+            <small>You will have the option to connect your charity to receive payments after you have been approved.
+              We ask for your credit card to begin to verify you are the rightful account holder and will not charge the card. </small>
+          </p>
         <% end %>
     
         <%= f.submit 'Sign up', :class => 'button right' %>

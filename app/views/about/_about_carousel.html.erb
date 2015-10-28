@@ -1,70 +1,26 @@
-<br />
-
-<div id="about-carousel" class="carousel slide" data-ride="carousel">
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-     <%=  link_to image_tag("photo1.jpg"), "/Get-Involved" %>
-     <div class="carousel-caption">
-      <p>Each batch of Karma coins is locally prepared with love and superfood </p>
+<ul class="carrousel-orbit" data-orbit>
+  <li>
+    <%=  link_to image_tag("photo1.jpg"), "/Get-Involved" %>
+    <div class="orbit-caption">
+     Each batch of Karma coins is locally prepared with love and superfood 
     </div>
-  </div>
-
-  <div class="item">
-      <%=  image_tag("ocean_sun_asana.jpg") %>
-      <div class="carousel-caption">
-        <h2>
-        <p> Wear a sunrise crown  </p>
-        <p> Cultivate your karma. </p>
-      </h2>
-      </div>
-  </div>
-
-  <div class="item">
+  </li>
+  <li class="active">
+     <%=  image_tag("ocean_sun_asana.jpg") %>
+    <div class="orbit-caption">
+       Wear a sunrise crown <br />Cultivate your karma. 
+    </div>
+  </li>
+  <li>
     <%=  link_to image_tag("karmabar.jpg"), "/Karma-Coin" %>
-    <div class="carousel-caption">
-      <p> The superfoods' color reveals the vibrant life nourishing nutrient profile </p>
+    <div class="orbit-caption">
+      The superfoods' color reveals the vibrant life nourishing nutrient profile 
     </div>
-  </div>
-
-
-  <div class="item">
+  </li>
+  <li>
     <%=  link_to image_tag("ocean.jpg"), "/Karma-Coin" %>
-    <div class="carousel-caption">
-      <p> We sit at the ocean's edge feeling the sunrise and waves crashing </p>
+    <div class="orbit-caption">
+      We sit at the ocean's edge feeling the sunrise and waves crashing 
     </div>
-  </div>
-
-
-
-</div>
-
-<!-- Controls -->
-<a class="carousel-control left" href="#about-carousel" data-slide="prev">&lsaquo;
-</a>
-<a class="carousel-control right" href="#about-carousel" data-slide="next">&rsaquo;</a>
-</div>
-
-<script>
-$(document).ready(function(){
-
-  $('.carousel').carousel({
-    pause: "hover",
-    interval: 10000,
-    wrap: true
-  });
-
-
-  $('.carousel').swiperight(function() {
-    $(".carousel").carousel('prev');
-  });
-
-  $('.carousel').swipeleft(function() {
-    $(".carousel").carousel('next');
-  });
-
-});
-</script>
-
-<br />
+  </li>
+</ul>

@@ -1,63 +1,20 @@
-<br />
-
-<div id="about-carousel" class="carousel slide" data-ride="carousel">
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-     <%=  link_to image_tag("photo1.jpg"), "/" %>
-     <div class="carousel-caption">
-      <p>Each batch of Karma coins is locally prepared with love and superfood </p>
+<ul class="carrousel-orbit" data-orbit>
+  <li>
+    <%=  link_to image_tag("photo1.jpg"), "/Get-Involved" %>
+    <div class="orbit-caption">
+     Each batch of Karma coins is locally prepared with love and superfood 
     </div>
-  </div>
-
-
-  <div class="item">
-    <%=  link_to image_tag("circle.png"), "/" %>
-    <div class="carousel-caption">
-      <p style="color:black"> <br /> <br /> <br /> Now anyone can use Circle to give as they receive </p>
+  </li>
+  <li class="active">
+    <%=  link_to image_tag("circle.jpg"), "/" %>
+    <div class="orbit-caption">
+       Now anyone can use Circle to give as they receive 
     </div>
-  </div>
-
-
-  <div class="item">
-    <%=  link_to image_tag("karmabar.jpg"), "/" %>
-    <div class="carousel-caption">
-      <p> The superfoods' color reveals the vibrant life nourishing nutrient profile </p>
+  </li>
+  <li>
+   <%=  link_to image_tag("karmabar.jpg"), "/" %>
+    <div class="orbit-caption">
+       The superfoods color reveals the vibrant life nourishing nutrient profile 
     </div>
-  </div>
-
-
-
-
-
-</div>
-
-<!-- Controls -->
-<a class="carousel-control left" href="#about-carousel" data-slide="prev">&lsaquo;
-</a>
-<a class="carousel-control right" href="#about-carousel" data-slide="next">&rsaquo;</a>
-</div>
-
-<script>
-$(document).ready(function(){
-
-  $('.carousel').carousel({
-    pause: "hover",
-    interval: 10000,
-    wrap: true
-  });
-
-
-  $('.carousel').swiperight(function() {
-    $(".carousel").carousel('prev');
-  });
-
-  $('.carousel').swipeleft(function() {
-    $(".carousel").carousel('next');
-  });
-
-});
-</script>
-
-<br />
+  </li>
+</ul>

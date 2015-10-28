@@ -1,67 +1,63 @@
-<h1> Your customers </h1>
-<% @customers.each do |c| %>
-
-<%= c.email %> <br />
-
-<% end %>
-
-<h1> Your charges </h1>
-<div class="table">
-<div class="row header">  
-     <div class="col-md-3">
-    <h2>Transaction Date </h2>
-    </div>
-
-	 <div class="col-md-3">
-    <h2>Amount </h2>
-    </div>
-    <div class="col-md-3" >
-    <h2> Description </h2>
-    </div>
-    <div class="col-md-3">
-    <h2> Charity Donation Status </h2>
-    </div>
-</div>
-  <% @charges.each do |c| %>
-  
-
-  <div class="row">
-    <div class="col-md-3">
-    <%= Time.at(c.created).strftime("%Y-%m-%d") %> <br />
-    </div>
-    <div class="col-md-3">
-    $<%= (c.amount / 100) %> <br />
-    </div>
-    <div class="col-md-3">
-    <%= c.description %> <br />
-    </div>
-    <div class="col-md-3">
-    <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
-      $<%= @d.donation_amount/100.to_f %> 
-      <% if @d.charity %> 
-         <%= @d.charity.name %> 
-      <% end %>
-      <span class="donation-charge-status">
-        (<%= @d.status %>) 
-      </span>
-    <% end %>  
-    <br />
-    </div>
-  </div>
-  <% end %>
-</div> 
 <div class="row">
-  <div class="col-md-12">
-  <h4>
-  Unpaid Explanation
-  </h4>
-
-  <p>
-  Expected to be paid on the 1st of the coming month
-  </p>
-  <p>
-  If you wish to change which charity you are giving to before they are paid, please <a href="mailto:joshua@karmagrove.com?subject=change%20charity%20request">contact us 
-  </a>
+  <div class="large-12 columns">
+    <br /><br />
+    <h3> <%= fa_icon "users" %> Your customers </h3>
+    <% @customers_email.each do |c| %>  
+    <%= mail_to c %>
+    <% end %>
+    <br /><br />
+    <h3> <%= fa_icon "credit-card" %> Your charges </h3>
+    <div class="table">
+      <div class="row collapse">  
+        <div class="large-3 columns">
+          <h5>Transaction Date</h5>
+        </div>    
+        <div class="large-2 columns">
+          <h5>Amount</h5> 
+        </div>
+        <div class="large-3 columns">
+          <h5>Description</h5>
+        </div>
+        <div class="large-4 columns">
+          <h5> Charity Donation Status </h5>
+        </div>
+      </div>
+      <% @charges.each do |c| %>
+      
+    
+      <div class="row collapse">
+        <div class="large-3 columns">
+          <span class="label secondary"><%= Time.at(c.created).strftime("%Y-%m-%d") %></span><br />
+        </div>
+        <div class="large-2 columns">
+          <span class="label">$<%= (c.amount / 100) %></span> <br />
+        </div>
+        <div class="large-3 columns">
+          <p class="text-center"><%= c.description %></p> 
+        </div>
+        <div class="large-4 columns">
+          <div class="text-right">
+            <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
+            $<%= @d.donation_amount/100.to_f %> 
+            <% if @d.charity %> 
+            <%= @d.charity.name %> 
+            <% end %>
+            <span class="donation-charge-status">
+              <span class="label secondary"><%= @d.status %></span>
+            </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div> 
+    <div class="row">
+      <div class="large-12 columns">
+        <h4 class="subtitle">Unpaid Explanation</h4>
+        <p>Expected to be paid on the 1st of the coming month
+          If you wish to change which charity you are giving to before they are paid, please <a href="mailto:joshua@karmagrove.com?subject=change%20charity%20request">contact us </a></p>
+        </div>
+      </div>
+    
+    </div>
   </div>
-</div>
-

@@ -1,7 +1,7 @@
+<iframe class="hero-video" src="https://player.vimeo.com/video/141233049" width="100%" height="480px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 <div class="row">
-  
-  <div class="span8 well">
-  <h1> Who we are </h1>
+  <div class="large-12 columns">
+  <h2> Who we are </h2>
   <p>
     We believe in conscious capitalism, and we are a provider of software that enables YOU to be a more conscious business person by giving you the ability to donate at the point of sale.  We track the donations, giving you a tax write-off at the end of the year.  We send receipts to you and your customer when you make sales.  When we give to charities on your behalf once a month, we send you and the charity a receipt as well as keep records online for you to view.  
   </p>
@@ -9,67 +9,42 @@
     We charge 4.9% plus .20 cents for basic transactions and invoicing.  This includes your minimum 1% donation, which you may increase at any time.  you may change which charity you give to at any time.  You may ask us to add a charity.  We are a platform that extends the you right to give as you receive.  Join us. Be generous.  
    </p>
   </div>
-
-  <div class="span4 well">
-   <div class="hero">
-     <iframe class="hero-video" src="https://player.vimeo.com/video/141233049" width="75%" height="400px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-   </div>
-  </div>
 </div>
 
 <div class="row">
-  <h2> The Story of Karma Grove </h2>
-
-
-  <div class="col-sm-6 well">
+  <div class="large-12 columns">
+    <h2> The Story of Karma Grove </h2>
     <p>Karma Grove came about as a dream of a college student in 2005 studying international business and finance.  Joshua Montross was a bit disappointed with the constant pushing of rational self interest meaning to maximize profits.  He wanted to create a cafe called Karma Grove Cafe and make it exist to both create some profits and to help the community.  
-</p>
+    Karma Grove LLC was formed in 2013 as a little granola bar company where Joshua would take the granola bars to Santa Cruz Farmers market, and spread his dreams and ideas amongst friends and family in both Dallas, Texas and Santa Cruz, California.  Later, he would sell them at Dallas Ecstatic Dance.  Sell is a very loose word as these were given away with the option of giving back, and if you gave to Joshua, he would give half of your money to charity of your choice.  The first charities supported were Grey Bears of Santa Cruz, Elephants and Bees of Africa, and Genesis Women's shelter of Dallas.  Joshua would raise money for them with his bake sales, testing out the idea that people would give more when they knew they were also supporting charity.</p>
 
+    <h4 class="text-center">The idea seemed to work.  Now it is usable by all.</h4>
+    <p>
+      This website and system of Karma Grove is his dream mixed with effort to create a reality where more businesses are able to give to charity as they receive.  One day we will open the cafe.  Until then, we make the software possible for others to easily operate their businesses with greater community consciousness, which we believe may actually increase your sales in the end.
+    </p>
 
-<p>
-Karma Grove LLC was formed in 2013 as a little granola bar company where Joshua would take the granola bars to Santa Cruz Farmers market, and spread his dreams and ideas amongst friends and family in both Dallas, Texas and Santa Cruz, California.  Later, he would sell them at Dallas Ecstatic Dance.  Sell is a very loose word as these were given away with the option of giving back, and if you gave to Joshua, he would give half of your money to charity of your choice.  The first charities supported were Grey Bears of Santa Cruz, Elephants and Bees of Africa, and Genesis Women's shelter of Dallas.  Joshua would raise money for them with his bake sales, testing out the idea that people would give more when they knew they were also supporting charity.
-</p>
-
-<p>  The idea seemed to work.  Now it is usable by all.
-
-</p>
-<p>
-  This website and system of Karma Grove is his dream mixed with effort to create a reality where more businesses are able to give to charity as they receive.  One day we will open the cafe.  Until then, we make the software possible for others to easily operate their businesses with greater community consciousness, which we believe may actually increase your sales in the end.
-</p>
-
-<h4> <%= link_to  "Check out our charity partners who you may give to as a member","/charities" %> </h4>
-
+    <h4 class="text-center"> <%= link_to  "Check out our charity partners who you may give to as a member","/charities" %> </h4>
+    
+<div class="row">
+  <div class="large-7 columns large-centered">
+    <div class="carrousel">
+      <%= render partial: "about_carousel" %>
+    </div>
   </div>
-
-  <div class="col-sm-6  ">
-    <%= render partial: "about_carousel" %>
+</div>
+    <h2> Copyright Information </h2>
+    <p>
+      For Karma Grove's licensing information <a data-reveal-id="myModal"><b>click here</b></a>.
+    </p>
+    
   </div>
 </div>
 
-
-<!--   <div class="row">
-
-    <div class="span8 well">
-
-  <%= render partial: "about_dictionary_popover" %>
-   </div>
-  </div>
- -->
-<h2> Copyright Information </h2>
-<p>
-  For Karma Grove's licensing information <a class="modal-popup" data-controls-modal="copyright-modal" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#copyright-modal">
-  <b>click here</b>
-</a>.
-</p>
-</div>
-</div>
 
 <!-- Modal -->
-<div class="modal fade" id="copyright-modal" tabindex="-1" role="dialog" aria-labelledby="copyright-modalLabel" aria-hidden="true">
+<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="copyright-modalLabel">
           Karma Grove Copyright Information
         </h4>
@@ -79,9 +54,7 @@ Karma Grove LLC was formed in 2013 as a little granola bar company where Joshua 
         <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Karma Grove</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://karmagrove.com" property="cc:attributionName" rel="cc:attributionURL">Joshua Montross</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="http://karmagrove.com" rel="dct:source">http://karmagrove.com</a>.
         <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div><!-- /.modal -->

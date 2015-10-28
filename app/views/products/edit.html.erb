@@ -1,6 +1,10 @@
-<h1>Editing Product</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', user_product_path(:id => @product['id'], :user_id=>current_user.id)  %> |
-<%= link_to 'Back', user_product_path %>
+<br />
+<div class="row">
+  <div class="large-5 columns large-centered">
+    <h1>Edit Product</h1>
+    <br />
+    <%= render 'form' %>
+    
+    <%= link_to 'Back', user_products_path({:user_id => current_user.id}), class: "button secondary" %>
+    </div>
+</div>

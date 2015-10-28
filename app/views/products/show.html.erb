@@ -1,33 +1,26 @@
-<p id="notice"><%= notice %></p>
+<br /><br />
 <% if (@product.image_url && @product.image_url.length > 0) %>
   <div class="row">
-  <div class="col-sm-4">
+    <div class="large-4 columns">
+      <%= image_tag(@product.image_url) %>
+    </div>
+  <div class="large-8 columns">
 
-  <%= image_tag(@product.image_url) %>
-  </div>
-  
-
-
-  <div class="col-sm-8">
-
-
-  <h1> <%= @product.name %> </h1>
-  <h2> <%= @product.description %> </h2>
-
-
-<h3>
-  <strong>Price:</strong>
-  $<%= @product.price %>
-</h3>
-
-<script src="https://checkout.stripe.com/checkout.js"></script>
- <input hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
- <input hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
- <div class="btn">
-<button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
-
-  </div>
-  </div>
+    <h1 class="nm"> <%= @product.name %> </h1>
+    <h3 class="nm subheader"> <%= @product.description %> </h3>
+    <br />
+    <div class="row">
+      <div class="large-6 columns">
+        <h3 class="price_tag"><span class="pricing">$</span> <%= @product.price %></h3>
+      </div>
+      <div class="large-6 columns">
+        <script src="https://checkout.stripe.com/checkout.js"></script>
+        <button id="customButton" class="button success small radius right">Purchase Now</button>
+        <input type="hidden" id="amount" value="<%= @product.price %>"></input> <br />
+        <input type="hidden" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
+      </div>
+    </div>
+</div>
 
 <% else %>
 
@@ -48,8 +41,6 @@
 
 
 <% end %>
-<!-- <button id="customButton">Send invoice</button> -->
-
 
 <script>
 
@@ -100,7 +91,7 @@
 
 
 
-<% if current_user and (current_user.id == params[:user_id]) %>
+<% if current_user.present? and (current_user.id == params[:user_id]) %>
 <p>
   <strong>Public:</strong>
   <%= @product.public %>

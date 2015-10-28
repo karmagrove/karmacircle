@@ -10,6 +10,14 @@ $mb: 70px;
   color: #fff;
 }
 
+.fixw{
+  max-width: 200px;
+}
+
+.nm{
+  margin: 0;
+}
+
 .hpadding{
   padding: 50px 0;
   h1{
@@ -87,6 +95,68 @@ $mb: 70px;
  color: red;  
 }
 
+.product{
+  min-width: 120px;
+}
+
+.no-padding{
+  padding: 0;
+}
+
+.stylish{
+  background: #E7E7E7;
+  color: #aaa;
+  position: relative;
+  top: -5px;
+  left: 10px;
+}
+
+.table{
+  h5{
+    background: #ddd;
+    padding: 5px 10px;
+    border: 1px solid white;
+    color: gray;
+    margin: 0 0 10px 0;
+  }
+}
+
+.price_tag{
+  color: white;
+  border: 1px solid white;
+  padding: 0 15px 0 0;
+  margin: 0;
+  display: inline-block;
+  @include border-radius(50px);
+  background: rgb(145, 199, 61);
+  span.pricing{
+    background: white;
+    color: rgb(145, 199, 61);
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    @include border-radius(100%);
+    display: inline-block;
+    text-align: center;
+    border: 1px solid rgb(145, 199, 61);
+  }
+}
+
+input[type="text"].price,input[type="number"].price{
+  background: rgba(greenyellow,.3);
+  border: 1px solid rgba(green,.4);
+  color: #8ACC73;
+  font-size: 20px;
+  padding: 0 10px;
+}
+
+span.prefix.money_sign{
+  background: #91C73D;
+  border-color: #8ACC73;
+  color: white;
+  font-size: 25px;
+}
+
 footer, .footer{
   background: #000;
   color: white;
@@ -116,4 +186,8 @@ footer, .footer{
 
 .alert-box{
   margin-top: 20px;
+}
+
+label{
+  color:rgba(66, 66, 66, 0.71); 
 }

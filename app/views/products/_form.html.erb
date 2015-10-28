@@ -10,36 +10,56 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :price %><br>
-    <%= f.number_field :price %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <div class="field">
+        <%= f.label :price %>
+        <div class="row collapse prefix-radius">
+          <div class="small-3 columns"><span class="prefix money_sign">$</span></div>
+          <div class="small-9 columns"><%= f.number_field :price, class: "price" %></div>
+        </div>
+      </div>
+      </div>
+      <div class="large-6 columns">
+        <div class="field">
+          <%= f.label :donation_percent %>
+          <div class="row collapse postfix-radius">
+            <div class="small-9 columns"><%= f.number_field :donation_percent %></div>
+            <div class="small-3 columns"><span class="postfix">%</span></div>
+          </div>
+        </div>
+      </div>
   </div>
   <div class="field">
-    <%= f.label :public %><br>
-    <%= f.check_box :public %>
-  </div>
-  <div class="field">
-    <%= f.label :donation_percent %><br>
-    <%= f.number_field :donation_percent %>
-  </div>
-  <div class="field">
-    <%= f.label :image_url %><br>
+    <%= f.label :image_url %>
     <%= f.text_field :image_url %>
   </div>
+  <div class="field hide">
+    <%= f.label :user_id, class: "prefix" %>
+    <%= f.hidden_field :user_id, value: current_user.id || @product.user_id %>
+  </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+    <div class="row collapse">
+      <div class="large-3 columns">
+        <%= f.label :public, "Public?" %>
+      </div>
+      <div class="large-9 columns">
+        <div class="switch round small">
+          <%= f.check_box :public %>
+          <%= f.label :public %>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "button success right" %>
   </div>
 <% end %>

@@ -12,7 +12,7 @@ class CharityUsersController < ApplicationController
 	  @charity_user.charity_id = charity_user_params[:charity_id]
 	  respond_to do |format|
         if @charity_user.save
-          format.html { redirect_to @user, notice: 'charity was successfully added to your account.' }
+          format.html { redirect_to root_url, notice: 'charity was successfully added to your account.' }
           format.json { render :show, status: :created, location: @user }
         else
           format.html { render :new }
@@ -29,7 +29,7 @@ class CharityUsersController < ApplicationController
 	  @charity_user.user_id = @user.id
 	  respond_to do |format|
         if @charity_user.save
-          format.html { redirect_to @user, notice: 'charity was successfully added to your account.' }
+          format.html { redirect_to root_url, notice: 'charity was successfully added to your account.' }
           format.json { render :show, status: :created, location: @user }
         else
           format.html { render :new }

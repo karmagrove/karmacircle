@@ -1,194 +1,134 @@
+
+
 <% if user_signed_in? %>
 
 <%= render partial: "signed_in_user" %>
 
 <% else %>
 
-<div class="hero  well">
-   
 
-
-    <div class="row col-sm-2 plans">
-  <h2> Accept cards in 5 minutes  </h2>
-    <%= image_tag "karma-circle.png" %>
-    
-    <h2> Give 1% to charity </h2>
-
-    </div>
-
-  <div id="welcome" class="span7">
-  <div class="hero">
-     <iframe class="hero-video" src="https://player.vimeo.com/video/141232208" width="75%" height="400px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-  </div>
-
-
-  </div>
-</div>
-
-  <div class="plan "><h2> 
-    <div class="row">
-      <div class="row col-sm-5">
+<div class="block main">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="header-fix">
+        <%= image_tag "logo90.png" %>
+        <h1 class="whitetxt"> Give 1% to charity </h1>
+        <a href="#" class="button secondary radius" data-reveal-id="myVideo">Watch more</a>
+        <%= link_to "Start now", new_user_session_path, class: "button success radius" %>
       </div>
-      <div class="row col-sm-4">
-        <%= link_to 'Explore Membership', explore_path(plan: 'member'), :class => 'btn btn-primary' %>
-      </div>
-      <div class="row col-sm-3">
-      </div>
-    </div>
-  </h2></div>
-
- <!--  <div class="row col-sm-12 plans">
-    <h1> </h1>
-    <h3> We enable you to charge your customers, send invoices, and set aside a portion to charity for each of your sales. We also make it easy for you to tell your customers about your conscious business practices enabling you to be more connected to the people in the communities you serve </h3>
-  </div> -->
-<!-- 
-   <div class="row col-sm-12 plans">
-   <div class="plan"><h2> Karma Grove circle payments offers two ways to begin accepting cards and giving as you receive</h2></div>
-   </div> -->
-
-<div class="row col-sm-12 plans well">
-  <h1> Featured Charities </h1>
-     <div class="item col-sm-4">
-      <%= link_to image_tag("elephants-and-bees-logo-web.png"), "http://elephantsandbees.com/", :target => "_blank" %>
-      <div class="carousel-caption">
-        <h2>
-        <!-- <p> Save elephants lives, boost crop yields, and make honey money </p> -->
-      </h2>
-      </div>
-    </div>
-
-  <div class="item col-sm-4">
-    <%=  link_to image_tag("empowerment_works.png"), "http://www.empowermentworks.org", :target => "_blank" %>
-    <div class="carousel-caption">
-      <!-- <p> Empowering the planet </p> -->
-    </div>
-  </div>
-
-  <div class="item col-sm-4">
-    <%=  link_to image_tag("BioNova.png"), "http://www.bionova.org/", :target => "_blank" %>
-    <div class="carousel-caption">
-      <!-- <p> Promote independence </p> -->
     </div>
   </div>
 </div>
 
-
-   
-<div id="flow" class="flow-karmagrove" style="width:850px;margin-right:auto;margin-left:auto;">
-
-<%= image_tag "flow.png", :class => "flow-image" %>
-  
-<div class="flow-dialog">
-  <div class="col-sm-4">
-You accept <strong>credit</strong> <br/> or <strong>debit</strong> card<br>to make a <strong>sale</strong>.
-  </div>
-  <div class="col-sm-5">
-We <strong> track </strong> 1% <br> of your sale <strong> to give to charity</strong>.
-  </div>
-  <div class="col-sm-3 three">
-Every month, we <strong>donate</strong> the total <br>amount to <strong> your chosen charity</strong>.
-  </div>
-</div>
-<!-- 
-  <ul>
-    <li class="one"> You accept <strong>credit</strong> or <strong>debit</strong> card<br>to make a <strong>sale</strong>.</li>
-    <li class="two"> We <strong>give </strong> a percentage <br> of the sale <strong> to your preferred charity</strong>.</li>
-    <li class="three"> Every month, we <strong>donate</strong> the <br>amount to <strong> your charity</strong>.</li>
-  </ul> -->
-    
+<div id="myVideo" class="reveal-modal" data-reveal aria-labelledby="HeaderVideo" aria-hidden="true" role="dialog">
+  <iframe src="https://player.vimeo.com/video/141232208" width="100%" height="481" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 
-   <div class="row col-sm-12 plans">
-    <!-- <div class="col-sm-6 well">
-      <div class="plan "><h2>Partner </h2></div>
-      <ul class="list-unstyled">
-        <li>1% of your revenue goes to charity you choose for minimal transaction cost!</li>
+<div class="block hiw">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1 class="text-center">Hot it works</h1>  
+      <ul class="small-block-grid-3">
+        <li>
+          <%= fa_icon "credit-card 5x", class: "icon-home" %>
+          <p class="text-center">You accept <strong>credit</strong> <br/> or <strong>debit</strong> card<br>to make a <strong>sale</strong>.</p>
+        </li>
+        <li>
+          <%= fa_icon "shopping-cart 5x", class: "icon-home" %>
+          <p class="text-center">We <strong> track </strong> 1% <br> of your sale <strong> to give to charity</strong>.</p>
+        </li>
+        <li>
+          <%= fa_icon "gift 5x", class: "icon-home" %>
+          <p class="text-center">Every month, we <strong>donate</strong> the total <br>amount to <strong> your chosen charity</strong>.</p>
+        </li>
       </ul>
-      <h3>$29/month + $0.10 per transaction*</h3>
-   
     </div>
- -->
-    <div class="col-sm-12 well featured">
-      <div class="plan "><h2>Become a Member </h2></div>
-      <ul class="list-unstyled">
-        <!-- <li>1% of your revenue goes to charity you choose and you pay as you go!</li> -->
+  </div>
+</div>
+
+<div class="hpadding">
+  <div class="row">
+    <div class="large-8 columns large-centered">
+      <h1 class="text-center"> Featured Charities </h1>
+    
+      <ul class="small-block-grid-3">
+        <li>
+          <%= link_to image_tag("elephants-and-bees-logo-web.png"), "http://elephantsandbees.com/", :target => "_blank" %>
+        </li>
+        <li>
+          <%=  link_to image_tag("empowerment_works.png"), "http://www.empowermentworks.org", :target => "_blank" %>
+        </li>
+        <li>
+          <%=  link_to image_tag("BioNova.png"), "http://www.bionova.org/", :target => "_blank" %>
+        </li>
       </ul>
-      <!-- <h3>%1 per transaction paid to Karma Grove 1% to on top of merchant fees 2.9% plus 20 cents*</h3> -->
-      <%= link_to 'Explore for free', explore_path, :class => 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
+
+
+<div class="member hpadding">
+  <div class="row">
+   <div class="large-12 columns">
+     <h1 class="text-center whitetxt">Become a Member </h2>
+     <h4 class="text-center whitetxt">Do you do lots of transactions and want lower price per transaction?</h4>
+     <br />
+     <div class="middle"><%= link_to 'Sign up', new_user_registration_path(plan: 'partner'), :class => 'button radius' %></div>
+   </div>
+    </div>
+</div>
+
+
+<div class="hpadding">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1 class="text-center">Charity Sign up</h1>
+      <h4 class="text-center">Do you represent a Charity and wish to receive donations from our conscious capitalists?</h4>
+      <p class="text-center">If you represent a charity you can sign up below.  We allow you to choose the minimum amount you will receive, and once a month you will get donations from verified individuals who have chosen you to receive a portion of their revenue. </p>
+      <p class="text-center"><small>*Both plans have regular credit card processing fees as handled by stripe payments.  These are 2.3% plus $.30 per transaction.  </small></p>
       <br />
-      
-      <%= link_to 'Do you do lots of transactions and want lower price per transaction?  ', new_user_registration_path(plan: 'partner'), :class => 'btn btn-small'
-      %>
+      <div class="middle"><%= link_to 'Apply to Receive Donations', new_user_registration_path(plan: 'charity'), :class => 'button success radius' %></div>
     </div>
   </div>
+</div> 
 
 
-  <div class="row col-sm-12 plans well">
- <h1> Sign up for our email list <br /> 
- Get a <b> free pdf </b> on the <b>benefits of conscious capitalism.</b> </h1>
-  <!-- Begin MailChimp Signup Form -->
-<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-  #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
-  /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-     We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div class="col-sm-3">
-</div>
-<div class="col-sm-6">
-<div id="mc_embed_signup">
- <form action="//karmagrove.us11.list-manage.com/subscribe/post?u=6b584ad9a75116e97d93ff8db&amp;id=342f096fb1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-  <h2>Subscribe to our mailing list</h2>
-<div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
-<div class="mc-field-group">
-  <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
-</label>
-  <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-</div>
-  <div id="mce-responses" class="clear">
-    <div class="response" id="mce-error-response" style="display:none"></div>
-    <div class="response" id="mce-success-response" style="display:none"></div>
-  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;"><input type="text" name="b_6b584ad9a75116e97d93ff8db_342f096fb1" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+<div class="suscribe">
+  <div class="row">
+    <div class="large-6 large-centered columns">
+      <div class="panel radius newsletter">
+         <h5 class="subheader text-center"> Sign up for our email list 
+         Get a <b> free pdf </b> on the <b>benefits of conscious capitalism.</b> </h5>
+        <div id="mc_embed_signup">
+           <form action="//karmagrove.us11.list-manage.com/subscribe/post?u=6b584ad9a75116e97d93ff8db&amp;id=342f096fb1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+            <div id="mce-responses" class="clear">
+              <div class="response" id="mce-error-response" style="display:none"></div>
+              <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
+            <div class="row collapse">
+            <div class="small-8 columns">
+              <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div class="small-4 columns">
+              <div style="position: absolute; left: -5000px;"><input type="text" name="b_6b584ad9a75116e97d93ff8db_342f096fb1" tabindex="-1" value=""></div>
+              <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button secondary small postfix"></div>
+            </div>
+             </div>
+            </div>
+          </form>
+
+        <script typ="text/javascript">
+        $("#mc-embedded-subscribe").click(function(){
+          window.open("/assets/What_Is_Conscious_Capitalism.pdf")
+        });
+        </script>
+        </div>
+      </div>
     </div>
-</form>
-
-<script typ="text/javascript">
-$("#mc-embedded-subscribe").click(function(){
-  window.open("https://s3.amazonaws.com/karmagrove/What_Is_Conscious_Capitalism.pdf")
-});
-</script>
-
-</div>
-
-</div>
-<!--End mc_embed_signup-->
-<div class="col-sm-3">
-</div>
   </div>
-
-
-  <div class="row col-sm-12 plans well">
-    <h1> </h1>
-    <h3> If you represent a charity you can sign up below.  We allow you to choose the minimum amount you will receive, and once a month you will get donations from verified individuals who have chosen you to receive a portion of their revenue. </h3>
-  </div> 
-
-   <div class="row col-sm-12 plans">
-    <div class="col-sm-12 well">
-      <div class="plan featured-plan"><h2> Charity Sign up </h2> </div>
-      <ul class="list-unstyled">
-        <li>Do you represent a Charity and wish to receive donations from our conscious capitalists?</li>
-      </ul>
-      <h3>Sign up for free</h3>
-      <%= link_to 'Apply to Receive Donations', new_user_registration_path(plan: 'charity'), :class => 'btn btn-primary' %>
-    </div>   
-  </div>
-
-<div class="row col-sm-12 plans">
-* Both plans have regular credit card processing fees as handled by stripe payments.  These are 2.3% plus $.30 per transaction.  
 </div>
-
 
 <% end %>

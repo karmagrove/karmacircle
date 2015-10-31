@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
-  before_action :set_event, only: [:create,:show,:update,:edit,:destroy,:index]
+  before_action :set_event, only: [:create,:show,:update,:edit,:destroy,:index, :new]
   # GET /tickets
   # GET /tickets.json
   def index

@@ -1,6 +1,6 @@
 class TicketPurchasesController < ApplicationController
   before_action :set_ticket_purchase, only: [:show, :edit, :update, :destroy]
-  before_action :set_event_and_ticket, only: [:index, :create, :show, :edit, :update, :destroy]
+  before_action :set_event_and_ticket, only: [:index, :create, :show, :edit, :update, :destroy, :new]
   # GET /ticket_purchases
   # GET /ticket_purchases.json
   def index
@@ -44,8 +44,10 @@ class TicketPurchasesController < ApplicationController
   # PATCH/PUT /ticket_purchases/1
   # PATCH/PUT /ticket_purchases/1.json
   def update
+
     respond_to do |format|
       if @ticket_purchase.update(ticket_purchase_params)
+        @ticket_purchase.send_ticket
         format.html { redirect_to event_ticket_ticket_purchase_url(:id => @ticket_purchase.id, :ticket_id => @ticket_purchase.ticket_id), notice: 'Ticket purchase was successfully updated.' }
         format.json { render :show, status: :ok, location: @ticket_purchase }
       else
@@ -72,7 +74,6 @@ class TicketPurchasesController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket_purchase
-
       @ticket_purchase = TicketPurchase.find(params[:id])
     end
 

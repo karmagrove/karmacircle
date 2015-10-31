@@ -1,5 +1,6 @@
-<%= form_for(@ticket_purchase, :url => event_ticket_ticket_purchase_path(@event.id,@ticket.id,@ticket_purchase.id)) do |f| %>
-  <% if @ticket_purchase.errors.any? %>
+<% if @ticket_purchase.id == nil %>
+<%= form_for(@ticket_purchase, :url => event_ticket_ticket_purchases_path(@event.id,@ticket.id)) do |f| %>
+<% if @ticket_purchase.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@ticket_purchase.errors.count, "error") %> prohibited this ticket_purchase from being saved:</h2>
 
@@ -28,3 +29,39 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<% else %> 
+<%= form_for(@ticket_purchase, :url => event_ticket_ticket_purchase_path(@event.id,@ticket.id,@ticket_purchase.id)) do |f| %>
+<% if @ticket_purchase.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ticket_purchase.errors.count, "error") %> prohibited this ticket_purchase from being saved:</h2>
+
+      <ul>
+      <% @ticket_purchase.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  <div class="field">
+    <%= f.label :buyer_email %><br>
+    <%= f.text_field :buyer_email %>
+  </div>
+  
+
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.select(:status, TicketPurchase.statuses.keys.map {|status| [status.titleize,status]}) %>
+  </div>
+  
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<% end %>
+  

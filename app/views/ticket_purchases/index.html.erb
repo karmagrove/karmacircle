@@ -20,7 +20,7 @@
         <td><%= ticket_purchase.payment_reference_url %></td>
         <td><%= ticket_purchase.buyer_email %></td>
         <td><%= ticket_purchase.user %></td>
-        <td><%= link_to 'Show', ticket_purchase %></td>
+        <td><%= link_to 'Show', show_event_ticket_purchase %></td>
         <td><%= link_to 'Edit', edit_ticket_purchase_path(ticket_purchase) %></td>
         <td><%= link_to 'Destroy', ticket_purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Ticket purchase', new_ticket_purchase_path %>
+<%= link_to 'New Ticket purchase', "ticket_purchases/new" %>

@@ -30,9 +30,9 @@
         <td><%= ticket.sales_end %></td>
         <td><%= ticket.ticket_minimum %></td>
         <td><%= ticket.ticket_maximum %></td>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', event_ticket_path(@event,ticket) %></td>
+        <td><%= link_to 'Edit', edit_event_ticket_path(@event,ticket) %></td>
+        <td><%= link_to 'Destroy', event_ticket_path(@event,ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +40,4 @@
 
 <br>
 
-<%= link_to 'New Ticket', new_ticket_path %>
+<%= link_to 'New Ticket', new_event_ticket_path %>

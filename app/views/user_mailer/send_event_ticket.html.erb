@@ -1,0 +1,29 @@
+The following is a ticket for <%= @customer_email %>
+Please bring to your event <%= @event.name %>
+
+
+<style type="text/css">
+#qr table {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+
+#qr td {
+  border-left: solid 10px #000;
+  padding: 0; 
+  margin: 0; 
+  width: 0px; 
+  height: 10px; 
+}
+
+#qr td.black { border-color: #000; }
+#qr td.white { border-color: #fff; }
+</style>
+
+
+<div id="qr">
+<%= raw @qr.as_html %>
+</div>
+

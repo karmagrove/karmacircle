@@ -1,10 +1,13 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
+  before_action :verify_user, only: [:edit]
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    unless current_user 
+      redirect_to "/", notice: 'You must be logged in to view events' 
+    end
+    @events = Event.where(:user_id => current_user.id)
   end
 
   # GET /events/1
@@ -24,8 +27,9 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
 
+    @event = Event.new(event_params)
+    @event.user_id = current_user.id
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -62,6 +66,12 @@ class EventsController < ApplicationController
   end
 
   private
+    def verify_user
+      unless @event.user_id == current_user.id
+        redirect_to "/events",  notice: 'You may only edit events you create' 
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])

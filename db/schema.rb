@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022210048) do
+ActiveRecord::Schema.define(version: 20151031043411) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -261,8 +261,11 @@ ActiveRecord::Schema.define(version: 20151022210048) do
     t.integer  "user_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.integer  "purchases_id"
+    t.integer  "status"
   end
 
+  add_index "ticket_purchases", ["purchases_id"], name: "index_ticket_purchases_on_purchases_id"
   add_index "ticket_purchases", ["ticket_id"], name: "index_ticket_purchases_on_ticket_id"
   add_index "ticket_purchases", ["user_id"], name: "index_ticket_purchases_on_user_id"
 

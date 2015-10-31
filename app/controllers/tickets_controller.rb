@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_event, only: [:create,:show,:update,:edit,:destroy,:index]
   # GET /tickets
   # GET /tickets.json
   def index
@@ -15,6 +15,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    @ticket_path = "/events/#{params[:event_id]}/tickets"
   end
 
   # GET /tickets/1/edit
@@ -25,10 +26,11 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-
+    @ticket.event_id = @event.id
+    
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to "/events/#{@event.id}/tickets/#{@ticket.id}", notice: 'Ticket was successfully created.' }
         format.json { render :show, status: :created, location: @ticket }
       else
         format.html { render :new }
@@ -56,12 +58,15 @@ class TicketsController < ApplicationController
   def destroy
     @ticket.destroy
     respond_to do |format|
-      format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
+      format.html { redirect_to "/events/#{@event.id}/tickets", notice: 'Ticket was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    def set_event
+      @event = Event.find(params[:event_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
       @ticket = Ticket.find(params[:id])

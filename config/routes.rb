@@ -2,9 +2,14 @@ Rails.application.routes.draw do
   resources :invoices
   # resources :products
   # resources :products
-  resources :ticket_purchases
-  resources :tickets
-  resources :events
+  
+  
+  resources :events do
+    resources :tickets do 
+      resources :ticket_purchases
+    end
+  end
+  
   get "content/patron"
   get "content/partner"
   get "content/charity"

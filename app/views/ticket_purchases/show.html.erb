@@ -2,7 +2,7 @@
 
 <p>
   <strong>Ticket:</strong>
-  <%= @ticket_purchase.ticket %>
+  <%=link_to("ticket bought for #{@ticket_purchase.ticket.price}" ,"/events/#{@event.id}/tickets/#{@ticket_purchase.ticket.id}" )%>
 </p>
 
 <p>
@@ -16,9 +16,38 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @ticket_purchase.user %>
+  <strong>Status:</strong>
+  <%= @ticket_purchase.status %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_purchase_path(@ticket_purchase) %> |
-<%= link_to 'Back', ticket_purchases_path %>
+# <%= link_to 'Edit', edit_event_ticket_ticket_purchase_path(@event,@ticket,@ticket_purchase) %> |
+# <%= link_to 'Back', event_ticket_ticket_purchases_path %>
+
+<br />
+
+The following is a ticket for <%= @ticket_purchase.buyer_email %>
+
+<div id="qr">
+
+<style type="text/css">
+#qr table {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+
+#qr td {
+  border-left: solid 10px #000;
+  padding: 0; 
+  margin: 0; 
+  width: 0px; 
+  height: 10px; 
+}
+
+#qr td.black { border-color: #000; }
+#qr td.white { border-color: #fff; }
+</style>
+
+<%= raw @qr.as_html %>
+</div>

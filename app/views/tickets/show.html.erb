@@ -45,5 +45,7 @@
   <%= @ticket.ticket_maximum %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<%= link_to 'Edit', edit_event_ticket_path(@event,@ticket) %> |
+<%= link_to 'Back', event_tickets_path(@event) %>
+
+<%= link_to 'New Ticket Purchase', event_ticket_ticket_purchases_path(@event,@ticket) %>

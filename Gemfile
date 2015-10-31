@@ -11,6 +11,8 @@ gem 'turbolinks'
 gem 'omniauth-facebook'
 gem 'faraday','~> 0.8.6'
 gem "koala", "~> 1.7.0rc1"
+# https://github.com/whomwah/rqrcode
+gem 'rqrcode'
 
 group :development, :test do
   gem 'byebug'

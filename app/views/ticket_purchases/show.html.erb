@@ -6,11 +6,6 @@
 </p>
 
 <p>
-  <strong>Payment reference url:</strong>
-  <%= @ticket_purchase.payment_reference_url %>
-</p>
-
-<p>
   <strong>Buyer email:</strong>
   <%= @ticket_purchase.buyer_email %>
 </p>
@@ -21,9 +16,36 @@
 </p>
 
 <% if current_user and (current_user.id == @event.user_id) %>
+<%= form_for(@ticket_purchase, :url => event_ticket_ticket_purchase_path(@event.id,@ticket.id,@ticket_purchase.id)) do |f| %>
+<div class="field">
+    <%= f.hidden_field(:status, :value => "redeemed") %>
+  </div>
+
+  <%= f.submit 'Redeem Ticket', :class => 'button left radius' %>
+<% end %>
+
+<br />
+<br />
+<br />
+<br />
 # <%= link_to 'Edit', edit_event_ticket_ticket_purchase_path(@event,@ticket,@ticket_purchase) %> |
 # <%= link_to 'Back', event_ticket_ticket_purchases_path %>
+
+<% else %>
+
+<h3> Warning - redeeming ticket makes it invalid for future use </h3>
+<%= form_for(@ticket_purchase, :url => event_ticket_ticket_purchase_path(@event.id,@ticket.id,@ticket_purchase.id)) do |f| %>
+   <div class="field">
+    <%= f.hidden_field(:status, :value => "redeemed") %>
+  </div>
+  <%= f.submit 'Redeem Ticket', :class => 'button left radius' %>
 <% end %>
+
+
+
+<% end %>
+
+
 
 <br />
 

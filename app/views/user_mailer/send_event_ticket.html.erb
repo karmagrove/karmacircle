@@ -15,21 +15,21 @@ This ticket may only be used once.
 <% end %>
 
 <% if @charity and @charity.name %>
-<p>
-Your purchase of this ticket benefits <%= @charity.name %> 
-</p>
-
-<p>
-<% if @charity.description %>
-  <%= @charity.description %>
-<% end %>
-</p>
-
-<p>
-<% if @charity.url %>
-  <%= link_to(@charity.url, @charity.url) %>
-<% end %>
-</p>
+  <p>
+  Your purchase of this ticket benefits <%= @charity.name %> 
+  </p>
+  
+  <p>
+  <% if @charity.description %>
+    <%= @charity.description %>
+  <% end %>
+  </p>
+  
+  <p>
+  <% if @charity.url %>
+    <%= link_to(@charity.url, @charity.url) %>
+  <% end %>
+  </p>
 
 <% end %>
 

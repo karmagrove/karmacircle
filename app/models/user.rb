@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
   def calculate_application_fee(amount)
     @amount = amount
-    application_fee = current_user.transaction_cost
+    application_fee = self.transaction_cost
     donation_amount = (@amount.to_i* self.donation_rate/100.to_f).to_i
     Rails.logger.info("current_user.donation_rate: ")
     Rails.logger.info("donation_amount #{donation_amount}")

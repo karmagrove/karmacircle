@@ -26,7 +26,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def send_event_ticket(customer_email,event,url)
-    @qr = RQRCode::QRCode.new(url, :size => 7, :level => :h )
+    # @qr = RQRCode::QRCode.new(url, :size => 7, :level => :h )
     @event = event
     @customer_email = customer_email
     @url = url

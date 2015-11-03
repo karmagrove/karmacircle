@@ -30,8 +30,8 @@ class UserMailer < ActionMailer::Base
     @event = event
     @customer_email = customer_email
     @url = url
-    if Charity.exists?(@event..user.charity_users.last.charity_id)
-      @charity = Charity.find(@event..user.charity_users.last.charity_id)
+    if Charity.exists?(@event.user.charity_users.last.charity_id)
+      @charity = Charity.find(@event.user.charity_users.last.charity_id)
     else
       @charity = nil
     end

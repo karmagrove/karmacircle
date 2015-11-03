@@ -29,6 +29,7 @@ class UserMailer < ActionMailer::Base
     @qr = RQRCode::QRCode.new(url, :size => 7, :level => :h )
     @event = event
     @customer_email = customer_email
+    @url = url
     mail(:to => customer_email, :subject => "Ticket for your upcoming event #{event.name} enclosed")
   end
 

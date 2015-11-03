@@ -1,6 +1,14 @@
 The following is a ticket for <%= @customer_email %>
 Please bring to your event <%= @event.name %>
 
-This ticket may only be used once. 
+This ticket may only be used once.  
+
+<% if @ticket_purchase and (@ticket_purchase.status == "redeemed") %>
+  The following ticket has been redeemed. 
+<% end %>
+
+<% if @ticket_purchase and (@ticket_purchase.status == "purchased") %>
+  Your ticket has a status of purchased and will be changed to redeemed once scanned at the event.  
+<% end %>
 
 <img src=<%="https://chart.googleapis.com/chart?chs=545x545&cht=qr&chl=#{@url}&choe=UTF-8"%> alt="QR code">

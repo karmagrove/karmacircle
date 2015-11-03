@@ -20,9 +20,9 @@
         <td><%= ticket_purchase.payment_reference_url %></td>
         <td><%= ticket_purchase.buyer_email %></td>
         <td><%= ticket_purchase.user %></td>
-        <td><%= link_to 'Show', show_event_ticket_purchase %></td>
-        <td><%= link_to 'Edit', edit_ticket_purchase_path(ticket_purchase) %></td>
-        <td><%= link_to 'Destroy', ticket_purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', event_ticket_ticket_purchase_path(@event,@ticket,ticket_purchase) %></td>
+        <td><%= link_to 'Edit', edit_event_ticket_ticket_purchase_path(@event,@ticket,ticket_purchase) %></td>
+        <td><%= link_to 'Destroy', event_ticket_ticket_purchase_path(@event,@ticket,ticket_purchase), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

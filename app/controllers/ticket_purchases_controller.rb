@@ -10,7 +10,8 @@ class TicketPurchasesController < ApplicationController
   # GET /ticket_purchases/1
   # GET /ticket_purchases/1.json
   def show
-    @qr = RQRCode::QRCode.new( "https://www.karmagrove.com/events/#{@event.id}/tickets/#{@ticket_purchase.ticket.id}/ticket_purchases/#{@ticket_purchase.id}", :size => 7, :level => :h )
+    @url = "https://www.karmagrove.com/events/#{@event.id}/tickets/#{@ticket_purchase.ticket.id}/ticket_purchases/#{@ticket_purchase.id}"
+    @qr = RQRCode::QRCode.new( @url, :size => 7, :level => :h )
   end
 
   # GET /ticket_purchases/new

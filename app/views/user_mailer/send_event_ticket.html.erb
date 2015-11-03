@@ -16,7 +16,7 @@ This ticket may only be used once.
 
 <% if @charity and @charity.name %>
 <p>
-Your purchase of this ticket beneits <%= @charity.name %>
+Your purchase of this ticket beneits <%= @charity.name %> 
 </p>
 
 <p>
@@ -34,3 +34,8 @@ Your purchase of this ticket beneits <%= @charity.name %>
 <% end %>
 
 <img src=<%="https://chart.googleapis.com/chart?chs=545x545&cht=qr&chl=#{@url}&choe=UTF-8"%> alt="QR code">
+
+
+<p>
+This email is brought to you by KarmaGrove.com and our circle platform.  We enable you to accept credit cards for events, invoices, and point of sale as long as you give at least 1% to charity.  All in less than 5 minutes.  Join the conscious commerce revolution or learn more at <%= link_to("https://www.karmagrove.com","https://www.karmagrove.com") %>
+</p>

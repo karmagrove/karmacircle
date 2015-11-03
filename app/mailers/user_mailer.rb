@@ -30,6 +30,7 @@ class UserMailer < ActionMailer::Base
     @event = event
     @customer_email = customer_email
     @url = url
+    @charity = Charity.find(@event.user.charity_user_ids.last)
     mail(:to => customer_email, :subject => "Ticket for your upcoming event #{event.name} enclosed")
   end
 

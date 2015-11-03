@@ -1,7 +1,10 @@
-The following is a ticket for <%= @customer_email %>
-Please bring to your event <%= @event.name %>
-
+<p>
+<h3>The following is a ticket for <%= @customer_email %></h3>
+<h4>Please bring to your event <%= @event.name %></h4>
+</p>
+<p>
 This ticket may only be used once.  
+</p>
 
 <% if @ticket_purchase and (@ticket_purchase.status == "redeemed") %>
   The following ticket has been redeemed. 
@@ -9,6 +12,25 @@ This ticket may only be used once.
 
 <% if @ticket_purchase and (@ticket_purchase.status == "purchased") %>
   Your ticket has a status of purchased and will be changed to redeemed once scanned at the event.  
+<% end %>
+
+<% if @charity and @charity.name %>
+<p>
+Your purchase of this ticket beneits <%= @charity.name %>
+</p>
+
+<p>
+<% if @charity.description %>
+  <%= @charity.description %>
+<% end %>
+</p>
+
+<p>
+<% if @charity.url %>
+  <%= link_to(@charity.url, @charity.url) %>
+<% end %>
+</p>
+
 <% end %>
 
 <img src=<%="https://chart.googleapis.com/chart?chs=545x545&cht=qr&chl=#{@url}&choe=UTF-8"%> alt="QR code">

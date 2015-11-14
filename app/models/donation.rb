@@ -4,8 +4,9 @@ class Donation < ActiveRecord::Base
   has_many :donation_charges
 
   enum status: [:unpaid, :denied,:payment_sent, :payment_confirmed]
-
+  Donation.transfer({customer: customer, charity: charity, amount: amount})
   def self.transfer(params)
+    Stripe.api_key = ENV['STRIPE_API_KEY']
     charity   ||= params[:charity]
     customer  ||= params[:customer]
     amount    ||= params[:amount]
@@ -17,7 +18,7 @@ class Donation < ActiveRecord::Base
          :recipient => charity.stripe_id
     }
 
-    if reference.length > 0
+    if reference and reference.length > 0
       Rails.logger.info("source_transaction")
       params[:source_transaction] = reference
       Rails.logger.info(params.inspect)
@@ -49,16 +50,27 @@ class Donation < ActiveRecord::Base
   end
 
   def self.makePayments
+    # charges.each do |charge|
+    # charge.update_attribute(:donation_id, 4)
+    
+    # charge.update_attribute(:status,"paid")
+    # charge.save
+    # end
+    
     amount = {}
+
   	User.all.each do |user|
-  	  charges = DonationCharge.where(:status => "unpaid", :user_id => user.id).each do |charge|
+  	  charges = DonationCharge.where(:status => "unpaid", :user_id => user.id, :charity_id => 8).each do |charge|
         puts "charge insepct"
         puts charge.inspect
         if charge.donation_amount
           amount[charge["charity_id"]] ||= 0
+          key= "charge_count"+charge["charity_id"].to_s
+          amount[key] ||=0
           puts "amount"
           puts amount.inspect
-  	  	  amount[charge["charity_id"]] = amount[charge["charity_id"]] + charge.donation_amount 
+          amount[key] +=1
+            amount[charge["charity_id"]] = amount[charge["charity_id"]] + charge.donation_amount 
         end
   	  end
       puts "amount:"
@@ -79,7 +91,7 @@ class Donation < ActiveRecord::Base
           )
  
            @donation = Donation.create!(:payment_reference => charge.id ,:donation_amount => charge.amount, :status => :payment_sent, :user_id => user.id)
-           
+           charges.
           
            charges.each do |c|
              c.status=:paid

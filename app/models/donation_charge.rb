@@ -13,6 +13,4 @@ class DonationCharge < ActiveRecord::Base
   	self.status ||= :unpaid
   	self.save
   end
-
-
 end

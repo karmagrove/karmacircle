@@ -4,7 +4,11 @@
 
 <% if @donationCharge.user.email == "drtartaro@gmail.com" %>
 <p> 
-Congratulations on your recent payment to Jessica Tartaro.  Because Dr Tartaro Orgasmic Coaching prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <%=(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i%>% of your purchase goes to support <%= @donationCharge.charity.name %>. <%= @donationCharge.charity.description %>.
+Congratulations on your recent payment to Jessica Tartaro.  Because Dr Tartaro Orgasmic Coaching prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <%=(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i%>% of your purchase goes to support <%= @donationCharge.charity.name %>. <%= @donationCharge.charity.description %>.  
+</p>
+
+<p>
+
 </p>
 
 <% else %>
@@ -15,13 +19,32 @@ Congratulations on your recent payment to <%=@donationCharge.user.email%>.  Beca
 </p>
 <% end %> 
 
+<% if @donationCharge.charity.url %>
+To read more or join the <%=@donationCharge.charity.name%> community <a href="<%=@donationCharge.charity.url%>"> visit <%=@donationCharge.charity.url%> </a>
+<% end %>
+
 
 <% if @donationCharge.user and @donationCharge.user.email %>
 <p>
 Feel free to email <a href="mailto:<%=@donationCharge.user.email%>"> <%=@donationCharge.user.email%> </a> with any questions.
 </p>
+<% end %>
+
+<% if @donationCharge.user and @donationCharge.user.website and @donationCharge.user.business_name  %>
+<p>
+<a href="<%=@donationCharge.user.website%>"> Visit <%= @donationCharge.user.website %> </a> for more information about <%= @donationCharge.user.business_name%>. 
+</p>
+
+<% elsif @donationCharge.user and @donationCharge.user.website %>
+
+<p>
+<a href="<%=@donationCharge.user.website%>"> Visit <%= @donationCharge.user.website %> for more information. </a>
+</p>
+
+<% else %>
 
 <% end %>
+
 
 <p> If you are interested in learning more about conscious commerce please visit <a href="https://www.karmagrove.com"> KarmaGrove.com </a>
 

@@ -51,6 +51,7 @@ def create
   application_fee = application_fee + donation_amount
   Rails.logger.info("application_fee #{application_fee}")
   if (seller.email == "joshua@karmagrove.com") or (seller.email == "joshua.montross@gmail.com") then
+    begin
     charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
     :currency => "usd",
@@ -59,12 +60,20 @@ def create
   },
   {:stripe_account => seller.uid}
   )
+    
+rescue Stripe::CardError => e
+  Rails.logger.info("Error in card reader: #{e.message}")
+  flash[:error] = e.message
+  flash[:notice] = "The card is not working: #{e.message}"
+  redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+end
   else
     application_fee = seller.transaction_cost
     donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
     Rails.logger.info("donation_amount #{donation_amount}")
     application_fee = application_fee + donation_amount
     ## to make the donations come out with the application fee. 
+    begin
     charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
     :currency => "usd",
@@ -74,6 +83,13 @@ def create
   },
   {:stripe_account => seller.uid}
   )
+
+rescue Stripe::CardError => e
+  Rails.logger.info("Error in card reader: #{e.message}")
+  flash[:error] = e.message
+  flash[:notice] = "The card is not working: #{e.message}"
+  redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+end
   
   end
   Rails.logger.info "charge.inspect"
@@ -100,10 +116,9 @@ def create
      format.json { render json: @user.errors, status: :unprocessable_entity }
   end
 
-rescue Stripe::CardError => e
-  flash[:error] = e.message
-  flash[:notice] = "The card is not working: #{e.message}"
-  redirect_to charges_path
+# rescue error => e
+#   Rails.logger.info("Error: #{e.message}")
+# end
 end
 
 private

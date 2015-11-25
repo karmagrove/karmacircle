@@ -78,6 +78,7 @@ class CreateCharityService
         charity.status = "approved"
     end
 
+        # description = "Kutumba Yoga provides community to survivors of domestic violence in the Dallas area. Your donation helps build a space where families in recovery can access the healing benefits of yoga. 
 
 
   end

@@ -102,6 +102,7 @@ def create
 
 rescue Stripe::CardError => e
   flash[:error] = e.message
+  flash[:notice] = "The card is not working: #{e.message}"
   redirect_to charges_path
 end
 

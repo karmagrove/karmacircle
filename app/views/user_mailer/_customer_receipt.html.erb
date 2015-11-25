@@ -7,10 +7,6 @@
 Congratulations on your recent payment to Jessica Tartaro.  Because Dr Tartaro Orgasmic Coaching prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <%=(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i%>% of your purchase goes to support <%= @donationCharge.charity.name %>. <%= @donationCharge.charity.description %>.  
 </p>
 
-<p>
-
-</p>
-
 <% else %>
 <p> 
 Congratulations on your recent payment to <%=@donationCharge.user.email%>.  Because <%=@donationCharge.user.email%> prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <%=(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i%>% of your purchase goes to support <%= @donationCharge.charity.name %>. <%= @donationCharge.charity.description %>.

@@ -4,7 +4,8 @@ class Donation < ActiveRecord::Base
   has_many :donation_charges
 
   enum status: [:unpaid, :denied,:payment_sent, :payment_confirmed]
-  Donation.transfer({customer: customer, charity: charity, amount: amount})
+  
+  # Donation.transfer({customer: customer, charity: charity, amount: amount})
   def self.transfer(params)
     Stripe.api_key = ENV['STRIPE_API_KEY']
     charity   ||= params[:charity]
@@ -60,7 +61,7 @@ class Donation < ActiveRecord::Base
     amount = {}
 
   	User.all.each do |user|
-  	  charges = DonationCharge.where(:status => "unpaid", :user_id => user.id, :charity_id => 8).each do |charge|
+  	  charges = DonationCharge.where(:status => "unpaid", :user_id => user.id).each do |charge|
         puts "charge insepct"
         puts charge.inspect
         if charge.donation_amount

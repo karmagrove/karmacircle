@@ -66,10 +66,11 @@ def create
 rescue Stripe::CardError => e
   Rails.logger.info("Error in card reader: #{e.message}")
   flash[:error] = e.message
-  flash[:notice] = "The card is not working: #{e.message}"
+  #flash[:notice] = "The card is not working: #{e.message}"
   #redirect_to charges_path, :notice => "The card is not working: #{e.message}"
-  failure_message = "e.message"
+  failure_message = e.message
   status = "failure"
+  Rails.logger.info "first error"
 end
   else
     application_fee = seller.transaction_cost
@@ -91,10 +92,10 @@ end
 rescue Stripe::CardError => e
   Rails.logger.info("Error in card reader: #{e.message}")
   flash[:error] = e.message
-  flash[:notice] = "The card is not working: #{e.message}"
+  # flash[:notice] = "The card is not working: #{e.message}"
  # redirect_to charges_path, :notice => "The card is not working: #{e.message}"
   status = "failure"
-  failure_message = "e.message"
+  failure_message = e.message
 end
   
   end
@@ -124,13 +125,27 @@ end
     if status == "success" and @donorCharge.save(:status => "pending")
       UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
       UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
-      redirect_to "/",  notice: 'Charge made'
-      #format.html { redirect_to "/", notice: 'Charge made'}
-      #format.json { render :show, status: :created, location: @user }
+      #redirect_to "/",  notice: 'Charge made'
+      respond_to do |format|
+        format.html { redirect_to "/", notice: 'Charge made'}
+        format.json { render :show, status: :created, location: @user }
+      end
     else
-       redirect_to "/", notice: "Charge failed: #{failure_message}" 
-       # format.html { redirect_to "/", notice: "Charge failed: #{failure_message}" }
-       # format.json { render json: {}, status: :unprocessable_entity }
+       Rails.logger.info "redirect_to with notice Charge failed: #{failure_message}"
+       #redirect_to "/", notice: "Charge failed: #{failure_message}" 
+       notice = "Charge failed: #{failure_message}"
+       Rails.logger.info notice
+       if flash[:error] == "Your card was declined."
+        flash[:notice] = "Try again with a new card!"
+       end
+       flash[:error] = "Error: #{flash[:error]}"
+
+       respond_to do |format|
+         format.html { redirect_to "/", notice: notice }
+         format.json { render json: {:status => "failure", :status_message => notice}, status: 400 }
+       end
+       # format.html { redirect_to @charity, notice: 'Charity was successfully updated.' }
+      #  format.json { render :show, status: :ok, location: @charity }
     end
   
 # rescue error => e

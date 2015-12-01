@@ -25,15 +25,23 @@
           $.ajax({
                type: "POST",
                url: "/charges",
+               format: "json",
                data: {"stripeToken":token.id,
-               "stripeEmail": token.email,
-               amount: $('#amount').val()*100,
-               description: $('#description').val()
-             },
+                 "stripeEmail": token.email,
+                 format: "json",
+                 amount: $('#amount').val()*100,
+                 description: $('#description').val()
+               },
                success:function(resp){
                  window.location.replace("/charges")
                  console.log(resp)
     
+               },
+               error: function(resp){
+                console.log("fail!");
+                 console.log(resp);
+                 // alert(resp)
+                 window.location.replace("/")
                }
             });
       //     token.id can be used to create a charge or customer.

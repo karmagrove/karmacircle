@@ -19,6 +19,8 @@ end
 def create
   # Amount in cents
   #@amount = (params[:amount].to_f * 100).to_i
+  status = "failure"
+  failure_message = "foo"
   if current_user 
     seller = current_user
   else
@@ -65,7 +67,9 @@ rescue Stripe::CardError => e
   Rails.logger.info("Error in card reader: #{e.message}")
   flash[:error] = e.message
   flash[:notice] = "The card is not working: #{e.message}"
-  redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+  #redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+  failure_message = "e.message"
+  status = "failure"
 end
   else
     application_fee = seller.transaction_cost
@@ -88,34 +92,47 @@ rescue Stripe::CardError => e
   Rails.logger.info("Error in card reader: #{e.message}")
   flash[:error] = e.message
   flash[:notice] = "The card is not working: #{e.message}"
-  redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+ # redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+  status = "failure"
+  failure_message = "e.message"
 end
   
   end
-  Rails.logger.info "charge.inspect"
-  Rails.logger.info charge.inspect
-  donation_amount = (charge.amount*(seller.donation_rate/100.to_f)).to_i
-  Rails.logger.info("donation_amount: #{donation_amount}")
-  charity_id = seller.charity_users.first.charity_id
-  # Donation.where
-  @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
-    payment_reference: charge.id, charity_id: charity_id, 
-    revenue: charge.amount, customer_id: customer.id, 
-    user_id:seller.id)
-  Rails.logger.info "donorcharge.inspect"
-  Rails.logger.info @donorCharge.inspect
-  @user = seller
-  if @donorCharge.save(:status => "pending")
-    UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
-    UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
-    redirect_to "/",  notice: 'Charge made'
-    #format.html { redirect_to "/", notice: 'Charge made'}
-    #format.json { render :show, status: :created, location: @user }
+
+  if charge and charge.status == "succeeded"
+    status = "success"
+    Rails.logger.info "charge.inspect"
+    Rails.logger.info charge.inspect
+    donation_amount = (charge.amount*(seller.donation_rate/100.to_f)).to_i
+    Rails.logger.info("donation_amount: #{donation_amount}")
+    charity_id = seller.charity_users.first.charity_id
+    # Donation.where
+    @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
+      payment_reference: charge.id, charity_id: charity_id, 
+      revenue: charge.amount, customer_id: customer.id, 
+      user_id:seller.id)
+    Rails.logger.info "donorcharge.inspect"
+    Rails.logger.info @donorCharge.inspect
+    @user = seller
   else
-     format.html { redirect_to @user, notice: 'Charge failed' }
-     format.json { render json: @user.errors, status: :unprocessable_entity }
+    status = "failure"
+    if charge
+      failure_message ||= charge.failure_message
+    end
   end
 
+    if status == "success" and @donorCharge.save(:status => "pending")
+      UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
+      UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
+      redirect_to "/",  notice: 'Charge made'
+      #format.html { redirect_to "/", notice: 'Charge made'}
+      #format.json { render :show, status: :created, location: @user }
+    else
+       redirect_to "/", notice: "Charge failed: #{failure_message}" 
+       # format.html { redirect_to "/", notice: "Charge failed: #{failure_message}" }
+       # format.json { render json: {}, status: :unprocessable_entity }
+    end
+  
 # rescue error => e
 #   Rails.logger.info("Error: #{e.message}")
 # end

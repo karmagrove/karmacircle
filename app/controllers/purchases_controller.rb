@@ -58,57 +58,61 @@ def create
     ## to make the donations come out with the application fee. 
     begin 
       charge = Stripe::Charge.create({
-    :amount => @amount, # amount in cents
-    :currency => "usd",
-    :customer => customer,
-    :description => description,
-    :application_fee => application_fee, # amount in cents
-  },
-  {:stripe_account => seller.uid}
-  )
-  
-  rescue Exception => e
-    @notice = 'Charge failed'
-
-  end 
-  end
-  Rails.logger.info "charge.inspect"
-  Rails.logger.info charge.inspect
-  donation_amount = (charge.amount*(seller.donation_rate/100.to_f)).to_i
-  Rails.logger.info("donation_amount: #{donation_amount}")
-  charity_id = seller.charity_users.first.charity_id
-  # Donation.where
-
-  @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
-    payment_reference: charge.id, charity_id: charity_id, 
-    revenue: charge.amount, customer_id: customer.id, 
-    user_id:seller.id)
-  Rails.logger.info "donorcharge.inspect"
-  Rails.logger.info @donorCharge.inspect
-  @user = seller
-  if @donorCharge.save(:status => "pending")
-  	begin 
-      UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
-      UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
-      @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
-      @purchase.donation_charge_id = @donorCharge.id
-      @purchase.save
-      @notice = 'Charge succeeded: check your email'
-    rescue
+       :amount => @amount, # amount in cents
+       :currency => "usd",
+       :customer => customer,
+       :description => description,
+       :application_fee => application_fee, # amount in cents
+       },
+       {:stripe_account => seller.uid}
+      )
+      
+     rescue Exception => e
+       @notice = 'Charge failed'
+   
+     end 
     end
 
-    redirect_to "/",  notice: @notice
-    #format.html { redirect_to "/", notice: 'Charge made'}
-    #format.json { render :show, status: :created, location: @user }
-  else
-     format.html { redirect_to "/", notice: 'Charge failed' }
-     format.json { render json: @user.errors, status: :unprocessable_entity }
-  end
+  if charge.status == "succeeded"
 
-rescue Stripe::CardError => e
-  flash[:error] = e.message
-  redirect_to charges_path
-end
+    Rails.logger.info "charge.inspect"
+    Rails.logger.info charge.inspect
+    donation_amount = (charge.amount*(seller.donation_rate/100.to_f)).to_i
+    Rails.logger.info("donation_amount: #{donation_amount}")
+    charity_id = seller.charity_users.first.charity_id
+    # Donation.where
+  
+    @donorCharge = DonationCharge.new(donation_amount: donation_amount, 
+      payment_reference: charge.id, charity_id: charity_id, 
+      revenue: charge.amount, customer_id: customer.id, 
+      user_id:seller.id)
+    Rails.logger.info "donorcharge.inspect"
+    Rails.logger.info @donorCharge.inspect
+    @user = seller
+    if @donorCharge.save(:status => "pending")
+    	begin 
+        UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
+        UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
+        @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
+        @purchase.donation_charge_id = @donorCharge.id
+        @purchase.save
+        @notice = 'Charge succeeded: check your email'
+      rescue
+      end
+  
+      redirect_to "/",  notice: @notice
+      #format.html { redirect_to "/", notice: 'Charge made'}
+      #format.json { render :show, status: :created, location: @user }
+    else
+       format.html { redirect_to "/", notice: 'Charge failed' }
+       format.json { render json: @user.errors, status: :unprocessable_entity }
+    end
+
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to charges_path
+    end
+  end
 
 private
   

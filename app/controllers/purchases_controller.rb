@@ -66,7 +66,7 @@ def create
        },
        {:stripe_account => seller.uid}
       )
-      
+
      rescue Exception => e
        @notice = 'Charge failed'
    
@@ -112,6 +112,11 @@ def create
       flash[:error] = e.message
       redirect_to charges_path
     end
+  else
+
+    format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }
+    format.json { render json: @user.errors, status: :unprocessable_entity }
+
   end
 
 private

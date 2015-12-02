@@ -23,9 +23,13 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
  <input hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
+ <div class="large-5 large-centered columns">
  <div class="btn">
-<button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
+ 
+ 
+  <button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
 
+</div>
   </div>
   </div>
 
@@ -43,8 +47,13 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
  <input hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
+ <div class="large-5 large-centered columns">
  <div class="btn">
-<button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
+ 
+ 
+  <button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
+
+</div>
 
 
 <% end %>
@@ -133,4 +142,8 @@
 <%= link_to 'Edit', edit_user_product_path(:user_id =>current_user.id, :product=> @product) %> |
 <%= link_to 'Back', user_products_path(:user_id =>current_user.id) %>
 <% end %>
-
+<div class="large-5 large-centered columns">
+    <div class="left">
+ <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' rel='nofollow'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'  alt='Expedited SSL Scanner'></a>
+ </div>
+ </div>

@@ -20,7 +20,7 @@ def create
   # Amount in cents
   #@amount = (params[:amount].to_f * 100).to_i
   status = "failure"
-  failure_message = "foo"
+  failure_message = ""
   if current_user 
     seller = current_user
   else

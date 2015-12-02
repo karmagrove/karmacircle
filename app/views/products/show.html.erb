@@ -61,8 +61,10 @@
       $.ajax({
            type: "POST",
            url: "/purchases",
+           format: "json",
            data: {"stripeToken":token.id,
            "stripeEmail": token.email,
+           format: "json",
            amount: $('#amount').val()*100,
            description: $('#description').val(),
            user_id: <%= params[:user_id] %>
@@ -72,7 +74,13 @@
             window.location.replace("/")
             console.log(resp)
 
-           }
+           },
+            error: function(resp){
+                console.log("fail!");
+                 console.log(resp);
+                 alert(resp.responseText);
+                 //window.location.replace("/")
+               }
         });
   //    token.id can be used to create a charge or customer.
     // token.email contains the email address entered by the user. 

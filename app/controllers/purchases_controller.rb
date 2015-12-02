@@ -3,6 +3,7 @@ class PurchasesController < ApplicationController
 def create
   # Amount in cents
   #@amount = (params[:amount].to_f * 100).to_i
+  failure_message = ""
   if current_user 
     seller = current_user
   else
@@ -38,7 +39,8 @@ def create
     #application_fee = application_fee + donation_amount
     Rails.logger.info("application_fee + donation_amount: #{application_fee.to_s}")
   if (seller.email == "joshua@karmagrove.com") or (seller.email == "joshua.montross@gmail.com") then
-    charge = Stripe::Charge.create({
+    begin
+      charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
     :currency => "usd",
     :customer => customer,
@@ -46,6 +48,17 @@ def create
   },
   {:stripe_account => seller.uid}
   )
+
+     rescue Stripe::CardError => e
+      Rails.logger.info("Error in card reader: #{e.message}")
+      flash[:error] = e.message
+      #flash[:notice] = "The card is not working: #{e.message}"
+      #redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+       failure_message = e.message
+      status = "failure"
+       Rails.logger.info "first error"
+      end
+
   else
     application_fee = seller.transaction_cost
     donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
@@ -67,13 +80,18 @@ def create
        {:stripe_account => seller.uid}
       )
 
-     rescue Exception => e
-       @notice = 'Charge failed'
-   
-     end 
-    end
+     rescue Stripe::CardError => e
+      Rails.logger.info("Error in card reader: #{e.message}")
+      flash[:error] = e.message
+      #flash[:notice] = "The card is not working: #{e.message}"
+      #redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+       failure_message = e.message
+       status = "failure"
+       Rails.logger.info "first error"
+      end
+  end
 
-  if charge.status == "succeeded"
+  if charge and charge.status == "succeeded"
 
     Rails.logger.info "charge.inspect"
     Rails.logger.info charge.inspect
@@ -97,23 +115,30 @@ def create
         @purchase.donation_charge_id = @donorCharge.id
         @purchase.save
         @notice = 'Charge succeeded: check your email'
-      rescue
+      rescue Exception => e
+        Rails.logger.info("Exception: #{e.message}")
       end
   
       redirect_to "/",  notice: @notice
       #format.html { redirect_to "/", notice: 'Charge made'}
       #format.json { render :show, status: :created, location: @user }
     else
-       format.html { redirect_to "/", notice: 'Charge failed' }
+      respond_to do |format|
+      format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }
        format.json { render json: @user.errors, status: :unprocessable_entity }
+     end
     end
 
   else
-
-    format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }
-    format.json { render json: @user.errors, status: :unprocessable_entity }
+    Rails.logger.info "no awesome charge"
+    notice = "Charge failed: #{failure_message}"
+    respond_to do |format|
+      format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }
+      format.json { render json: {:status => "failure", :status_message => notice}, status: 400 }
+    end
 
   end
+end
 
 private
   

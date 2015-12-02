@@ -108,10 +108,6 @@ def create
        format.json { render json: @user.errors, status: :unprocessable_entity }
     end
 
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
-      redirect_to charges_path
-    end
   else
 
     format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }

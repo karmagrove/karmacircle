@@ -78,7 +78,8 @@
             error: function(resp){
                 console.log("fail!");
                  console.log(resp);
-                 alert(resp.responseText);
+                 console.log(resp.responseText);
+                 alert(resp.responseText.status_message);
                  //window.location.replace("/")
                }
         });

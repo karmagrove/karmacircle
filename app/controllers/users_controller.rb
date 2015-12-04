@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except => :show 
   before_action :admin_only, :except => :show
 
   def index
@@ -7,10 +7,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    unless current_user.admin?
+    if params[:id]
+      @user = User.find(params[:id])
+    end
+    if params[:business_name]  
+      @user = User.find_by_business_name(params[:business_name])
+    end
+
+    unless current_user and current_user.admin?
       unless @user == current_user
-        redirect_to :back, :alert => "Access denied."
+       # redirect_to :back, :alert => "Access denied."
       end
     end
   end
@@ -39,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :donation_rate)
+    params.require(:user).permit(:role, :donation_rate,:business_name)
   end
 
 end

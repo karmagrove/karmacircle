@@ -1,6 +1,10 @@
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
+<% if @user.charity_users.length %>
+
 <p>Preferred Charity: <%= @user.charity_users.first.charity.name if @user.charity_users.length > 0  %> </p>
 
 
+
+<% end %> 

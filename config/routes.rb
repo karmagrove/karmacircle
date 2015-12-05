@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
   
+  get ":business_name", :to => "users#show"
+
   get "content/patron"
   get "content/partner"
   get "content/charity"

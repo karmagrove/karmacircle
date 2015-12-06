@@ -1,10 +1,75 @@
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
-<% if @user.charity_users.length %>
 
-<p>Preferred Charity: <%= @user.charity_users.first.charity.name if @user.charity_users.length > 0  %> </p>
+<% if @user.charity_users.length > 0 %>
 
-
+<p>Preferred Charity: <%= @user.charity_users.first.charity.name %> </p>
 
 <% end %> 
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+ Amount ($)
+ <input hidden="true" length="5" id="amount" value=""></input> <br />
+ <input hidden="true" length="5" id="description" default="description of sale" value="Gift"></input> <br />
+
+ <div class="large-5 large-centered columns">
+ <div class="btn">
+ 
+ 
+  <button id="customButton" class="btn btn-primary"><h1> Give Money Now </h1></button> <br />
+
+</div>
+
+
+
+
+<script>
+
+  var handler = StripeCheckout.configure({
+    key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
+    image: '/assets/karma-circle.png',
+    token: function(token) {
+      console.log(token.id)
+      $.ajax({
+           type: "POST",
+           url: "/purchases",
+           format: "json",
+           data: {"stripeToken":token.id,
+           "stripeEmail": token.email,
+           format: "json",
+           amount: $('#amount').val()*100,
+           description: $('#description').val(),
+           user_id: <%=@user.id%>
+           
+         },
+           success:function(resp){
+            window.location.replace("/")
+            console.log(resp)
+
+           },
+            error: function(resp){
+               window.location.reload();
+            }
+        });
+  //    token.id can be used to create a charge or customer.
+    // token.email contains the email address entered by the user. 
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+    }
+  });
+
+  $('#customButton').on('click', function(e) {
+    // Open Checkout with further options
+    handler.open({
+      description: $('#description').val(),
+      amount: $('#amount').val()*100
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>

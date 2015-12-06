@@ -24,7 +24,7 @@ def create
   description = params[:description]
 
 # Create the charge on Stripe's servers - this will charge the user's card
-  Rails.logger.info "seller.email #{seller.email}"
+  Rails.logger.info "seller.email #{seller.email} and customer #{customer.inspect}"
   Rails.logger.info "params #{params.inspect}"
 
   ## seller.calculate_application_fee
@@ -48,6 +48,16 @@ def create
   },
   {:stripe_account => seller.uid}
   )
+
+      rescue Stripe::AuthenticationError => e
+      Rails.logger.info("Error in card reader: #{e.message}")
+      flash[:error] = e.message
+      #flash[:notice] = "The card is not working: #{e.message}"
+      #redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+       failure_message = e.message
+       status = "failure"
+       Rails.logger.info "first error"
+     
 
      rescue Stripe::CardError => e
       Rails.logger.info("Error in card reader: #{e.message}")
@@ -79,6 +89,16 @@ def create
        },
        {:stripe_account => seller.uid}
       )
+
+    rescue Stripe::AuthenticationError => e
+      Rails.logger.info("Error in card reader: #{e.message}")
+      flash[:error] = e.message
+      #flash[:notice] = "The card is not working: #{e.message}"
+      #redirect_to charges_path, :notice => "The card is not working: #{e.message}"
+       failure_message = e.message
+       status = "failure"
+       Rails.logger.info "first error"
+
 
      rescue Stripe::CardError => e
       Rails.logger.info("Error in card reader: #{e.message}")

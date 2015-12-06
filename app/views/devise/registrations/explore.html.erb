@@ -158,7 +158,6 @@
     <%# unless resource.plan.name == "Charity" %>
     
     <%= f.submit 'Explore', :class => 'button right' %>
-    <%= link_to "Connect with Facebook", "/auth/facebook/login", id: "sign_in" %>
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 

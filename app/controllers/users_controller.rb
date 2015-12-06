@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :donation_rate,:business_name)
+    params.require(:user).permit(:role, :donation_rate,:business_name,:no_plan_id)
   end
 
 end

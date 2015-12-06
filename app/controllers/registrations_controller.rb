@@ -3,11 +3,55 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :cancel_subscription, only: [:destroy]
 
   def post_explore
-    build_resource(sign_up_params)
+    
     #build_resource()
     params[:user][:no_plan_id]=true
     # become_member
-    create
+    @user = User.find_by_email(params[:user][:email])
+
+    if @user and @user.email
+        Rails.logger.info("heres the stuff!")
+        (set_flash_message :notice, "email taken" and redirect_to("/explore") and return true)
+    end
+    build_resource(sign_up_params)
+    sign_up(resource_name, resource)
+    #current_user = User.create!(sign_up_params)
+    # build_resource(sign_up_params)
+    Rails.logger.info(current_user)
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      set_flash_message :notice, :signed_up if is_flashing_format?
+      current_user.save
+      current_user.plan = Plan.find(4)
+      current_user.role = "patron"
+      current_user.save
+                 Rails.logger.info("current_user.inspect")
+            Rails.logger.info(current_user.inspect)
+            subscribe
+          else
+            set_flash_message :notice, :signed_up if is_flashing_format?
+      current_user.save
+      current_user.plan = Plan.find(4)
+      current_user.role = "patron"
+      current_user.save
+                 Rails.logger.info("current_user.inspect")
+            Rails.logger.info(current_user.inspect)
+            #subscribe
+    end
+
+    # yield resource if block_given?
+    # respond_with self.resource
+    
+    
+   # redirect_to "/users/sign_in", notice: 'Log In' 
+   respond_to do |format|
+     if current_user.save
+       format.html { redirect_to "/users/sign_in", notice: 'Log In'} and return
+       format.json { render :show, status: :created, location: current_user } and return
+      end
+    end
+
   end
 
   def explore
@@ -30,7 +74,11 @@ class RegistrationsController < Devise::RegistrationsController
     ## all this is to get the damn
     if params[:user][:no_plan_id]
       # params[:user][:role]=1
-      (set_flash_message :notice, "email taken" and redirect_to("/explore") and return true) if @user = User.find_by_email(params[:user][:email])
+      @user = User.find_by_email(params[:user][:email])
+      if @user and @user.email
+        Rails.logger.info("heres the stuff!")
+        (set_flash_message :notice, "email taken" and redirect_to("/") and return true)
+      end
       
         # sign_up(resource_name, resource)
         current_user = User.create!(sign_up_params)
@@ -54,7 +102,7 @@ class RegistrationsController < Devise::RegistrationsController
           else
              set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
              expire_data_after_sign_in!
-             #subscribe
+             subscribe
           end
         else
           clean_up_passwords resource
@@ -94,9 +142,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def sign_up(resource_name, resource)
-    sign_in(resource_name, resource)
-  end
+  # def sign_up(resource_name, resource)
+  #   sign_in(resource_name, resource)
+  # end
 
   def change_plan
     plan = Plan.find_by!(id: params[:user][:plan_id].to_i)

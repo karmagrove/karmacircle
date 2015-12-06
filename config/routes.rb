@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
   
-  get ":business_name", :to => "users#show"
+
 
   get "content/patron"
   get "content/partner"
@@ -44,4 +44,5 @@ Rails.application.routes.draw do
   get 'auth/facebook/callback', to: 'sessions#create'
   get 'auth/facebook/login', to: 'sessions#login'
 
+  get ":business_name", :to => "users#show"
 end

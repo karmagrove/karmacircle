@@ -22,16 +22,14 @@ class RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
     if resource.persisted?
       set_flash_message :notice, :signed_up if is_flashing_format?
-      current_user.save
       current_user.plan = Plan.find(4)
       current_user.role = "patron"
       current_user.save
                  Rails.logger.info("current_user.inspect")
             Rails.logger.info(current_user.inspect)
-            subscribe
+            #subscribe
           else
             set_flash_message :notice, :signed_up if is_flashing_format?
-      current_user.save
       current_user.plan = Plan.find(4)
       current_user.role = "patron"
       current_user.save
@@ -46,8 +44,8 @@ class RegistrationsController < Devise::RegistrationsController
     
    # redirect_to "/users/sign_in", notice: 'Log In' 
    respond_to do |format|
-     if current_user.save
-       format.html { redirect_to "/users/sign_in", notice: 'Log In'} and return
+     if current_user
+       format.html { redirect_to "/", notice: 'Log In'} and return
        format.json { render :show, status: :created, location: current_user } and return
       end
     end

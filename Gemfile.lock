@@ -149,6 +149,8 @@ GEM
       multi_json
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -311,6 +313,7 @@ DEPENDENCIES
   jquery-rails
   koala (~> 1.7.0rc1)
   launchy
+  letter_opener
   omniauth-facebook
   omniauth-stripe-connect
   payola-payments

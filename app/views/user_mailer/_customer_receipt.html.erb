@@ -1,46 +1,173 @@
-<h1> Thank you for your purchase </h1>
-
-<h2> You paid $<%= @donationCharge.revenue/100 %> </h2>
-
 <% if @donationCharge.user.email == "drtartaro@gmail.com" %>
-<p> 
-Congratulations on your recent payment to Jessica Tartaro.  Because Dr Tartaro Orgasmic Coaching prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <%=(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i%>% of your purchase goes to support <%= @donationCharge.charity.name %>. <%= @donationCharge.charity.description %>.  
-</p>
-
+  <% @message = "<h2 style='color: #3F3F38;display: block;font-family: Helvetica;font-size: 20px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;'>Congratulations on your recent payment to Jessica Tartaro.</h2> <br />  Because Dr Tartaro Orgasmic Coaching prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <span style='color:#9DDE53;'> #{(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i}% </span> of your purchase goes to support #{@donationCharge.charity.name}." %>
 <% else %>
-<p> 
-Congratulations on your recent payment to <%=@donationCharge.user.email%>.  Because <%=@donationCharge.user.email%> prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <%=(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i%>% of your purchase goes to support <%= @donationCharge.charity.name %>. <%= @donationCharge.charity.description %>.
-</p>
-
-</p>
+  <% @message = "<h2 <h2 style='color: #3F3F38;display: block;font-family: Helvetica;font-size: 20px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;'>Congratulations on your recent payment to #{@donationCharge.user.email}.</h2> <br />   Because #{@donationCharge.user.email} prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <span style='color:#9DDE53;'> #{(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i}% </span> of your purchase goes to support #{@donationCharge.charity.name}." %>
 <% end %> 
 
-<% if @donationCharge.charity.url %>
-To read more or join the <%=@donationCharge.charity.name%> community <a href="<%=@donationCharge.charity.url%>"> visit <%=@donationCharge.charity.url%> </a>
-<% end %>
 
 
-<% if @donationCharge.user and @donationCharge.user.email %>
-<p>
-Feel free to email <a href="mailto:<%=@donationCharge.user.email%>"> <%=@donationCharge.user.email%> </a> with any questions.
-</p>
-<% end %>
 
-<% if @donationCharge.user and @donationCharge.user.website and @donationCharge.user.business_name  %>
-<p>
-<a href="<%=@donationCharge.user.website%>"> Visit <%= @donationCharge.user.website %> </a> for more information about <%= @donationCharge.user.business_name%>. 
-</p>
-
-<% elsif @donationCharge.user and @donationCharge.user.website %>
-
-<p>
-<a href="<%=@donationCharge.user.website%>"> Visit <%= @donationCharge.user.website %> for more information. </a>
-</p>
-
-<% else %>
-
-<% end %>
-
-
-<p> If you are interested in learning more about conscious commerce please visit <a href="https://www.karmagrove.com"> KarmaGrove.com </a>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Receipt, karmagrove.com</title>
+    </head>
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="margin: 0;padding: 0;background-color: #f4f4f4;">
+    	<center>
+        	<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;margin: 0;padding: 0;background-color: #9DDE53;height: 100%;width: 100%;">
+            	<tr>
+                	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                    	<!-- // BEGIN PREHEADER -->
+                        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="templatePreheader" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;background-color: #009444;border-bottom: 0;">
+                        	<tr>
+                            	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                	<table border="0" cellpadding="0" cellspacing="0" width="320" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    	<tr>
+                                        	<td valign="top" class="preheaderContent" mc:edit="preheader_content" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color:white; font-family: Helvetica;font-size: 11px;line-height: 125%;text-align:center;">
+                                            	Receipt <a href="http://www.karmagroove.com" style="color:#9DDE53;font-weight: normal;text-decoration:none;background: none;border-bottom: none;">www.karmagroove.com</a>, thank you for choosing us.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- END PREHEADER \ -->
+                    	<!-- // BEGIN CONTAINER -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                        	<tr>
+                            	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                	<!-- // BEGIN HEADER -->
+                                	<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;background-color: #3F3F38;border-top: 0;border-bottom: 0;">
+                                    	<tr>
+                                        	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                            	<table border="0" cellpadding="0" cellspacing="0" width="480" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                                	<tr>
+                                                        <td class="headerContent" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #3F3F38;font-family: Helvetica;font-size: 18px;font-weight: bold;line-height: 100%;padding-top: 20px;padding-right: 0;padding-bottom: 20px;padding-left: 0;text-align: center;vertical-align: middle;">
+                              															<img src="http://localhost:3000/assets/logo90.png" alt="logo" /> <br />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- END HEADER \ -->
+                                </td>
+                            </tr>
+                        	<tr>
+                            	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                	<!-- // BEGIN BODY -->
+                                	<table border="0" cellpadding="20" cellspacing="0" width="100%" id="templateBody" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;background-color: #3F3F38;border-top: 0;border-bottom: 0;">
+                                    	<tr>
+                                        	<td align="center" valign="top" style="padding-bottom: 0 !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                            	<table border="0" cellpadding="20" cellspacing="0" width="320" class="bodyContentBlock" style="border-top: none !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;background-color: #FFFFFF;border-bottom: 1px solid #CCCCCC;">
+                                                    <tr>
+                                                        <td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                                                <tr>
+                                                                    <td valign="top" class="bodyContent" mc:edit="body_content00" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #202020;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left;">
+                                  																		<h2 style="text-align: center;color: #3F3F38;display: block;font-family: Helvetica;font-size: 20px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;">RECEIPT</h2>
+                                  																		<hr />
+                                  																		<h3 style="color: #878787;display: block;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: right;">You paid:  <strong style="color:#202020;">$ <%= @donationCharge.revenue/100 %></strong></h3>
+                                  																		<h3 style="color: #878787;display: block;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: right;">Your donation was:  <strong style="color:#202020;">$ <%= @donationCharge.revenue/1000 %></strong></h3>
+                                  																		<hr />
+                                                                      <p style="color: #878787;display: block;font-family: Helvetica;font-size: 16px;">
+                                                                        <%= @donationCharge.try(:description) %>
+                                                                      </p>
+                                                                      <br />
+                                                                      <br />
+                                                                    	<h2 style="color: #3F3F38;display: block;font-family: Helvetica;font-size: 20px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;">Thank you for your purchase</h2>
+                                                                      <% if @donationCharge.user and @donationCharge.user.email %>
+                                                                        <h4 style="color: #3F3F38;display: block;font-family: Helvetica;font-size: 14px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;">Feel free to email <a style="color: #009444;font-weight: normal;text-decoration: underline;background: none;border-bottom: none;" href="mailto:<%=@donationCharge.user.email%>"> <%=@donationCharge.user.email%> </a> with any questions.</h4>
+                                                                      <% end %>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <br /><br /><br />
+                                            </td>
+                                        </tr>
+                                    	<tr>
+                                        	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                            	<table border="0" cellpadding="20" cellspacing="0" width="520" class="bodyContentBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;background-color: #FFFFFF;border-top: 30px solid #009444;border-bottom: 1px solid #CCCCCC;">
+                                                	<tr mc:repeatable>
+                                                        <td align="center" valign="top" style="padding-bottom: 0;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                                                <tr>
+                                                                    <td valign="top" class="bodyContent" mc:edit="body_content01" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #202020;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left;">
+                                  																		<span style="color: #606060;"><%= raw @message %></span>
+                                                                      <br /><br />
+                                                                      <% if @donationCharge.charity.url %>
+                                                                        To read more or join the <%=@donationCharge.charity.name%> community visit <a style="color:#009444; font-weight:normal; text-decoration:underline; background:none; border-bottom:none;" href="<%=@donationCharge.charity.url%>"> <%=@donationCharge.charity.url%> </a>
+                                                                      <% end %>
+                                                                      
+                                                                      <% if @donationCharge.user and @donationCharge.user.website and @donationCharge.user.business_name  %>
+                                                                        <p> Visit <a href="<%=@donationCharge.user.website%>"> <%= @donationCharge.user.website %> </a> for more information about <%= @donationCharge.user.business_name %>. </p>
+                                                                      <% elsif @donationCharge.user and @donationCharge.user.website %>
+                                                                        <p> Visit <a href="<%=@donationCharge.user.website%>">  <%= @donationCharge.user.website %> </a> for more information.</p>
+                                                                      <% else %>
+                                                                      <% end %>
+                                                                      <br>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                	<td align="left" valign="top" style="padding-top: 10px;padding-bottom: 20px;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                                                        <table border="0" cellpadding="15" cellspacing="0" class="templateButton" mc:hideable style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-moz-border-radius: 3px;-webkit-border-radius: 3px;background-color: #9DDE53;border-radius: 3px;">
+                                                                        	<tr>
+                                                                            	<td align="center" valign="middle" class="templateButtonContent" mc:edit="button_content01" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #ffffff;font-family: Helvetica;font-size: 13px;font-weight: bold;line-height: 100%;text-align: center;text-decoration: none;">
+                                      																					<%= link_to 'Learn more about Karma Grove', "https://www.karmagrove.com", :style => 'color: #ffffff;font-family: Helvetica;font-size: 13px;font-weight: bold;line-height: 100%;text-align: center;text-decoration: none;background: none;border-bottom: none;' %>
+                                                                              </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- END BODY \ -->
+                                </td>
+                            </tr>
+                        	<tr>
+                            	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                	<!-- // BEGIN FOOTER -->
+                                	<table border="0" cellpadding="40" cellspacing="0" width="100%" id="templateFooter" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;border-top: 0;">
+                                    	<tr>
+                                        	<td align="center" valign="top" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                            	<table border="0" cellpadding="0" cellspacing="0" width="480" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                                	<tr>
+                                                        <td valign="top" class="footerContent" mc:edit="footer_content" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #606060;font-family: Helvetica;font-size: 10px;line-height: 150%;text-align: left;">
+                                                            <em>Copyright &copy; <%= Time.now.year %> <a href="https://www.karmagrove.com" style="color: #0E8081;font-weight: normal;text-decoration: underline;background: none;border-bottom: none;">www.karmagrove.com</a>, All rights reserved.</em>
+                                                            <br>
+                              															This email is brought to you by KarmaGrove.com and our Circle platform.  We enable you to accept credit cards and give at least 1% to your preferred charity.  All in less than 5 minutes.  Join the conscious commerce revolution at <%= link_to("https://www.karmagrove.com","https://www.karmagrove.com", :style => "color: #0E8081;font-weight: normal;text-decoration: underline;background: none;border-bottom: none;") %>
+                                                            <br />
+                                                            If you are interested in learning more about conscious commerce please visit <a href="https://www.karmagrove.com"> KarmaGrove.com
+                                                            <br>
+                                                            <br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                    	<td colspan="3" valign="top" class="footerContent" style="padding-top: 20px;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #606060;font-family: Helvetica;font-size: 10px;line-height: 150%;text-align: left;" mc:edit="footer_utility">
+                                                        	<a href="https://www.karmagrove.com/about" style="color: #0E8081;font-weight: normal;text-decoration: underline;background: none;border-bottom: none;">Unsuscribe</a> | <%= link_to 'Update profile', "#", :style => "color: #0E8081;font-weight: normal;text-decoration: underline;background: none;border-bottom: none;" %>&nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- END FOOTER \ -->
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- END CONTAINER \ -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html>

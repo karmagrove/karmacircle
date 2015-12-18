@@ -1,4 +1,4 @@
-
+<% @status = "" %>
 <% if @ticket_purchase.present? %>
   <% if @ticket_purchase.status == "redeemed" %>
     <% @status = "The following ticket has been redeemed."  %>
@@ -84,7 +84,7 @@
                                                                       <h3 style="color: #878787;display: block;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 10px;text-align: left;">When:  <strong style="color:#202020;"><%= @event.try(:start_time).strftime("%m/%d/%Y at %I:%M%p") %></strong></h3>
                                                                       <h3 style="color: #878787;display: block;font-family: Helvetica;font-size: 16px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 10px;text-align: left;">Organizer:  <strong style="color:#202020;"><%= @event.try(:organizer_name) %></strong></h3>
                                                                       <br />
-                                                                      <h2 style="color: #878787;display: block;font-family: Helvetica;font-size: 16px;font-weight: bold;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: center;">Donation percent:  <strong style="color:#202020;"><%= @event.try(:revenue_donation_percent) %></strong></h2>
+                                                                      <h2 style="color: #878787;display: block;font-family: Helvetica;font-size: 16px;font-weight: bold;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: center;">Donation percent:  <strong style="color:#202020;"><%= @event.user.donation_rate %>%</strong></h2>
                                                                     </td>
                                                                 </tr>
                                                             </table>

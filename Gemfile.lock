@@ -110,6 +110,10 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     erubis (2.7.0)
     execjs (2.6.0)
     faraday (0.8.11)
@@ -149,6 +153,8 @@ GEM
       multi_json
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -303,6 +309,7 @@ DEPENDENCIES
   compass-rails!
   database_cleaner
   devise
+  dotenv-rails
   faraday (~> 0.8.6)
   font-awesome-rails
   foundation-rails (~> 5.5)
@@ -311,6 +318,7 @@ DEPENDENCIES
   jquery-rails
   koala (~> 1.7.0rc1)
   launchy
+  letter_opener
   omniauth-facebook
   omniauth-stripe-connect
   payola-payments

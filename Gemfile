@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.1.3'
+gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rails', '4.2.1'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -19,7 +20,9 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'sqlite3'
+  gem "letter_opener"
 end
+
 
 gem 'foundation-rails', '~> 5.5'
 gem 'compass-rails', github: "Compass/compass-rails", branch: "master"

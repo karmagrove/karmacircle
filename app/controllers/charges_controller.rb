@@ -6,7 +6,19 @@ def index
   if Stripe.api_key = current_user.access_code
     @customers = Stripe::Customer.all(:limit => 3)
     @charges = Stripe::Charge.all(:limit => 100)
-  Rails.logger.info(@charges.inspect)
+    Rails.logger.info(@charges.inspect)
+    ## FIND THE DONATIONCHARGE FOR CHARGES ABOVE
+    ## DONATIONCHARGE
+    @balance = Stripe::Balance#.retrieve
+     # @balance.inspect 
+    @transfers = Stripe::Transfer.all
+
+    @charges.each do |charge|
+      d = DonationCharge.find_by_payment_reference(charge.id)
+      Rails.logger.info d.inspect
+    end
+
+  
   else
     redirect_to "/",  notice: 'You must activate your account before you can view your charges' 
   end

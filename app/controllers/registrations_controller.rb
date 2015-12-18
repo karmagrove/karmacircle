@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  include Payola::StatusBehavior
+  #include Payola::StatusBehavior
   before_action :cancel_subscription, only: [:destroy]
 
   def post_explore
@@ -66,81 +66,81 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with self.resource
   end
 
-  def create
-    # build_resource(sign_up_params)
+  # def create
+  #   # build_resource(sign_up_params)
 
-    ## all this is to get the damn
-    if params[:user][:no_plan_id]
-      # params[:user][:role]=1
-      @user = User.find_by_email(params[:user][:email])
-      if @user and @user.email
-        Rails.logger.info("heres the stuff!")
-        (set_flash_message :notice, "email taken" and redirect_to("/") and return true)
-      end
+  #   ## all this is to get the damn
+  #   if params[:user][:no_plan_id]
+  #     # params[:user][:role]=1
+  #     @user = User.find_by_email(params[:user][:email])
+  #     if @user and @user.email
+  #       Rails.logger.info("heres the stuff!")
+  #       (set_flash_message :notice, "email taken" and redirect_to("/") and return true)
+  #     end
       
-        # sign_up(resource_name, resource)
-        current_user = User.create!(sign_up_params)
-        Rails.logger.info(current_user)
-        # become_member
-        #sign_up(resource_name, resource)
-        build_resource(sign_up_params)
-        resource.save
-        yield resource if block_given?
-        if resource.persisted?
-          if resource.active_for_authentication?
-            set_flash_message :notice, :signed_up if is_flashing_format?
-            current_user.save
-            current_user.plan = Plan.find(4)
-            current_user.role = "Patron"
-            #sign_up(resource_name, resource)
-            #become_member
-            Rails.logger.info("current_user.inspect")
-            Rails.logger.info(current_user.inspect)
-            subscribe
-          else
-             set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
-             expire_data_after_sign_in!
-             subscribe
-          end
-        else
-          clean_up_passwords resource
-          render json:
-            {error: resource.errors.full_messages.to_sentence},
-            status: 400
-        end 
+  #       # sign_up(resource_name, resource)
+  #       current_user = User.create!(sign_up_params)
+  #       Rails.logger.info(current_user)
+  #       # become_member
+  #       #sign_up(resource_name, resource)
+  #       build_resource(sign_up_params)
+  #       resource.save
+  #       yield resource if block_given?
+  #       if resource.persisted?
+  #         if resource.active_for_authentication?
+  #           set_flash_message :notice, :signed_up if is_flashing_format?
+  #           current_user.save
+  #           current_user.plan = Plan.find(4)
+  #           current_user.role = "Patron"
+  #           #sign_up(resource_name, resource)
+  #           #become_member
+  #           Rails.logger.info("current_user.inspect")
+  #           Rails.logger.info(current_user.inspect)
+  #           subscribe
+  #         else
+  #            set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
+  #            expire_data_after_sign_in!
+  #            subscribe
+  #         end
+  #       else
+  #         clean_up_passwords resource
+  #         render json:
+  #           {error: resource.errors.full_messages.to_sentence},
+  #           status: 400
+  #       end 
 
-        #redirect_to "/"
-    else
-      build_resource(sign_up_params)
-      plan = Plan.find_by!(id: params[:user][:plan_id].to_i)
-      resource.role = User.roles[plan.stripe_id] unless resource.admin?
-      resource.save
-      if resource.role == "charity"
-        #something special.
-        @charity = Charity.new(:name => params[:charity_name])
-        @charity.save
-      end 
-      yield resource if block_given?
-      if resource.persisted?
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_flashing_format?
-        sign_up(resource_name, resource)
-        #subscribe
-      else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
-        expire_data_after_sign_in!
-        #subscribe
-      end
-    else
-      clean_up_passwords resource
-      render json:
-        {error: resource.errors.full_messages.to_sentence},
-        status: 400
-      end 
-    end
-  end
+  #       #redirect_to "/"
+  #   else
+  #     build_resource(sign_up_params)
+  #     plan = Plan.find_by!(id: params[:user][:plan_id].to_i)
+  #     resource.role = User.roles[plan.stripe_id] unless resource.admin?
+  #     resource.save
+  #     if resource.role == "charity"
+  #       #something special.
+  #       @charity = Charity.new(:name => params[:charity_name])
+  #       @charity.save
+  #     end 
+  #     yield resource if block_given?
+  #     if resource.persisted?
+  #     if resource.active_for_authentication?
+  #       set_flash_message :notice, :signed_up if is_flashing_format?
+  #       sign_up(resource_name, resource)
+  #       #subscribe
+  #     else
+  #       set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
+  #       expire_data_after_sign_in!
+  #       #subscribe
+  #     end
+  #   else
+  #     clean_up_passwords resource
+  #     render json:
+  #       {error: resource.errors.full_messages.to_sentence},
+  #       status: 400
+  #     end 
+  #   end
+  # end
 
-  # def sign_up(resource_name, resource)
+  # # def sign_up(resource_name, resource)
   #   sign_in(resource_name, resource)
   # end
 

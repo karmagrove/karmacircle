@@ -4,6 +4,26 @@
 <%= c.email %> <br />
 
 <% end %>
+<!-- 
+<% if @balance %>
+
+<h1 class="balance"> <%= @balance.methods.sort %> </h1>
+
+<% end %>  -->
+
+<% @transfers.each do |transfer| %>
+
+<h1 class="transfers"> 
+
+<%= Time.at(transfer.created).strftime("%Y-%m-%d") %> 
+<%= transfer.amount %> 
+<br />
+
+</h1>
+
+<% end %> 
+
+
 
 <h1> Your charges </h1>
 <div class="row">  
@@ -24,6 +44,7 @@
     <h3> Donation Status </h3>
     </div>
 </div>
+
   <% @charges.each do |c| %>
   
 

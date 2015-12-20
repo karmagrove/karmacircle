@@ -12,6 +12,9 @@ def index
     @balance = Stripe::Balance#.retrieve
      # @balance.inspect 
     @transfers = Stripe::Transfer.all
+    @transfers.each  do |transfer|
+      Rails.logger.info transfer.inspect
+    end
 
     @charges.each do |charge|
       d = DonationCharge.find_by_payment_reference(charge.id)

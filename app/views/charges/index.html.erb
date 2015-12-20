@@ -11,15 +11,34 @@
 
 <% end %>  -->
 
-<% @transfers.each do |transfer| %>
 
 <h1 class="transfers"> 
-
-<%= Time.at(transfer.created).strftime("%Y-%m-%d") %> 
-<%= transfer.amount %> 
-<br />
-
+Bank Transfers
 </h1>
+
+<div class="row">  
+
+     <div class="small-2 columns">
+    <h3> Date </h3>
+    </div>
+    <div class="small-2 columns">
+    <h3> Amount </h3>
+    </div>
+</div>
+
+<% @transfers.each do |transfer| %>
+
+<div class="row">  
+  <div class="small-2 columns">
+  <%= Time.at(transfer.created).strftime("%Y-%m-%d") %> 
+  </div>
+  <div class="small-2 columns">
+  $<%= transfer.amount / 100%> 
+  <br />
+  </div>
+</div>
+
+
 
 <% end %> 
 

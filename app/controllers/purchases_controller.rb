@@ -12,8 +12,8 @@ def create
   @amount = params[:amount]
   Rails.logger.info("@amount:#{@amount}")
 
-  if Stripe.api_key = current_user.access_code
-    
+  if Stripe.api_key = seller.access_code
+
   else
     Stripe.api_key = ENV['STRIPE_API_KEY']
   end

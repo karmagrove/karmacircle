@@ -32,7 +32,7 @@
         <td><%= product.donation_percent %></td>
         <td><%= product.image_url %></td>
         <td><%= product.user %></td>
-       <% if @is_owner %>
+       <% if current_user.id == product.user_id %>
         <td><%= link_to 'Show', user_product_path(:id => product['id'], :user_id=>current_user.id) %></td>
         <td><%= link_to 'Edit', edit_user_product_path(:user=>current_user.id, :id=> product["id"]) %> </td>
         <td><%= link_to 'Destroy', user_product_path(:id=> product["id"]), method: :delete, data: { confirm: 'Are you sure?' } %></td>

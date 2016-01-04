@@ -21,8 +21,8 @@
 </h3>
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
- <input hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
- <input hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
+ <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
+ <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
  <div class="large-5 large-centered columns">
  <div class="btn">
  

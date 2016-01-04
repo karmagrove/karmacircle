@@ -35,6 +35,7 @@
 
 <% else %>
 
+<div class="large-5 large-centered columns">
   <h1> <%= @product.name %> </h1>
   <h2> <%= @product.description %> </h2>
   
@@ -47,7 +48,10 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
- <div class="large-5 large-centered columns">
+
+ 
+
+ 
  <div class="btn">
  
  

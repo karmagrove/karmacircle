@@ -10,14 +10,14 @@
       <th>Price</th>
       <th>Public</th>
       <th>Donation percent</th>
-      <th>Image url</th>
-      <th>User</th>
+       <th>Image</th>
       <% if @is_owner %>
       <th colspan="3"></th>
       <% else %>
-      <th>
-      Show Product
+      <% if params[:user_id] && current_user && current_user.id == params[:user_id].to_i %> <th>
+      More
       </th>
+      <% end %>
       <% end %>
     </tr>
   </thead>
@@ -30,12 +30,11 @@
         <td><%= product.price %></td>
         <td><%= product.public %></td>
         <td><%= product.donation_percent %></td>
-        <td><%= product.image_url %></td>
-        <td><%= product.user %></td>
+        <% if product.image_url%> <td><%= image_url(product.image_url) %></td> <% else %> <td> </td><% end %>
        <% if current_user.id == product.user_id %>
-        <td><%= link_to 'Show', user_product_path(:id => product['id'], :user_id=>current_user.id) %></td>
-        <td><%= link_to 'Edit', edit_user_product_path(:user=>current_user.id, :id=> product["id"]) %> </td>
-        <td><%= link_to 'Destroy', user_product_path(:id=> product["id"]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_product_path(:id => product['id'], :user_id=>current_user.id) %>
+        <%= link_to 'Edit', edit_user_product_path(:user=>current_user.id, :id=> product["id"]) %>
+        <%= link_to 'Destroy', user_product_path(:id=> product["id"]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
         <% else %>
 

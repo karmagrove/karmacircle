@@ -14,6 +14,21 @@ class User < ActiveRecord::Base
   has_many :charity_users
   has_many :donation_charges
   
+  def total_donations
+    @amount = 0
+    Donation.where(:user_id => self.id).each do |donation|
+      @amount += donation.amount
+    end
+    @amount
+  end
+
+  def total_pledged_donations
+    @amount = 0
+    DonationCharge.where(:user_id => self.id) do | dc |
+      @amount += dc.amount
+    end
+    @amount
+  end
 
   def set_transaction_cost
     self.transaction_cost = 100

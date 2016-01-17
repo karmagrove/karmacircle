@@ -1,3 +1,6 @@
+Total Donations: $<%= @total_donations %> <br />
+Total Pledged Donations: $<%= @total_pledged_donations %>
+
 <h1> Your customers </h1>
 <% @customers.each do |c| %>
 
@@ -45,22 +48,28 @@ Bank Transfers
 
 
 <h1> Your charges </h1>
-<div class="row">  
-
-     <div class="small-2 columns">
+<div class="row">
+    <div class="small-1 columns head-charge" style="text-align:center">
     <h3> Date </h3>
     </div>
-	  <div class="small-2 columns">
-    <h3> Amount </h3>
-    </div>
-    <div class="small-3 columns">
+     <div class="small-3 columns head-charge" style="text-align:left">
     <h3> Customer email </h3>
     </div>
-    <div class="small-3 columns" >
+    <div class="small-2 columns head-charge" style="text-align:center" >
     <h3> Description </h3>
     </div>
-    <div class="small-2 columns">
+	  <div class="small-2 columns head-charge" style="text-align:left">
+    <h3> Amount </h3>
+    </div>
+    <div class="small-2 columns head-charge" style="text-align:center">
     <h3> Donation Status </h3>
+    </div>
+    <div class="small-1 columns head-charge" style="text-align:left">
+    <h3> Karma Grove Fee </h3>
+    </div>
+    <div class="small-1 columns head-charge" style="text-align:center">
+    <h3> Stripe Fee </h3> 
+      
     </div>
 </div>
 
@@ -68,21 +77,21 @@ Bank Transfers
   
 
   <div class="row">
-    <div class="small-2 columns">
+    <div class="small-1 columns">
     <%= Time.at(c.created).strftime("%Y-%m-%d") %> 
     </div>
-    <div class="small-2 columns">
-    $<%= (c.amount / 100) %> <br />
-    </div>
-    <div class="small-3 columns">
+    <div class="small-3 columns" style="text-align:left;overflow:scroll">
     <%= c.source.name %> <br />
     </div>
-    <div class="small-3 columns">
+    <div class="small-2 columns">
     <%= c.description %> <br />
     </div>
     <div class="small-2 columns">
+    $<%= (c.amount / 100.00).round(2) %> <br />
+    </div>
+    <div class="small-2 columns">
     <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
-      $<%= @d.donation_amount/100.to_f %> 
+      $<%= (@d.donation_amount/100.00).round(2) %> 
       <% if @d.charity %> 
          <%= @d.charity.name %> 
       <% end %>
@@ -92,6 +101,13 @@ Bank Transfers
     <% end %>  
     <br />
     </div>
+    <div class="small-1 columns">
+     <%= c.application_fee %>
+    </div>
+    <div class="small-1 columns">
+     $<%= (((c.amount / 100.00) * (2.9/100.00)) + 0.30).round(2) %>
+    </div>
+     
   </div>
   <% end %> 
 <div class="row">

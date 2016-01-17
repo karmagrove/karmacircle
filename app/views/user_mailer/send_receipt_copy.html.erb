@@ -1,3 +1,9 @@
-<small style="text-align:center;display: block;padding:10px; font-size:12px; font-family: Helvetica;">THE FOLLOWING IS A COPY OF WHAT WAS SENT TO <%= @customer %></small>
+<% if donationCharge.purchases %>
+  <h4>
+   <%= @customer %> bought the following items from you: <br />
+   <%= donationCharge.purchases.first.product.name %>: <%= donationCharge.purchases.first.product.description %>
+   </h4>
+ <% end %>
 
+<small style="text-align:center;display: block;padding:10px; font-size:12px; font-family: Helvetica;">THE FOLLOWING IS A COPY OF WHAT WAS SENT TO <%= @customer %></small>
  <%= render 'customer_receipt' %>

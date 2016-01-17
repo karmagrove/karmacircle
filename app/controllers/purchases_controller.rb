@@ -144,6 +144,9 @@ def create
         UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
         @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
         @purchase.donation_charge_id = @donorCharge.id
+        if params[:product]
+          @purchase.product = params[:product]
+        end
         @purchase.save
         @notice = 'Charge succeeded: check your email'
       rescue Exception => e

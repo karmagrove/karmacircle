@@ -8,12 +8,22 @@ class UserMailer < ActionMailer::Base
   def send_receipt(customer, donationCharge)
   	@customer = customer
   	@donationCharge = donationCharge
+    @product = nil
+    if @donationCharge.purchases and @donationCharge.purchases.first and @donationCharge.purchases.first.product
+      @product = @donationCharge.purchases.first.product
+    end
   	mail(:to => customer, :subject => "Thank you for your purchase")
   end
 
   def send_receipt_copy(customer, donationCharge)
-  	@customer = customer
-  	@donationCharge = donationCharge
+    @product = nil
+    @donationCharge = donationCharge
+    @customer = customer
+    if @donationCharge.purchases and @donationCharge.purchases.first and @donationCharge.purchases.first.product
+      @product = @donationCharge.purchases.first.product
+    end
+  	
+  	
   	mail(:to => @donationCharge.user.email, :subject => "SENT TO CUSTOMER: Thank you for your purchase")
   end
 

@@ -140,14 +140,16 @@ def create
     @user = seller
     if @donorCharge.save(:status => "pending")
     	begin 
-        UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
-        UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
         @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
         @purchase.donation_charge_id = @donorCharge.id
+        Rails.logger.info("params inspect #{params.inspect}")
         if params[:product_id]
-          @purchase.product_id = params[:product_id]
+          Rails.logger.info("params product_id #{params[:product_id]}")
+          @purchase.product_id = params[:product_id].to_i
         end
         @purchase.save
+        UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
+        UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
         @notice = 'Charge succeeded: check your email'
       rescue Exception => e
         Rails.logger.info("Exception: #{e.message}")

@@ -3,7 +3,7 @@ class ChargesController < ApplicationController
 
 def index
 
-  if Stripe.api_key = current_user.access_code
+  if current_user && Stripe.api_key = current_user.access_code
     @customers = Stripe::Customer.all(:limit => 3)
     @charges = Stripe::Charge.all(:limit => 100)
     Rails.logger.info(@charges.inspect)
@@ -16,12 +16,13 @@ def index
       Rails.logger.info transfer.inspect
     end
 
+    @total_donations = current_user.total_donations
+    @total_pledged_donations = current_user.total_pledged_donations
     @charges.each do |charge|
       d = DonationCharge.find_by_payment_reference(charge.id)
       Rails.logger.info d.inspect
     end
 
-  
   else
     redirect_to "/",  notice: 'You must activate your account before you can view your charges' 
   end

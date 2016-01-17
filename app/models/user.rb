@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   def total_pledged_donations
     @amount = 0
     DonationCharge.where(:user_id => self.id) do | dc |
-      @amount += dc.amount
+      @amount += dc.donation_amount
     end
     @amount
   end

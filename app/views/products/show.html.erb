@@ -21,6 +21,7 @@
 </h3>
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
+ <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> <br />
  <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
  <div class="large-5 large-centered columns">
@@ -46,6 +47,7 @@
 </h3>
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
+ <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> <br />
  <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
 
@@ -80,7 +82,8 @@
            format: "json",
            amount: $('#amount').val()*100,
            description: $('#description').val(),
-           user_id: <%= params[:user_id] %>
+           user_id: <%= params[:user_id] %>,
+           product_id: $('#product_id').val()
            
          },
            success:function(resp){

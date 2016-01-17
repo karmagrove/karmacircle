@@ -1,7 +1,7 @@
-<% if donationCharge.purchases %>
+<% if @donationCharge.purchases && @donationCharge.purchases.first && @donationCharge.purchases.first.product %>
   <h4>
    <%= @customer %> bought the following items from you: <br />
-   <%= donationCharge.purchases.first.product.name %>: <%= donationCharge.purchases.first.product.description %>
+   <%= @donationCharge.purchases.first.product.name %>: <%= @donationCharge.purchases.first.product.description %>
    </h4>
  <% end %>
 

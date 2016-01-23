@@ -1,6 +1,5 @@
-Total Donations: $<%= 
-<%= '%.2f' % (@total_donations/100.0) %> <br />
-Total Pledged Donations: $<%= @total_pledged_donations %>
+Total Donations: $<%= '%.2f' % (@total_donations/100.0) %> <br />
+Total Pledged Donations: $<%= '%.2f' % (@total_pledged_donations/100.0) %> 
 
 <h1> Your customers </h1>
 <% @customers.each do |c| %>

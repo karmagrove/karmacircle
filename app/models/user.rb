@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   def total_donations
     @amount = 0
     Donation.where(:user_id => self.id).each do |donation|
-      @amount += donation.amount
+      @amount += donation.donation_amount
     end
     @amount
   end

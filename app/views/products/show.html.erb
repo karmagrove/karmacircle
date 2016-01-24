@@ -1,3 +1,7 @@
+<% content_for :head do %>
+   <meta name="description" content="<%= @product.name%>">
+<% end %>
+
 <p id="notice"><%= notice %></p>
 <% if (@product.image_url && @product.image_url.length > 0) %>
   <div class="row">

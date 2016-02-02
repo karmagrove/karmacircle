@@ -14,7 +14,7 @@ def index
      # @balance.inspect 
     @transfers = Stripe::Transfer.all
     @transfers.each  do |transfer|
-      Rails.logger.info transfer.inspect
+      #Rails.logger.info transfer.inspect
     end
 
     @total_donations = current_user.total_donations
@@ -28,7 +28,7 @@ def index
         @charge_fees[charge.application_fee]= fee
       rescue
       end
-      Rails.logger.info d.inspect
+      #Rails.logger.info d.inspect
     end
 
   else

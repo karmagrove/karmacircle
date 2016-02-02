@@ -4,6 +4,7 @@ class ChargesController < ApplicationController
 def index
 
   if current_user && Stripe.api_key = current_user.access_code
+    @charge_fees = {}
     @customers = Stripe::Customer.all(:limit => 3)
     @charges = Stripe::Charge.all(:limit => 100)
     Rails.logger.info(@charges.inspect)
@@ -18,8 +19,13 @@ def index
 
     @total_donations = current_user.total_donations
     @total_pledged_donations = current_user.total_pledged_donations
+
     @charges.each do |charge|
       d = DonationCharge.find_by_payment_reference(charge.id)
+      
+
+      fee = Stripe::ApplicationFee.retrieve(charge.application_fee)
+      @charge_fees[charge.application_fee]= fee
       Rails.logger.info d.inspect
     end
 

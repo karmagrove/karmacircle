@@ -50,6 +50,29 @@ class Donation < ActiveRecord::Base
  
   end
 
+
+  def self.return_user_unpaid
+    amount = {}
+    User.all.each do |user|
+      charges = DonationCharge.where(:status => "unpaid", :user_id => user.id).each do |charge|
+        puts "charge insepct"
+        puts charge.inspect
+        if charge.donation_amount
+          amount["charity_"+charge["charity_id"]] ||= 0
+          amount[user.id] ||= { charge["charity_id"] => 0 }
+          key= "charge_count"+charge["charity_id"].to_s
+          amount[key] ||=0
+          puts "amount"
+          puts amount.inspect
+          amount[key] += 1
+          amount[user.id][charge["charity_id"]] = amount[user.id][charge["charity_id"]] + charge.donation_amount 
+          amount["charity_"+charge["charity_id"]] = amount["charity_"+charge["charity_id"]] + charge.donation_amount 
+        end
+      end
+    end
+
+  end
+
   def self.makePayments
     # charges.each do |charge|
     # charge.update_attribute(:donation_id, 4)
@@ -66,11 +89,13 @@ class Donation < ActiveRecord::Base
         puts charge.inspect
         if charge.donation_amount
           amount[charge["charity_id"]] ||= 0
+          amount[user.id][charge["charity_id"]] || = 0
           key= "charge_count"+charge["charity_id"].to_s
           amount[key] ||=0
           puts "amount"
           puts amount.inspect
           amount[key] +=1
+            amount[user.id][charge["charity_id"]] = amount[user.id][charge["charity_id"]] + charge.donation_amount 
             amount[charge["charity_id"]] = amount[charge["charity_id"]] + charge.donation_amount 
         end
   	  end

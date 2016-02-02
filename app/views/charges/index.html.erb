@@ -102,7 +102,7 @@ Bank Transfers
     <br />
     </div>
     <div class="small-1 columns">
-    <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
+    <% if (@d = DonationCharge.find_by_payment_reference(c.id)) and @charge_fees[c.application_fee] %> 
      <%= @charge_fees[c.application_fee] - @d.donation_amount %>
     <% end %>
     </div>

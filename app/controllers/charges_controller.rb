@@ -22,10 +22,12 @@ def index
 
     @charges.each do |charge|
       d = DonationCharge.find_by_payment_reference(charge.id)
-      
 
-      fee = Stripe::ApplicationFee.retrieve(charge.application_fee)
-      @charge_fees[charge.application_fee]= fee
+      begin 
+        fee = Stripe::ApplicationFee.retrieve(charge.application_fee)
+        @charge_fees[charge.application_fee]= fee
+      rescue
+      end
       Rails.logger.info d.inspect
     end
 

@@ -52,25 +52,48 @@ class Donation < ActiveRecord::Base
 
 
   def self.return_user_unpaid
-    amount = {}
+    new_amount = {}
     User.all.each do |user|
+      Stripe.api_key = user.access_code
       charges = DonationCharge.where(:status => "unpaid", :user_id => user.id).each do |charge|
         puts "charge insepct"
         puts charge.inspect
-        if charge.donation_amount
-          amount["charity_"+charge["charity_id"]] ||= 0
-          amount[user.id] ||= { charge["charity_id"] => 0 }
-          key= "charge_count"+charge["charity_id"].to_s
-          amount[key] ||=0
-          puts "amount"
-          puts amount.inspect
-          amount[key] += 1
-          amount[user.id][charge["charity_id"]] = amount[user.id][charge["charity_id"]] + charge.donation_amount 
-          amount["charity_"+charge["charity_id"]] = amount["charity_"+charge["charity_id"]] + charge.donation_amount 
+        begin
+        s  = Stripe::Charge.retrieve charge.payment_reference
+          if s.status == "succeeded"
+            stripe_status = "success"
+          end
+        rescue Stripe::InvalidRequestError => error
+          stripe_status = "failure"
+        end
+
+
+        if charge.donation_amount and stripe_status == "success"
+          #new_amount["charity_"+charge["charity_id"].to_s] ||= 0
+          new_amount[user.id] ||= { charge["charity_id"] => 0 }
+          new_amount[user.id][charge["charity_id"]] ||=0
+          #key= "charge_count"+charge["charity_id"].to_s
+          #new_amount[key] ||=0
+          puts "new_amount"
+          puts new_amount.inspect
+          #new_amount[key] += 1
+          new_amount[user.id][charge["charity_id"]] = new_amount[user.id][charge["charity_id"]] + charge.donation_amount 
+          #amount["charity_"+charge["charity_id"].to_s] = amount["charity_"+charge["charity_id"].to_s] + charge.donation_amount 
         end
       end
     end
+#(:status => "unpaid", :user_id => user.id).each
+  end
 
+  def update_donation_charge_status(charges = {})
+     donation_id = 8
+     charges = DonationCharge.where(:status => "unpaid", :user_id => customer.id)
+     charges.each do |charge|
+     charge.update_attribute(:donation_id, donation_id)
+    
+     charge.update_attribute(:status,"paid")
+     charge.save
+     end
   end
 
   def self.makePayments
@@ -87,13 +110,16 @@ class Donation < ActiveRecord::Base
   	  charges = DonationCharge.where(:status => "unpaid", :user_id => user.id).each do |charge|
         puts "charge insepct"
         puts charge.inspect
-        if charge.donation_amount
+        s  = Stripe::Charge.retrieve charge.payment_reference
+
+        if charge.donation_amount and s.status == "succeeded"
           amount[charge["charity_id"]] ||= 0
-          amount[user.id][charge["charity_id"]] || = 0
+          amount[user.id][charge["charity_id"]] ||= 0
           key= "charge_count"+charge["charity_id"].to_s
           amount[key] ||=0
           puts "amount"
           puts amount.inspect
+
           amount[key] +=1
             amount[user.id][charge["charity_id"]] = amount[user.id][charge["charity_id"]] + charge.donation_amount 
             amount[charge["charity_id"]] = amount[charge["charity_id"]] + charge.donation_amount 

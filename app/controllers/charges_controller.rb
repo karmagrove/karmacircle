@@ -21,7 +21,7 @@ def index
     @total_pledged_donations = current_user.total_pledged_donations
 
 
-    @application_fee = currennt_user.transaction_cost
+    @application_fee = current_user.transaction_cost
     # @charges.each do |charge|
     #   d = DonationCharge.find_by_payment_reference(charge.id)
     #   begin 

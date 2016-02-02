@@ -20,16 +20,17 @@ def index
     @total_donations = current_user.total_donations
     @total_pledged_donations = current_user.total_pledged_donations
 
-    @charges.each do |charge|
-      d = DonationCharge.find_by_payment_reference(charge.id)
 
-      begin 
-        fee = Stripe::ApplicationFee.retrieve(charge.application_fee)
-        @charge_fees[charge.application_fee]= fee
-      rescue
-      end
-      #Rails.logger.info d.inspect
-    end
+    @application_fee = currennt_user.transaction_cost
+    # @charges.each do |charge|
+    #   d = DonationCharge.find_by_payment_reference(charge.id)
+    #   begin 
+    #     fee = Stripe::ApplicationFee.retrieve(charge.application_fee)
+    #     @charge_fees[charge.application_fee]= currennt_user.transaction_cost
+    #   rescue
+    #   end
+    #   #Rails.logger.info d.inspect
+    # end
 
   else
     redirect_to "/",  notice: 'You must activate your account before you can view your charges' 

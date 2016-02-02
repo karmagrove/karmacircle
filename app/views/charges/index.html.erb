@@ -102,9 +102,9 @@ Bank Transfers
     <br />
     </div>
     <div class="small-1 columns">
-    <% if (@d = DonationCharge.find_by_payment_reference(c.id)) and @charge_fees[c.application_fee] %> 
-     <%= @charge_fees[c.application_fee] - @d.donation_amount %>
-    <% end %>
+   
+     <%= @application_fee %>
+   
     </div>
     <div class="small-1 columns">
      $<%= (((c.amount / 100.00) * (2.9/100.00)) + 0.30).round(2) %>

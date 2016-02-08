@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031043411) do
+ActiveRecord::Schema.define(version: 20160208063018) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -224,6 +224,8 @@ ActiveRecord::Schema.define(version: 20151031043411) do
     t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.boolean  "require_name"
+    t.boolean  "require_gender"
   end
 
   add_index "products", ["user_id"], name: "index_products_on_user_id"
@@ -232,12 +234,12 @@ ActiveRecord::Schema.define(version: 20151031043411) do
     t.integer  "product_id"
     t.string   "buyer_email"
     t.integer  "user_id"
-    t.integer  "donationcharge_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "donation_charge_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  add_index "purchases", ["donationcharge_id"], name: "index_purchases_on_donationcharge_id"
+  add_index "purchases", ["donation_charge_id"], name: "index_purchases_on_donation_charge_id"
   add_index "purchases", ["product_id"], name: "index_purchases_on_product_id"
   add_index "purchases", ["user_id"], name: "index_purchases_on_user_id"
 

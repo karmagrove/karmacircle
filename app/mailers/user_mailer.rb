@@ -18,7 +18,12 @@ class UserMailer < ActionMailer::Base
   def send_receipt_copy(customer, donationCharge)
     @product = nil
     @donationCharge = donationCharge
-    @customer = customer
+    @customer = customer[:stripeEmail]
+    
+    @customer_name = customer[:name]
+
+    @customer_gender = customer[:gender]
+
     if @donationCharge.purchases and @donationCharge.purchases.first and @donationCharge.purchases.first.product
       @product = @donationCharge.purchases.first.product
     end

@@ -50,14 +50,27 @@
   $<%= @product.price %>
 </h3>
 
+<% if @product.require_name == true %> 
+  
+  Your name:
+  <input type="text" id="customer_name" name="customer_name"> </input>
+
+<% end %> 
+
+
+<% if @product.require_gender == true %> 
+  
+  Your gender: <br/>
+  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="male"> Male </input> <br />
+  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="female"> Female </input>
+
+<% end %> 
+
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> <br />
  <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
 
- 
-
- 
  <div class="btn">
  
  
@@ -76,7 +89,6 @@
     key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
     image: '/assets/karma-circle.png',
     token: function(token) {
-      console.log(token.id)
       $.ajax({
            type: "POST",
            url: "/purchases",
@@ -88,18 +100,22 @@
            description: $('#description').val(),
            user_id: <%= params[:user_id] %>,
            product_id: $('#product_id').val()
+           <% if @product.require_name == true %> 
+           , customer_name: $('#customer_name').val()
+           <% end %>
+
+           <% if @product.require_gender == true %> 
+           , customer_gender: $('.customer_gender:checked').val()
+           <% end %>
            
          },
            success:function(resp){
             window.location.replace("/")
-            console.log(resp)
 
            },
             error: function(resp){
-                console.log("fail!");
-                 console.log(resp);
-                 console.log(resp.responseText);
-                 alert(resp.responseText.status_message);
+                alert("An error has occurred.  Please try again and check your card number.");
+                 //alert(resp.responseText.status_message);
                  //window.location.replace("/")
                }
         });
@@ -112,6 +128,12 @@
 
   $('#customButton').on('click', function(e) {
     // Open Checkout with further options
+     <% if @product.require_name == true %> 
+       if($('#customer_name').val() < 1){
+         alert('You must supply a name before purchasing');
+         return false;
+       }
+     <% end %>
     handler.open({
       description: $('#description').val(),
       amount: $('#amount').val()*100

@@ -139,6 +139,7 @@ def create
     Rails.logger.info @donorCharge.inspect
     @user = seller
     if @donorCharge.save(:status => "pending")
+      customer= {}
     	begin 
         @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
         @purchase.donation_charge_id = @donorCharge.id
@@ -146,10 +147,21 @@ def create
         if params[:product_id]
           Rails.logger.info("params product_id #{params[:product_id]}")
           @purchase.product_id = params[:product_id].to_i
+          @product = Product.find(@purchase.product_id)
+          customer= {}
+          if @product.require_name and params[:customer_name]
+            customer[:name] = params[:customer_name]
+          end
+          if @product.require_gender and params[:customer_gender]
+            customer[:gender] = params[:customer_gender]
+          end
         end
         @purchase.save
+        
         UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
-        UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
+        customer[:stripeEmail] = params[:stripeEmail]
+        UserMailer.send_receipt_copy(customer,@donorCharge).deliver
+
         @notice = 'Charge succeeded: check your email'
       rescue Exception => e
         Rails.logger.info("Exception: #{e.message}")

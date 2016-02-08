@@ -3,6 +3,15 @@
 <% if @product %>
    <%= @customer %> bought the following product from you: <br />
    <%= @product.name %>: <%= @product.description %> <br />
+    <% if @product.require_name %>
+     The customer's name is <%= @customer_name %> <br />
+     <% end %>
+
+    <% if @product.require_gender %>
+     The customer's gender is <%= @customer_gender %>
+    <% end %>
+
+
 <% end %>   
 THE FOLLOWING IS A COPY OF WHAT WAS SENT TO <%= @customer %>
 

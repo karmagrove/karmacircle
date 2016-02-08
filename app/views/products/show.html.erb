@@ -150,6 +150,13 @@
          return false;
        }
      <% end %>
+
+    <% if @product.require_gender == true %> 
+       if($('.customer_gender:checked').val() == undefined ){
+         alert('You must supply a gender before purchasing');
+         return false;
+       }
+     <% end %>
     handler.open({
       description: $('#description').val(),
       amount: $('#amount').val()*100

@@ -24,6 +24,22 @@
   $<%= @product.price %>
 </h3>
 
+<% if @product.require_name == true %> 
+  
+  Your name:
+  <input type="text" id="customer_name" name="customer_name"> </input>
+
+<% end %> 
+
+
+<% if @product.require_gender == true %> 
+  
+  Your gender: <br/>
+  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="male"> Male </input> <br />
+  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="female"> Female </input>
+
+<% end %> 
+
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> <br />
  <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />

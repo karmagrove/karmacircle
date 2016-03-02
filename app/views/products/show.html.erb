@@ -63,7 +63,13 @@
 
 <h3>
   <strong>Price:</strong>
+  <% if @product.price %>
   $<%= @product.price %>
+  <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
+  <% else %> 
+  Name the price. 
+  <input type="text" id="amount" name="amount"> </input>
+  <% end %>
 </h3>
 
 <% if @product.require_name == true %> 
@@ -84,7 +90,6 @@
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> <br />
- <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
 
  <div class="btn">

@@ -63,7 +63,7 @@
 
 <h3>
   <strong>Price:</strong>
-  <% if @product.price %>
+  <% unless @product.price == nil %>
   $<%= @product.price %>
   <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
   <% else %> 

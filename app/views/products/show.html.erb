@@ -62,13 +62,21 @@
   
 
 <h3>
-  <strong>Price:</strong>
+  
   <% unless @product.price == nil %>
+  <strong>Price:</strong>
   $<%= @product.price %>
   <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
   <% else %> 
-  Name the price. 
-  <input type="text" id="amount" name="amount"> </input>
+  <strong> Name the price. </strong>
+  <input type="text" id="amount" name="amount" value="name your price"> </input>
+  <script type="text/javascript">
+  $('document').ready(function(){
+    $('#amount').click(function(){
+      $(this).val('');
+    })
+  })
+  </script>
   <% end %>
 </h3>
 

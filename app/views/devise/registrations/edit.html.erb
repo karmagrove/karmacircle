@@ -42,9 +42,13 @@
 
        <%= f.label :business_name %>
        <%= f.text_field :business_name, :value => current_user.business_name %>
-       Your URL: <a href="https://www.karmagrove.com/<%= current_user.business_name %>" target="new"> 
+       <% if current_user.business_name %>
+       Your profile: <a href="https://www.karmagrove.com/<%= current_user.business_name %>" target="new"> 
               https://www.karmagrove.com/<%= current_user.business_name %>
             </a>
+       <% else %>             
+         Add a business name to claim your profile at KarmaGrove.com/{{Business Name}}
+       <% end %> 
       <br />
           <%= f.label :email %>
           <%= f.email_field :email, :autofocus => true, class: 'form-control' %>

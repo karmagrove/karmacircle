@@ -116,7 +116,7 @@
 
   var handler = StripeCheckout.configure({
     key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
-    image: '/assets/karma-circle.png',
+    image: '/assets/karma_circle.png',
     token: function(token) {
       $.ajax({
            type: "POST",

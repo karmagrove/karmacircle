@@ -18,7 +18,7 @@ Description: <input id="description" default="description of sale"></input> <br 
 
   var handler = StripeCheckout.configure({
     key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
-    image: '/assets/karma-circle.png',
+    image: '/assets/karma_circle.png',
     token: function(token) {
     	console.log(token.id)
     	$.ajax({

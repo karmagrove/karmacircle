@@ -4,7 +4,7 @@
     <li><%= link_to 'My Charities', user_charity_users_path({ user_id: current_user.id }) %></li>
     <li><%= link_to 'My Products', user_products_path({ user_id: current_user.id }) %></li> 
     <li><%= link_to 'My Sales', "/charges" %></li>
-    <li><%= link_to 'My Events', "/events" %></li>
+    <!-- <li><%= link_to 'My Events', "/events" %></li> -->
   <% end %>  
 <% else %>
   <li><%= link_to 'About', "/about" %></li>

@@ -46,5 +46,7 @@ Rails.application.routes.draw do
   get 'auth/facebook/callback', to: 'sessions#create'
   get 'auth/facebook/login', to: 'sessions#login'
 
+  get '/donations', :to => 'donations#index'
   get ":business_name", :to => "users#show"
+
 end

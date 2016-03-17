@@ -3,12 +3,13 @@ class DonationsController < ApplicationController
   before_action :admin_only, :except => :index
   
   def index
-    if current_user
+    if current_user and current_user.access_code
     Stripe.api_key = current_user.access_code
-    @customers = Stripe::Charges.all()
+    @customers = Stripe::Charge.all()
     else
-    @donations = Donation
+    @donations = Donation.all
     end
+    @donations = Donation.all
   end
   
   def make_payments

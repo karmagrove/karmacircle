@@ -1,1 +1,6 @@
-index.html.erb
+<% @donations.each do |donation| %>
+
+amount: <%= '%.2f' % (@donation.donation_amount/100.0) %>
+
+
+<% end %>

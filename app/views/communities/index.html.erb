@@ -1,0 +1,32 @@
+<% @users.each do |user| %>
+
+<div>
+<h2> <%= user.name %> <%= user.email %> </h2>
+    <%= user.website %>
+    
+
+    <div>
+        <% if user.business_name  %>  
+        	<%= link_to "View Profile of #{user.business_name}", "http://www.karmagrove.com/" + user.business_name %>
+
+        <% else %>
+        	Profile: http://www.karmagrove.com/users/<%= user.id %>
+
+        <% end %>
+    </div>
+    
+    <div>
+        <%= if user.website        then  "website: #{user.website}"        end %>       
+    </div>
+    
+    <div>
+        <%= if user.donation_rate  then  "donation_rate: #{user.donation_rate}%"  end %>
+    </div>
+
+    <div>
+        <%= if user.charity_users.length >0 then "charity: #{user.charity_users.last.charity.name}" end %>
+    </div>
+</div>    
+
+
+<% end %> 

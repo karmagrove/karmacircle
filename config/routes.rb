@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   end
   
 
-
+  get "communities/index"
+  get "community", :to => "communities#index"
   get "content/patron"
   get "content/partner"
   get "content/charity"

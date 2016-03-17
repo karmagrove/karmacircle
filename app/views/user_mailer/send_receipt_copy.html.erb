@@ -13,7 +13,13 @@
 
 
 <% end %>   
-THE FOLLOWING IS A COPY OF WHAT WAS SENT TO <%= @customer %>
+
+THE FOLLOWING IS A COPY OF WHAT WAS SENT TO 
+<% if @customer.string? %>
+<%= @customer %>
+<% else %>
+<%= @customer_name %>
+<% end %>
 
 </small>
  <%= render 'customer_receipt' %>

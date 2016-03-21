@@ -15,10 +15,13 @@
 <% end %>   
 
 THE FOLLOWING IS A COPY OF WHAT WAS SENT TO 
-<% if @customer.string? %>
+<% if @customer and @customer.class == String %>
 <%= @customer %>
 <% else %>
 <%= @customer_name %>
+<% end %>
+<% if @customer_email %>
+<%= @customer_email %>
 <% end %>
 
 </small>

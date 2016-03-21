@@ -17,9 +17,12 @@
 THE FOLLOWING IS A COPY OF WHAT WAS SENT TO 
 <% if @customer and @customer.class == String %>
 <%= @customer %>
-<% else %>
+<% end %>
+
+<% if @customer_name %>
 <%= @customer_name %>
 <% end %>
+
 <% if @customer_email %>
 <%= @customer_email %>
 <% end %>

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     put 'change_plan', :to => 'registrations#change_plan'
     get 'explore', :to => 'registrations#explore'
     post 'explore', :to => 'registrations#post_explore'
+    post '/users/invite', :to => "registrations#invite"
     #get 'post_explore', :to => 'content#partner'
     get 'products', :to => 'products#index'
     #resources :products
@@ -48,5 +49,6 @@ Rails.application.routes.draw do
 
   get '/donations', :to => 'donations#index'
   get ":business_name", :to => "users#show"
+  #post '/users/invite', :to => "registrations#invite"
 
 end

@@ -19,6 +19,16 @@
 <div class="container">
   <div class="row">
   <h3>Create new user</h3>
+  <form method="post" action="/users/invite">
+  <input type="text" name="user[email]"></input>
+
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token =%>
+  <input type="hidden" name="user[user_id]"><%=current_user.id%></input>
+  <button type="submit">
+  Submit
+  </button>
+  </form>
+  
   
   </div>
 </div>

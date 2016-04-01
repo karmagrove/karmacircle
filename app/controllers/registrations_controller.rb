@@ -2,6 +2,26 @@ class RegistrationsController < Devise::RegistrationsController
   #include Payola::StatusBehavior
   before_action :cancel_subscription, only: [:destroy]
 
+  def invite
+    email = params[:user][:email]
+    inviter = params[:user][:user_id]
+    user = {}
+    if (user = User.find_by_email(email))
+    then
+      set_flash_message :notice, "email taken" and redirect_to("/users")
+    else
+      #user = User.new
+      
+      user = User.create(:email => email,:password => "123324324234dfadsfsad")
+      user.save
+      invite = UserInvite.create(:user_id=> inviter, :invitee => user.id)
+      invite.save
+      set_flash_message :notice, "email created" and redirect_to("/users")
+      return true
+    end
+
+  end
+
   def post_explore
     
     #build_resource()

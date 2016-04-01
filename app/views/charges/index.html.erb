@@ -48,35 +48,56 @@ Bank Transfers
 
 
 <h1> Your charges </h1>
-<div class="row">
-    <div class="small-1 columns head-charge" style="text-align:center">
+<div class="row wide">
+    <div class="small-1 columns head-charge" style="text-align:left">
     <h3> Date </h3>
     </div>
      <div class="small-3 columns head-charge" style="text-align:left">
     <h3> Customer email </h3>
     </div>
-    <div class="small-2 columns head-charge" style="text-align:center" >
+    <div class="small-2 columns head-charge" style="text-align:left" >
     <h3> Description </h3>
     </div>
 	  <div class="small-2 columns head-charge" style="text-align:left">
-    <h3> Amount </h3>
-    </div>
-    <div class="small-2 columns head-charge" style="text-align:center">
     <h3> Donation Status </h3>
     </div>
+    <div class="small-4 columns head-charge" style="text-align:center">
+    <h3> Amounts Paid </h3>
+    </div>
+</div>
+<div class="row wide">
     <div class="small-1 columns head-charge" style="text-align:left">
-    <h3> Karma Grove Fee </h3>
+     <br />
     </div>
-    <div class="small-1 columns head-charge" style="text-align:center">
-    <h3> Stripe Fee </h3> 
-      
+     <div class="small-3 columns head-charge" style="text-align:left">
+    <br />
     </div>
+    <div class="small-2 columns head-charge" style="text-align:left" >
+    <br />
+    </div>
+    <div class="small-2 columns head-charge" style="text-align:left">
+    <br />
+    </div>
+    <div class="small-1 columns" style="text-align:left">
+    <h2 title="In your bank account"> You </h2>
+    </div>
+    <div class="small-1 columns" style="text-align:left">
+    <h2 title="Customer paid this amount"> Yours </h2>
+    </div>
+    <div class="small-1 columns" style="text-align:left">
+    <h2 title="Karma Grove fees - 1/2 of these will match your charity "> Us </h2>
+    </div>
+    <div class="small-1 columns" style="text-align:left">
+     <h2 title="stripe makes all the money"> Stripe </h2> 
+    
+    </div>
+
 </div>
 
   <% @charges.each do |c| %>
   
 
-  <div class="row">
+  <div class="row wide">
     <div class="small-1 columns">
     <%= Time.at(c.created).strftime("%Y-%m-%d") %> 
     </div>
@@ -87,11 +108,10 @@ Bank Transfers
     <%= c.description %> <br />
     </div>
     <div class="small-2 columns">
-    $<%= (c.amount / 100.00).round(2) %> <br />
-    </div>
-    <div class="small-2 columns">
+    <% @donation_amount=0 %>
     <% if @d = DonationCharge.find_by_payment_reference(c.id) %> 
-      $<%= (@d.donation_amount/100.00).round(2) %> 
+      $<%= ((@d.donation_amount + @application_fee/2)/100.00).round(2) %> 
+      <% @donation_amount = ((@d.donation_amount)/100.00).round(2) %>
       <% if @d.charity %> 
          <%= @d.charity.name %> 
       <% end %>
@@ -101,10 +121,32 @@ Bank Transfers
     <% end %>  
     <br />
     </div>
+
     <div class="small-1 columns">
-   
-     <%= (@application_fee/100.00).round(2) %>
-   
+    <% @temp_application_fee = false %>
+    <% 
+    if ((((c.amount / 100.00).round(2) - (@application_fee/100.00).round(2) - (((c.amount / 100.00) * (2.9/100.00)) + 0.30).round(2)) - @donation_amount ) > 0)  
+    %>
+      $<%= (((c.amount / 100.00).round(2) - (@application_fee/100.00).round(2) - (((c.amount / 100.00) * (2.9/100.00)) + 0.30).round(2)) - @donation_amount ).round(2)
+      %>
+      <% else %>
+       <% @temp_application_fee = true %>
+       $<%=  0.01 %>
+
+    <% end   %> 
+    (Your$)
+    </div>
+
+    <div class="small-1 columns">
+    $<%= (c.amount / 100.00).round(2) %> (Charge)
+    </div>
+
+    <div class="small-1 columns">
+     <% if @temp_application_fee %>
+     $<%= ((((c.amount / 100.00).round(2) - (((c.amount / 100.00) * (2.9/100.00)) + 0.30).round(2)) - @donation_amount )/2).round(2) %>
+     <% else %>
+     $<%= (@application_fee/200.000).round(2) %>
+     <% end %>
     </div>
     <div class="small-1 columns">
      $<%= (((c.amount / 100.00) * (2.9/100.00)) + 0.30).round(2) %>
@@ -112,14 +154,13 @@ Bank Transfers
      
   </div>
   <% end %> 
-<div class="row">
+<div class="row wide">
   <div class="small-12 columns">
   <h4>
   Unpaid Explanation
   </h4>
-
   <p>
-  Expected to be paid on the 1st of the coming month
+  Expected to be paid on the 1st of the coming month.
   </p>
   <p>
   If you wish to change which charity you are giving to before they are paid, please <a href="mailto:joshua@karmagrove.com?subject=change%20charity%20request">contact us 
@@ -127,3 +168,6 @@ Bank Transfers
   </div>
 </div>
 
+<style type="text/css">
+.wide {max-width: 100%;};
+</style>

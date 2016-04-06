@@ -5,7 +5,7 @@
 
 <h2> <%= user.name %> <%= user.email %> </h2>
     <%= user.website %>
-    <% if current_user.id == user.id %>
+    <% if current_user and current_user.id == user.id %>
 <h3> <%=link_to "Edit your information", "/users/edit" %> </h3>
 <h4> COMING SOON - Connect facebook to import image </h4>
 

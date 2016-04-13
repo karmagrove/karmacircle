@@ -25,13 +25,14 @@ class UserMailer < ActionMailer::Base
     @customer_name = customer['name']
 
     @customer_gender = customer['gender']
+    @customer = customer[:stripeEmail]
     Rails.logger.info "#{@customer.inspect}, #{@customer_email.inspect}"
     if @donationCharge.purchases and @donationCharge.purchases.first and @donationCharge.purchases.first.product
       @product = @donationCharge.purchases.first.product
     end
   	
   	
-  	mail(:to => @donationCharge.user.email, :subject => "SENT TO CUSTOMER #{donationCharge.user.email}: Thank you for your purchase")
+  	mail(:to => @donationCharge.user.email, :subject => "SENT TO CUSTOMER #{@customer}: Thank you for your purchase")
   end
 
 

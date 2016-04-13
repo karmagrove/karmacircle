@@ -8,7 +8,7 @@
         <%= form_for :update_charity_user, :id => current_user.charity_users.first.id do |f| %>
           <%= collection_select(:charity_user, :charity_id, @charities, :id, :name) %>
           <div class="actions">
-              <%= f.submit class: "button success radius right" %>
+              <%= f.submit class: "button success radius right", value: "save charity"  %>
           </div>
         <% end %>
       
@@ -17,10 +17,23 @@
         <%= form_for :charity_user do |f| %>
           <%= collection_select(:charity_user, :charity_id, @charities, :id, :name ) %>
           <div class="actions">
-            <%= f.submit class: "button success radius right" %>
+            <%= f.submit class: "button success radius right", value: "save charity" %>
           </div>
         <% end %>
           
       <% end %>  
   </div>
 </div>
+
+ 
+      <div class="row well">
+      <h1> Charities </h1>
+        <% @charities.each do |charity| %>
+        <div class="col-sm-1 span2 col-md">
+          <%= charity.name %> - <%= charity.description %>
+          <br />
+          <%= charity.url %><br />
+          <%= charity.city %> <%= charity.state %>
+        </div>
+        <% end %>    
+      </div> 

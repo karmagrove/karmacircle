@@ -10,10 +10,10 @@ class RegistrationsController < Devise::RegistrationsController
     then
       set_flash_message :notice, "email taken" and redirect_to("/users")
     else
-      #user = User.new
-      
+      #user = User.new      
       user = User.create(:email => email,:password => "123324324234dfadsfsad")
       user.save
+      
       invite = UserInvite.create(:user_id=> inviter, :invitee => user.id)
       invite.save
       set_flash_message :notice, "email created" and redirect_to("/users")

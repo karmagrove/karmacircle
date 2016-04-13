@@ -25,8 +25,13 @@ class UserMailer < ActionMailer::Base
     @customer_name = customer['name']
 
     @customer_gender = customer['gender']
-    @customer = customer[:stripeEmail]
     Rails.logger.info "#{@customer.inspect}, #{@customer_email.inspect}"
+    if customer.class == String 
+     @customer = customer
+    else
+      @customer = customer[:stripeEmail]
+    end
+    
     if @donationCharge.purchases and @donationCharge.purchases.first and @donationCharge.purchases.first.product
       @product = @donationCharge.purchases.first.product
     end

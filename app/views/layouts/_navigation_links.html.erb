@@ -1,15 +1,25 @@
 <%# add navigation links to this file %>
 <% if user_signed_in? %>
-  <% if current_user.id %>
+  <% if current_user.try(:admin?) %>
+    <li><%= link_to 'Users', users_path %></li>
+    <li><%= link_to 'Edit Charities', "/charities" %></li>
+    <li><%= link_to 'View Donations', "/donations" %></li>
+    <li><%= link_to 'Income', "/income" %></li>
+  <% elsif current_user.try(:charity_admin?) %>
+    <li><%= link_to 'My Charity', "/charity/#{current_user.charity.id}" %></li>
+  <% else current_user.id %>
     <li><%= link_to 'My Charities', user_charity_users_path({ user_id: current_user.id }) %></li>
     <li><%= link_to 'My Products', user_products_path({ user_id: current_user.id }) %></li> 
     <li><%= link_to 'My Sales', "/charges" %></li>
     <!-- <li><%= link_to 'My Events', "/events" %></li> -->
-  <% end %>  
-<% else %>
+<% end %>
+
+  <% else %>
   <li><%= link_to 'About', "/about" %></li>
   <li><%= link_to 'Explore for free', new_user_registration_path(:plan => "patron"), data: { no_turbolink: true, :plan => "patron" } %></li>
 <% end %>
+
+
 <% if user_signed_in? %>
   <% if current_user.try(:admin?) %>
     <li><%= link_to 'Users', users_path %></li>

@@ -12,6 +12,7 @@ class CharitiesController < ApplicationController
   # GET /charities/1
   # GET /charities/1.json
   def show
+    @charity = Charity.find(params[:id])
   end
 
   # GET /charities/new
@@ -27,7 +28,21 @@ class CharitiesController < ApplicationController
   # POST /charities.json
   def create
     @charity = Charity.new(charity_params)
-
+    email = charity_params[:email]
+    if (user = User.find_by_email(email))
+    then
+      set_flash_message :notice, "email taken" and redirect_to("/users")
+    else
+      #user = User.new      
+      user = User.create(:email => email,:password => "123324324234dfadsfsad")
+      if role = "charity_admin"
+        user.role = role
+      end
+      user.save
+    
+      invite = UserInvite.create(:user_id=> inviter, :invitee => user.id)
+      invite.save
+   
     respond_to do |format|
       if @charity.save
         format.html { redirect_to @charity, notice: 'Charity was successfully created.' }

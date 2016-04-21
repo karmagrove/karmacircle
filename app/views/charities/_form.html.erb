@@ -27,10 +27,10 @@
     <%= f.label :status %><br>
     <%= f.select(:status, Charity.statuses.keys.map {|status| [status.titleize,status]}) %>
   </div>
-  <div class="field">
+  <!-- <div class="field">
     <%= f.label :stripe_id %><br>
     <%= f.text_field :stripe_id %>
-  </div>
+  </div> -->
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>

@@ -86,7 +86,9 @@
   <input type="text" id="customer_name" name="customer_name"> </input>
 
 <% end %> 
-
+<div class="modal">
+Show the new stuff
+</div>
 
 <% if @product.require_gender == true %> 
   
@@ -170,6 +172,11 @@
          return false;
        }
      <% end %>
+
+
+     // amount: $('#amount').val()*100
+
+
     handler.open({
       description: $('#description').val(),
       amount: $('#amount').val()*100

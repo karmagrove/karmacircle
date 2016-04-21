@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @charity.name %>
+  <strong>Name and status:</strong>
+  <%= @charity.name + " - " + @charity.status %>
 </p>
 
 <p>
@@ -16,8 +16,11 @@
 </p>
 
 <p>
-  <strong>Stripe:</strong>
-  <%= @charity.stripe_id %>
+  <% if @charity.stripe_id %> 
+    <strong>Stripe Is Connected - Available to receive donations </strong>
+  <% else %>
+    <strong>Stripe Is Not Connected - Donations cannot be given here</strong>
+  <% end %>
 </p>
 
 <p>

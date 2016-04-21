@@ -7,6 +7,11 @@ class Charity < ActiveRecord::Base
 	after_initialize :set_default_status, :if => :new_record?
 	#scope :
 
+	def charity_admin 
+	  self.charity_users.where(role: 1).each do |charity_user|
+	    return charity_user.charity
+	  end
+	end
 	def set_default_status
     self.status ||= :suggested
     end

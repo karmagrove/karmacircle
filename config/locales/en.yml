@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+  devise.registrations.user.email: "TAKEN"
+  devise:
+    registrations:
+      user:
+        email taken: "email taken"
+        email taken: "user created"

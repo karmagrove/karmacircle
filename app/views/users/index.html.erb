@@ -19,15 +19,24 @@
 <div class="container">
   <div class="row">
   <h3>Create new user</h3>
-  <form method="post" action="/users/invite">
+
+  <%= form_for("user", url: "/users/invite" ) do |f| %>
+  
+  
+  <!-- <form method="post" action="/users/invite"> -->
   <input type="text" name="user[email]"></input>
 
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token =%>
-  <input type="hidden" name="user[user_id]"><%=current_user.id%></input>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  
+  <input type="hidden" class="hidden" style="display:none" name="user[user_id]" value=<%= current_user.id %>>
+  </input>
+
+  <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
   <button type="submit">
   Submit
   </button>
   </form>
+  <% end %>
   
   
   </div>

@@ -5,6 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
   def invite
     email = params[:user][:email]
     inviter = params[:user][:user_id]
+    role = params[:user][:role]
     user = {}
     if (user = User.find_by_email(email))
     then
@@ -12,6 +13,9 @@ class RegistrationsController < Devise::RegistrationsController
     else
       #user = User.new      
       user = User.create(:email => email,:password => "123324324234dfadsfsad")
+      if role = params[:user][:role]
+        user.role = role
+      end
       user.save
       
       invite = UserInvite.create(:user_id=> inviter, :invitee => user.id)

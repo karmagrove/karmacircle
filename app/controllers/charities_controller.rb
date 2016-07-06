@@ -1,9 +1,12 @@
 class CharitiesController < ApplicationController
   before_action :set_charity, only: [:show, :edit, :update, :destroy]
-  before_action :admin_only, :except => [:new, :index]
-  before_action :plan_only, :new, :except => [:index]
+  before_action :admin_only, :except => [:new, :index, :create]
+  #before_action :plan_only, :new, :except => [:index]
 
   # GET /charities
+  def charity_params
+      params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state)
+    end
   # GET /charities.json
   def index
     @charities = Charity.all.sort_by {|c| c.status}
@@ -17,6 +20,7 @@ class CharitiesController < ApplicationController
 
   # GET /charities/new
   def new
+    @current_user = current_user
     @charity = Charity.new
   end
 
@@ -27,11 +31,14 @@ class CharitiesController < ApplicationController
   # POST /charities
   # POST /charities.json
   def create
+    # charity_params = params[:charity]
+    Rails.logger.info charity_params
     @charity = Charity.new(charity_params)
     email = charity_params[:email]
-    if (user = User.find_by_email(email))
+    if (User.find_by_email(email))
     then
       set_flash_message :notice, "email taken" and redirect_to("/users")
+
     else
       #user = User.new      
       user = User.create(:email => email,:password => "123324324234dfadsfsad")
@@ -39,7 +46,7 @@ class CharitiesController < ApplicationController
         user.role = role
       end
       user.save
-    
+      inviter||= params[:user_id]
       invite = UserInvite.create(:user_id=> inviter, :invitee => user.id)
       invite.save
    
@@ -78,6 +85,16 @@ class CharitiesController < ApplicationController
     end
   end
 
+  def admin_only
+      unless current_user.admin?
+        redirect_to :back, :alert => "Access denied."
+      end
+  end
+
+  def charity_params
+      params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_charity
@@ -101,4 +118,6 @@ class CharitiesController < ApplicationController
     def charity_params
       params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state)
     end
+  end
 end
+

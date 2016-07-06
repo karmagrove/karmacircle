@@ -6,13 +6,15 @@ class RegistrationsController < Devise::RegistrationsController
     email = params[:user][:email]
     inviter = params[:user][:user_id]
     role = params[:user][:role]
+    password = params[:user][:password] 
+
     user = {}
     if (user = User.find_by_email(email))
     then
       set_flash_message :notice, "email taken" and redirect_to("/users")
     else
       #user = User.new      
-      user = User.create(:email => email,:password => "123324324234dfadsfsad")
+      user = User.create(:email => email,:password => password)
       if role = params[:user][:role]
         user.role = role
       end

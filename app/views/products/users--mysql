@@ -1,0 +1,49 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.11.3
+-- http://www.phpmyadmin.net
+--
+-- Host: 68.178.142.116
+-- Generation Time: Apr 15, 2016 at 07:48 PM
+-- Server version: 5.0.96
+-- PHP Version: 5.1.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `lab1315702041144`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wp_users`
+--
+
+CREATE TABLE `wp_users` (
+  `ID` bigint(20) unsigned NOT NULL auto_increment,
+  `user_login` varchar(60) NOT NULL default '',
+  `user_pass` varchar(64) NOT NULL default '',
+  `user_nicename` varchar(50) NOT NULL default '',
+  `user_email` varchar(100) NOT NULL default '',
+  `user_url` varchar(100) NOT NULL default '',
+  `user_registered` datetime NOT NULL default '0000-00-00 00:00:00',
+  `user_activation_key` varchar(60) NOT NULL default '',
+  `user_status` int(11) NOT NULL default '0',
+  `display_name` varchar(250) NOT NULL default '',
+  PRIMARY KEY  (`ID`),
+  KEY `user_login_key` (`user_login`),
+  KEY `user_nicename` (`user_nicename`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `wp_users`
+--
+
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(1, 'jmjesq', '$P$BY1/kXHvZLnwbv9RaY2.4ZCxJ1A8v41', 'admin', 'justin@jacobsonfirm.com', 'http://www.label-55.com', '2013-06-06 21:08:55', 'z3EmanyWpokUkRtmBFNS', 0, 'jmjesq');
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(2, 'label55', '$P$BXLjn7Id1iNaia9VQboTkOowV95eSP1', 'label55', 'alvin.akinti@gmail.com', '', '2013-06-10 16:03:22', '', 0, 'label55');
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(3, 'certifiedlinc', '$P$BVPK3GkU4QoEPN/mIIdKlXTG1f7KAe0', 'certifiedlinc', 'lincoln1913@gmail.com', '', '2013-06-10 16:17:56', '', 0, 'certifiedlinc');
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(4, 'keithpblack', '$P$Bv43/cN3TQtB98on85s/NeyCrLyOGv1', 'keithpblack', 'kblack25@gmail.com', '', '2013-06-10 16:17:56', '', 0, 'keithpblack');
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(5, 'danip', '$P$BPTB0SjRMnM1ge4WToYHZTLhXZsSah0', 'danip', 'daniplotkin18@gmail.com', '', '2013-10-21 20:23:38', '', 0, 'Dani Plotkin');
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(6, 'JennaFaith', '$P$BuHxddmpxa60GX1X8yky82Fzt9MuaZ0', 'jennafaith', 'jflipp26@gmail.com', '', '2013-11-08 17:42:00', '', 0, 'Jenna Faith');
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(7, 'Perry', '$P$BwJ4E2orywJgWjc.ymyPoHO1GZelUr/', 'perry', 'perry@ambitioninsight.com', '', '2015-05-05 05:38:02', '1454880560:$P$BntTRnEhccmPxtLRbOXf8u1Hy5Srjp/', 0, 'Perry Finley');
+INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES(8, 'Wes', '$P$BWHwtj9u8YqWm/x4NwyzTipyIoPD9Y.', 'wes', 'wes@thatdrop.com', '', '2015-06-04 16:22:58', '', 0, 'Wes Ogden');

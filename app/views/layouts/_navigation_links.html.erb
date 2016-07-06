@@ -6,7 +6,11 @@
     <li><%= link_to 'View Donations', "/donations" %></li>
     <li><%= link_to 'Income', "/income" %></li>
   <% elsif current_user.try(:charity_admin?) %>
-    <li><%= link_to 'My Charity', "/charity/#{current_user.charity.id}" %></li>
+    <% if current_user.charity && current_user.charity.first %>
+    <li><%= link_to 'Charity Profile', "/charity/#{current_user.charity.id}" %></li>
+    <% else %>
+    <li><%= link_to 'Create Charity Profile', "/charities/new" %></li>
+    <% end %>
   <% else current_user.id %>
     <li><%= link_to 'My Charities', user_charity_users_path({ user_id: current_user.id }) %></li>
     <li><%= link_to 'My Products', user_products_path({ user_id: current_user.id }) %></li> 

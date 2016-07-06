@@ -23,17 +23,18 @@ new Chartist.Line('.ct-chart', {
 </script>
 
 <% @donations.each do |donation| %>
-<div>
+  <% if donation.charity %> 
   <div>
-  <h3> Charity: <%= link_to donation.charity.name, "/charities/#{donation.charity.id}" %> </h3>
+    <div>
+    <h3> Charity: <%= link_to donation.charity.name, "/charities/#{donation.charity.id}" %> </h3>
+    </div>
+    <div>
+    Amount: <%= '%.2f' % (donation.donation_amount/100.0) %>
+    </div>
+    <div>
+    Date: <%= "#{donation.created_at.month}-#{donation.created_at.day}-#{donation.created_at.year}" %> 
+    </div>
   </div>
-  <div>
-  Amount: <%= '%.2f' % (donation.donation_amount/100.0) %>
-  </div>
-  <div>
-  Date: <%= "#{donation.created_at.month}-#{donation.created_at.day}-#{donation.created_at.year}" %> 
-  </div>
-</div>
-<br />
-
+  <br />
+  <% end %> 
 <% end %>

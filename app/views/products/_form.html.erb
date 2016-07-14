@@ -37,17 +37,21 @@
     <%= f.check_box :require_gender %>
   </div>
   <div class="field">
+    <%= f.label :display_special_instructions_box_for_buyers %><br>
+    <%= f.check_box :special_instructions %>
+  </div><!-- 
+  <div class="field">
     <%= f.label :donation_percent %><br>
     <%= f.number_field :donation_percent %>
-  </div>
+  </div> -->
   <div class="field">
     <%= f.label :image_url %><br>
     <%= f.text_field :image_url %>
-  </div>
+  </div><!-- 
   <div class="field">
     <%= f.label :user_id %><br>
     <%= f.text_field :user_id %>
-  </div>
+  </div> -->
   <div class="actions">
     <%= f.submit %>
   </div>

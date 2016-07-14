@@ -10,6 +10,11 @@
     <% if @product.require_gender %>
      The customer's gender is <%= @customer_gender %>
     <% end %>
+
+	<% if @product.special_instructions %>
+     The customer's special instuctions are <%= @special_instructions %>
+    <% end %>
+
 <% end %>   
 
 THE FOLLOWING IS A COPY OF WHAT WAS SENT TO 

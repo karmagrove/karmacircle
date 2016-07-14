@@ -86,8 +86,9 @@
   <input type="text" id="customer_name" name="customer_name"> </input>
 
 <% end %> 
+
 <div class="modal">
-Show the new stuff
+<!-- Show the new stuff -->
 </div>
 
 <% if @product.require_gender == true %> 
@@ -95,6 +96,13 @@ Show the new stuff
   Your gender: <br/>
   <input type="radio" required="true" class="customer_gender" name="customer_gender" value="male"> Male </input> <br />
   <input type="radio" required="true" class="customer_gender" name="customer_gender" value="female"> Female </input>
+
+<% end %> 
+
+<% if @product.special_instructions == true %> 
+<br/>
+Your notes for the seller: <br/>
+  <input type="text" required="true" class="customer_special_instructions" name="customer_special_instructions" side="10" default-value="provide any instuctions here"> </input> <br />
 
 <% end %> 
 

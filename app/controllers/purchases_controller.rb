@@ -155,6 +155,10 @@ def create
           if @product.require_gender and params[:customer_gender]
             customer[:gender] = params[:customer_gender]
           end
+          if @product.special_instuctions and params[:special_instuctions]
+            customer[:special_instuctions] = params[:special_instuctions]
+            Rails.logger.info("special_instructions")
+          end
         end
         @purchase.save
         

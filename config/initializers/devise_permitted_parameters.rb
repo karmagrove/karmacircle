@@ -11,6 +11,7 @@ module DevisePermittedParameters
     devise_parameter_sanitizer.for(:sign_up) << :name
     devise_parameter_sanitizer.for(:account_update) << :name
     devise_parameter_sanitizer.for(:account_update) << :donation_rate
+    devise_parameter_sanitizer.for(:account_update) << :business_name
   end
 
 end

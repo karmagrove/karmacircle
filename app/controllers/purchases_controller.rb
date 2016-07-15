@@ -156,7 +156,7 @@ def create
           if @product.require_gender and params[:customer_gender]
             customer[:gender] = params[:customer_gender]
           end
-          if @product.special_instructions and params[:special_instuctions]
+          if @product.special_instructions and params[:special_instructions]
             customer[:special_instructions] = params[:special_instructions]
             Rails.logger.info("special_instructions")
           end
@@ -197,7 +197,7 @@ private
   
   def secure_params
     params.require(:donor_charge).permit(:donation_amount,
-    :payment_reference, :charity_id, :revenue, :customer_id, :user_id)
+    :payment_reference, :charity_id, :revenue, :customer_id, :user_id, :special_instructions)
   end
 
 

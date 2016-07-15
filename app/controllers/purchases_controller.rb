@@ -148,6 +148,7 @@ def create
           Rails.logger.info("params product_id #{params[:product_id]}")
           @purchase.product_id = params[:product_id].to_i
           @product = Product.find(@purchase.product_id)
+          Rails.logger.info("params product_id #{params[:product_id]} and product #{@product.inspect}")
           customer= {}
           if @product.require_name and params[:customer_name]
             customer[:name] = params[:customer_name]
@@ -155,8 +156,8 @@ def create
           if @product.require_gender and params[:customer_gender]
             customer[:gender] = params[:customer_gender]
           end
-          if @product.special_instuctions and params[:special_instuctions]
-            customer[:special_instuctions] = params[:special_instuctions]
+          if @product.special_instructions and params[:special_instuctions]
+            customer[:special_instructions] = params[:special_instructions]
             Rails.logger.info("special_instructions")
           end
         end

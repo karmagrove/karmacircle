@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :charity_users
   has_many :donation_charges
   
+
   def charity
     if self.role == "charity_admin" then
       self.charity_users.where(role: 1).each do |user|

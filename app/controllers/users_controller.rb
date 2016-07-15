@@ -26,6 +26,8 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    Rails.logger.info(params)
+    Rails.logger.info("secure_params: #{secure_params}")
     if @user.update_attributes(secure_params)
       redirect_to users_path, :notice => "User updated."
     else
@@ -48,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :donation_rate,:business_name)
+   return params.require(:user).permit(:role, :donation_rate, :business_name)
   end
 
 end

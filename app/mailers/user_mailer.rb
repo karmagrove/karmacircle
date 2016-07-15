@@ -26,9 +26,9 @@ class UserMailer < ActionMailer::Base
 
     @customer_gender = customer['gender']
 
-    @special_instructions = customer['special_instructions']
+    @special_instructions = customer[:special_instructions]
     
-    Rails.logger.info "#{@customer.inspect}, #{@customer_email.inspect}"
+    Rails.logger.info "#{@customer.inspect}, #{@customer_email.inspect}, @special_instructions #{@special_instructions}"
     if customer.class == String 
      @customer = customer
     else

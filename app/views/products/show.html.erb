@@ -102,7 +102,7 @@
 <% if @product.special_instructions == true %> 
 <br/>
 Your notes for the seller: <br/>
-  <input type="text" required="true" class="customer_special_instructions" name="customer_special_instructions" side="10" default-value="provide any instuctions here"> </input> <br />
+  <input type="text" id="special_instructions" required="true" class="customer_special_instructions" name="customer_special_instructions" side="10" default-value="provide any instuctions here"> </input> <br />
 
 <% end %> 
 
@@ -146,6 +146,11 @@ Your notes for the seller: <br/>
            <% if @product.require_gender == true %> 
            , customer_gender: $('.customer_gender:checked').val()
            <% end %>
+
+          <% if @product.special_instructions == true %> 
+           , special_instructions: $('#special_instructions').val()
+           <% end %>
+
            
          },
            success:function(resp){
@@ -180,6 +185,8 @@ Your notes for the seller: <br/>
          return false;
        }
      <% end %>
+
+
 
 
      // amount: $('#amount').val()*100

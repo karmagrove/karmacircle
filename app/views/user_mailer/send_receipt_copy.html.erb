@@ -2,17 +2,23 @@
 
 <% if @product %>
    <%= @customer %> bought the following product from you: <br />
-   <%= @product.name %>: <%= @product.description %> <br />
+   <% if @product.name %> <%= @product.name %>:<%end%> <%= @product.description %> <br />
     <% if @product.require_name %>
-     The customer's name is <%= @customer_name %> <br />
+    <p>
+     The customer's name is <%= @customer_name %> 
+     </p>
      <% end %>
 
     <% if @product.require_gender %>
+    <p>
      The customer's gender is <%= @customer_gender %>
+     </p>
     <% end %>
 
 	<% if @product.special_instructions %>
+    <p>
      The customer's special instuctions are <%= @special_instructions %>
+     </p>
     <% end %>
 
 <% end %>   

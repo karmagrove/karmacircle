@@ -3,6 +3,13 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :update_sanitized_params, if: :devise_controller?
+
+  def update_sanitized_params
+    #devise_parameter_sanitizer.for(:registration_update) {|u| u.permit(:name,:donation_rate,:business_name)}
+    devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:name,:donation_rate,:business_name, :email, :password, :password_confirmation, :current_password)}
+  end
+
   def after_sign_in_path_for(resource)
     case current_user.role
       when 'admin'

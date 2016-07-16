@@ -2,6 +2,11 @@ class RegistrationsController < Devise::RegistrationsController
   #include Payola::StatusBehavior
   before_action :cancel_subscription, only: [:destroy]
 
+  before_filter :configure_permitted_parameters
+
+
+  
+
   def invite
     email = params[:user][:email]
     inviter = params[:user][:user_id]
@@ -187,10 +192,19 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+  
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update) {|u|
+     u.permit(:name,:donation_rate,:business_name, :email, :password, :password_confirmation, :current_password)
+    }
+  end
 
   def sign_up_params
-    params.require(:user).permit(:email,
-    :password, :password_confirmation, :plan_id,:business_name)
+    params.require(:user).permit(:email, :password, :password_confirmation, :plan_id, :business_name)
+  end
+
+  def secure_params
+    params.require(:user).permit(:business_name, :donation_rate, :role)
   end
 
   def become_member

@@ -42,6 +42,7 @@
 
        <%= f.label :business_name %>
        <%= f.text_field :business_name, :value => current_user.business_name %>
+
        <% if current_user.business_name %>
        Your profile: <a href="https://www.karmagrove.com/<%= current_user.business_name %>" target="new"> 
               https://www.karmagrove.com/<%= current_user.business_name %>
@@ -49,7 +50,14 @@
        <% else %>             
          Add a business name to claim your profile at KarmaGrove.com/{{Business Name}}
        <% end %> 
-      <br />
+
+       <br />
+       <%= f.label :public_profile %> <%= f.check_box :public_profile, :value => current_user.public_profile %> Public can view your profile at <a href="https://www.karmagrove.com/community"> community </a> 
+       
+       <br />
+       <%= f.label :community_profile %>  <%= f.check_box :community_profile, :value => current_user.community_profile %> Other members can view your profile at <a href="https://www.karmagrove.com/community"> community </a> 
+       <br />
+
           <%= f.label :email %>
           <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

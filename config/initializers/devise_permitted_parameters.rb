@@ -14,7 +14,7 @@ module DevisePermittedParameters
     # devise_parameter_sanitizer.for(:account_update) << :business_name
 
     devise_parameter_sanitizer.for(:account_update) {|u|
-     u.permit(:name,:donation_rate,:business_name,:current_password)
+     u.permit(:name,:donation_rate,:business_name,:current_password,:public_profile,:community_profile)
     }
 
     #devise_parameter_sanitizer.for(:registration) << :business_name

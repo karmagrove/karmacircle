@@ -1,3 +1,4 @@
+<% if @user %>
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
@@ -7,6 +8,8 @@
 <p>Preferred Charity: <%= @user.charity_users.first.charity.name %> </p>
 
 <% end %> 
+
+
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
  Amount ($)
@@ -73,3 +76,5 @@
     handler.close();
   });
 </script>
+
+<% end %>

@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   # validates_associated :plan, :unless 
   has_many :charity_users
   has_many :donation_charges
-  
+  has_many :user_invites
 
   def charity
     if self.role == "charity_admin" then

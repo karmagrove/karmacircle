@@ -2,7 +2,20 @@ class CharitiesController < ApplicationController
   before_action :set_charity, only: [:show, :edit, :update, :destroy]
   before_action :admin_only, :except => [:new, :index, :create]
   #before_action :plan_only, :new, :except => [:index]
+  def admin_only
+      unless current_user && (current_user.admin? or current_user.charity.id == @charity.id)
+        if request.env["HTTP_REFERER"]
+          redirect_to :back, :alert => "Access denied."
+        else
+          redirect_to "/", :alert => "Access denied."
+        end
+      end
+  end
 
+
+  def set_charity
+    @charity = Charity.find(params[:id])
+  end
   # GET /charities
   def charity_params
       params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state)
@@ -91,15 +104,21 @@ class CharitiesController < ApplicationController
       end
   end
 
+  def set_charity
+    @charity = Charity.find(params[:id])
+  end
+
+
   def charity_params
       params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_charity
       @charity = Charity.find(params[:id])
     end
+
+    # Use callbacks to share common setup or constraints between actions.
 
     def plan_only
       unless current_user

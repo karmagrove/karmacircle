@@ -48,7 +48,9 @@ Rails.application.routes.draw do
   get 'auth/facebook/login', to: 'sessions#login'
 
   get '/donations', :to => 'donations#index'
+  resources :user_invites
   get ":business_name", :to => "users#show"
   #post '/users/invite', :to => "registrations#invite"
+
 
 end

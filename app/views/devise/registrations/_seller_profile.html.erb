@@ -1,0 +1,92 @@
+  <div class="form-group">
+        <%= f.label 'Donation Percentage' %>
+        <h3><%= current_user.donation_rate %>% of each sale</h3>
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+            <link rel="stylesheet" href="/resources/demos/style.css">
+            <script type="text/javascript">
+            $(function() {
+              var select = $( "#donation_rate" );
+              var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
+                min: 1,
+                max: 30,
+                range: "min",
+                value: select[ 0 ].selectedIndex + 1,
+                slide: function( event, ui ) {
+                  select[ 0 ].selectedIndex = ui.value - 1;
+                }
+              });
+              $( "#donation_rate" ).change(function() {
+                slider.slider( "value", this.selectedIndex + 1 );
+              });
+            });
+            </script>
+     
+    
+      <label for="donation_rate">Percentage of revenue you give</label>
+      <select name="user[donation_rate]" id="donation_rate">
+        <% 1.upto(30) do |num| %>
+        <option <%=if num == current_user.donation_rate then "selected" end %>  ><%=num%></option>
+        <% end %>
+      </select>
+
+       <%= f.label :business_name %>
+       <%= f.text_field :business_name, :value => current_user.business_name %>
+
+       <% if current_user.business_name %>
+       Your profile: <a href="https://www.karmagrove.com/<%= current_user.business_name %>" target="new"> 
+              https://www.karmagrove.com/<%= current_user.business_name %>
+            </a>
+       <% else %>             
+         Add a business name to claim your profile at KarmaGrove.com/{{Business Name}}
+       <% end %> 
+
+       <br />
+       <%= f.label :public_profile %> <%= f.check_box :public_profile, :value => current_user.public_profile %> Public can view your profile at <a href="https://www.karmagrove.com/community"> community </a> 
+       
+       <br />
+       <%= f.label :community_profile %>  <%= f.check_box :community_profile, :value => current_user.community_profile %> Other members can view your profile at <a href="https://www.karmagrove.com/community"> community </a> 
+       <br />
+
+          <%= f.label :email %>
+          <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+        </div>
+        <fieldset>
+          <p>Leave these fields blank if you don't want to change your password.</p>
+          <div class="form-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, class: 'form-control' %>
+          </div>
+        </fieldset> 
+        <fieldset>
+          <p>You must enter your current password to make changes.</p>
+          <div class="form-group">
+            <%= f.label :current_password %>
+            <%= f.password_field :current_password, class: 'form-control' %>
+          </div>
+        </fieldset>
+        <%= f.submit 'Update', :class => 'button right success radius' %>
+      <% end %>
+    </div>
+            
+    <br /><br /><br />
+    <div class="authform">
+      <h3>Subscription Plan</h3>
+      <%= form_for(resource, :as => resource_name, :url => change_plan_path, :html => { :method => :put, :role  => 'form'}) do |f| %>
+        <div class="form-group">
+          <%= f.label 'Subscription plan' %>
+          <%= f.collection_select(:plan_id, Plan.all, :id, :name) %>
+        </div>
+        <%= f.submit 'Change Plan', :class => 'button right secondary radius' %>
+      <% end %>
+    </div>
+    <br /><br /><br />

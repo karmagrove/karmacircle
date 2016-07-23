@@ -3,7 +3,7 @@
   <div class="col-sm-12">
   <%= current_user.name %>
 
-      <% if current_user.charity_users.length > 0 %>
+    <% if current_user.charity_users.length > 0 %>
      <div class="well">
       <p><h3> Current charity you support with <%= current_user.donation_rate %>% of revenue: <%= current_user.charity_users.first.charity.name %> </h3></p>
       </div>

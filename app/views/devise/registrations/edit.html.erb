@@ -52,10 +52,10 @@
        <% end %> 
 
        <br />
-       <%= f.label :public_profile %> <%= f.check_box :public_profile, :value => current_user.public_profile %> Public can view your profile at <a href="https://www.karmagrove.com/community"> community </a> 
+       <%= f.label :public_profile %> <%= f.check_box :public_profile, :value => current_user.public_profile %> <label for="user_public_profile"> Enable public to  <a href="https://www.karmagrove.com/community"> view your community profile </a> </label>
        
        <br />
-       <%= f.label :community_profile %>  <%= f.check_box :community_profile, :value => current_user.community_profile %> Other members can view your profile at <a href="https://www.karmagrove.com/community"> community </a> 
+       <%= f.label :community_profile %>  <%= f.check_box :community_profile, :value => current_user.community_profile %> <label for="user_community_profile"> Enable Karma Grove members to <a href="https://www.karmagrove.com/community"> view your profile</a> </label>
        <br />
 
           <%= f.label :email %>
@@ -65,6 +65,15 @@
           <% end %>
         </div>
         <fieldset>
+          <p>You must enter your current password to make changes.</p>
+          <div class="form-group">
+            <%= f.label :current_password %>
+            <%= f.password_field :current_password, class: 'form-control' %>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h3> Change password </h3>
           <p>Leave these fields blank if you don't want to change your password.</p>
           <div class="form-group">
             <%= f.label :password %>
@@ -75,19 +84,13 @@
             <%= f.password_field :password_confirmation, class: 'form-control' %>
           </div>
         </fieldset> 
-        <fieldset>
-          <p>You must enter your current password to make changes.</p>
-          <div class="form-group">
-            <%= f.label :current_password %>
-            <%= f.password_field :current_password, class: 'form-control' %>
-          </div>
-        </fieldset>
+     
         <%= f.submit 'Update', :class => 'button right success radius' %>
       <% end %>
     </div>
             
     <br /><br /><br />
-    <div class="authform">
+  <!--   <div class="authform">
       <h3>Subscription Plan</h3>
       <%= form_for(resource, :as => resource_name, :url => change_plan_path, :html => { :method => :put, :role  => 'form'}) do |f| %>
         <div class="form-group">
@@ -97,7 +100,7 @@
         <%= f.submit 'Change Plan', :class => 'button right secondary radius' %>
       <% end %>
     </div>
-    <br /><br /><br />
+   -->  <br /><br /><br />
     <div class="authform">
       <h3>Cancel Account</h3>
       <p>Unhappy? We'll be sad to see you go.</p>

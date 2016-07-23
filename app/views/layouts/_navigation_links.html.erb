@@ -6,7 +6,7 @@
     <li><%= link_to 'View Donations', "/donations" %></li>
     <li><%= link_to 'Income', "/income" %></li>
   <% elsif current_user.try(:charity_admin?) %>
-    <% if current_user.charity  %>
+    <% if current_user.charity.length>0  %>
     <li><%= link_to 'Charity Profile', "/charities/#{current_user.charity.id}" %></li>
     <li><%= link_to 'Invite a friend', "/user_invites" %></li>
     <% else %>

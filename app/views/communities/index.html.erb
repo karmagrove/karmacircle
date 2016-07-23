@@ -1,6 +1,10 @@
+
+
 <% @users.each do |user| %>
 
-<div>
+<% if (user.public_profile == true || ((user.community_profile == true) && (current_user))) %>
+
+<div class="large-2.columns">
 
 
 <h2> <%= user.name %> <%= user.email %> </h2>
@@ -137,7 +141,8 @@
         	<%= link_to "View Profile of #{user.business_name}", "http://www.karmagrove.com/" + user.business_name %>
 
         <% else %>
-        	Profile: http://www.karmagrove.com/users/<%= user.id %>
+           <!-- User has not claimed a business name and profile. -->
+        	
 
         <% end %>
     </div>
@@ -155,12 +160,14 @@
     </div>
 </div>    
 
-
+<% end %>
 <% end %> 
+
+
 
 
 <h3>  Interested in Joining?  </h3>
 <h4> <a href="mailto:joshua@karmagrove.com?subject=I want to join karma grove community"> Send us a message </a> </h4>
 
 <h3> Already a member and want information to show differently? </h3>
-<h4> <%= link_to("/users/sign_in","login") %>
+<h4> <%= link_to("login","/users/sign_in") %>

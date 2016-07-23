@@ -19,4 +19,12 @@ class Charity < ActiveRecord::Base
     def self.approved_charities
     	Charity.where(:status => "approved")
     end
+
+    def donate
+    	# self.user_id
+           Stripe::Transfer.create(
+           :amount => 100000,
+           :destination => '',
+            :currency => 'usd')
+    end
 end

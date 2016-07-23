@@ -60,6 +60,9 @@
   
   <% if @current_user.role == "charity_admin" %>
     <div class="hidden-field field">
+      <%= f.hidden_field :charity_admin, {value: true } %>
+    </div>
+    <div class="hidden-field field">
       <%= f.hidden_field :user_id, {value: current_user.id } %>
     </div>
   <% end %>

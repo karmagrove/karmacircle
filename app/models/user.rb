@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   after_initialize :set_default_plan, :if => :new_record?
   after_initialize :set_transaction_cost, :if => :new_record?
   after_create :sign_up_for_mailing_list
-  # devise :omniauthable
+  # devise :invitable, :omniauthable
 
   belongs_to :plan
   # validates_associated :plan, :unless 
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook,:stripe_connect]
 
   def sign_up_for_mailing_list

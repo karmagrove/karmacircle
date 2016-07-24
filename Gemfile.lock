@@ -108,6 +108,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_invitable (1.6.0)
+      actionmailer (>= 3.2.6)
+      devise (>= 3.2.0)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.0.2)
@@ -308,7 +311,8 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   compass-rails!
   database_cleaner
-  devise
+  devise (~> 3.5.2)
+  devise_invitable (~> 1.6.0)
   dotenv-rails
   faraday (~> 0.8.6)
   font-awesome-rails

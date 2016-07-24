@@ -27,7 +27,8 @@ end
 gem 'foundation-rails', '~> 5.5'
 gem 'compass-rails', github: "Compass/compass-rails", branch: "master"
 gem 'font-awesome-rails'
-gem 'devise'
+gem 'devise',           '~> 3.5.2'
+gem 'devise_invitable', '~> 1.6.0'
 gem 'gibbon'
 gem 'payola-payments'
 gem 'sendgrid'

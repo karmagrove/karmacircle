@@ -2,6 +2,10 @@
    <%= render 'customer_header' %>
 <% end %>
 
+<% if current_user and (current_user.id.to_i == params[:user_id].to_i) %>
+<h3 style="text-align: center"> Only visible to you - <%= link_to 'Edit Product', edit_user_product_path(:user_id =>current_user.id, :product=> @product) %>  </h3>
+<% end %> 
+
 <p id="notice"><%= notice %></p>
 <% if (@product.image_url && @product.image_url.length > 0) %>
   <div class="row">
@@ -206,33 +210,6 @@ Your notes for the seller: <br/>
 </script>
 
 
-
-
-
-<% if current_user and (current_user.id == params[:user_id]) %>
-<p>
-  <strong>Public:</strong>
-  <%= @product.public %>
-</p>
-
-<p>
-  <strong>Donation percent:</strong>
-  <%= @product.donation_percent %>
-</p>
-
-<p>
-  <strong>Image url:</strong>
-  <%= @product.image_url %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @product.user %>
-</p>
-
-<%= link_to 'Edit', edit_user_product_path(:user_id =>current_user.id, :product=> @product) %> |
-<%= link_to 'Back', user_products_path(:user_id =>current_user.id) %>
-<% end %>
 <div class="large-5 large-centered columns">
     <div class="left">
  <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' rel='nofollow'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'  alt='Expedited SSL Scanner'></a>

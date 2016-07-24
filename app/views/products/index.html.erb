@@ -8,7 +8,7 @@
       <th>Description</th>
       <th>Name</th>
       <th>Price</th>
-      <th>Public</th>
+      <!-- <th>Public</th> -->
       <th>Donation percent</th>
        <th>Image</th>
       <% if @is_owner %>
@@ -28,7 +28,7 @@
         <td><%= product.description %></td>
         <td><%= product.name %></td>
         <td><%= product.price %></td>
-        <td><%= product.public %></td>
+        <!-- <td><%= product.public %></td> -->
         <td><%= if product.donation_percent then product.donation_percent else product.user.donation_rate end %>%</td>
         <% if product.image_url%> <td><%= image_url(product.image_url) %></td> <% else %> <td> </td><% end %>
        <% if current_user.id == product.user_id %>

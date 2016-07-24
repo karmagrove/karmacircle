@@ -1,10 +1,12 @@
 
-
+<div class="row">
+<h2 style="text-align: center"> Members of Karma Grove Community </h2>
+</div>
 <% @users.each do |user| %>
 
 <% if (user.public_profile == true || ((user.community_profile == true) && (current_user))) %>
 
-<div class="large-2.columns">
+<div class="large-4 columns">
 
 
 <h2> <%= user.name %> <%= user.email %> </h2>

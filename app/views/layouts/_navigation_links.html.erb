@@ -8,7 +8,7 @@
   <% elsif current_user.try(:charity_admin?) %>
     <% if current_user.charity.length>0  %>
     <li><%= link_to 'Charity Profile', "/charities/#{current_user.charity.id}" %></li>
-    <li><%= link_to 'Invite a friend', "/user_invites" %></li>
+    <li><%= link_to 'Invite a friend', "/users/invitation/new" %></li>
     <% else %>
     <li><%= link_to 'Create Charity Profile', "/charities/new" %></li>
     <% end %>
@@ -16,6 +16,7 @@
     <li><%= link_to 'My Charities', user_charity_users_path({ user_id: current_user.id }) %></li>
     <li><%= link_to 'My Products', user_products_path({ user_id: current_user.id }) %></li> 
     <li><%= link_to 'My Sales', "/charges" %></li>
+    <li><%= link_to 'Invite a friend', "/users/invitation/new" %></li>
     <!-- <li><%= link_to 'My Events', "/events" %></li> -->
 <% end %>
 

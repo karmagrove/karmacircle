@@ -7,4 +7,9 @@ class UsersInvitationsController < Devise::InvitationsController
       super
     end
   end
+
+  def create
+  	@user ||= User.create(:role => "patron")
+  	super
+  end
 end

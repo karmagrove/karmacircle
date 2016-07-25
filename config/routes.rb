@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'products/:id', to: 'products#show', :as => :products
 
   devise_for :users, :controllers => { :registrations => 'registrations' , :omniauth_callbacks => "omniauth_callbacks", :invitations => 'users/invitations' }
+  
   devise_scope :user do
     put 'change_plan', :to => 'registrations#change_plan'
     get 'explore', :to => 'registrations#explore'

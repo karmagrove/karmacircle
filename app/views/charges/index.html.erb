@@ -1,12 +1,25 @@
+<style type="text/css">
+.row {
+    line-height:24pt;
+    border: solid 1px black;
+}
+
+.row:nth-child(odd) {
+    background: #e0e0e0;
+}
+</style>
+
 Total Donations: $<%= '%.2f' % (@total_donations/100.0) %> <br />
 Total Pledged Donations: $<%= '%.2f' % (@total_pledged_donations/100.0) %> 
 
 <h1> Your customers </h1>
+<div class="customers">
 <% @customers.each do |c| %>
-
+<div class="row large-4 columns">
 <%= c.email %> <br />
-
+</div>
 <% end %>
+</div>
 <!-- 
 <% if @balance %>
 
@@ -31,7 +44,7 @@ Bank Transfers
 
 <% @transfers.each do |transfer| %>
 
-<div class="row">  
+<div class="row gray light-gray">  
   <div class="small-2 columns">
   <%= Time.at(transfer.created).strftime("%Y-%m-%d") %> 
   </div>

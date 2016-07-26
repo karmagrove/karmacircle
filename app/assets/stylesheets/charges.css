@@ -1,0 +1,8 @@
+.row {
+    line-height:24pt;
+    border: solid 1px black;
+}
+
+.row:nth-child(odd) {
+    background: #e0e0e0;
+}

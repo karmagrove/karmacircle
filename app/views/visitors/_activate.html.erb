@@ -1,11 +1,29 @@
 <div class="row well">
- <div class="col-sm-4">
-  <%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
-  </div>
   <div class="col-sm-8">
      <h3>
-     Activate your account by connecting with stripe
+     Activate your account by connecting with stripe.  You will be asked to share information* with us. 
+     Say yes. This enables you to accept credit cards on Karma Grove.  
      </h3>
    </div>
+
+  <div class="col-sm-4">
+  <%= link_to image_tag('stripe-blue@2x.png'), user_omniauth_authorize_path(:stripe_connect) %>
+  </div>
+
+  <% if current_user.role == "charity_admin" %>
+    <div class="col-sm-8">
+     <h5 class="notice">
+     *We do not have access to any of your banking information stored in Stripe.  We receive a token that allows us to deposit our members' donated money into your account on a monthly basis.
+     </h5>
+     
+   </div>
+  <% else %>
+    <div class="col-sm-8">
+     <h5 class="notice">
+     *We do not have access to any of your banking information stored in Stripe.  We receive a token that allows us to charge cards on your behalf, take a percentage for charity, and take <%= current_user.transaction_cost %> per transaction.  Stripe will deposit the money in your account in a few days. 
+     </h5>
+   </div>
+   <% end %>
     
+    <a href="http://www.businessinsider.com/stripe-the-invisible-5-billion-start-up-powering-the-internet-economy-2015-9" target="new"> What is stripe? </a>
  </div>

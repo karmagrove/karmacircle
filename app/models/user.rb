@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
   has_many :charity_users
   has_many :donation_charges
   has_many :user_invites
+  
+  def self.invitable_roles
+   
+     return [:charity_admin, :member]
+  end
 
   def charity
     if self.role == "charity_admin" then

@@ -8,9 +8,7 @@
   <%= f.text_field field %></p>
 <% end %>
 
-  
-<!-- role not -->
- <p><%= f.label "User Type" %><br />
+  <p><%= f.label "User Type" %><br />
   <%= f.select(:role, User.invitable_roles.each.map {|user| [user.to_s.titleize, user.to_s]}) %>  </p>
 
 

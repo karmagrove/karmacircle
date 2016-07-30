@@ -11,6 +11,7 @@
     <li><%= link_to 'Invite a friend', "/users/invitation/new" %></li>
     <% else %>
     <li><%= link_to 'Create Charity Profile', "/charities/new" %></li>
+    <li><%= link_to 'Invite a friend', "/users/invitation/new" %></li>
     <% end %>
   <% else current_user.id %>
     <li><%= link_to 'My Charities', user_charity_users_path({ user_id: current_user.id }) %></li>

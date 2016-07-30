@@ -8,9 +8,9 @@
 
      <% if current_user.access_code and current_user.publishable_key %>  
       <%= render "content/form" %>
-    <% else %>
+     <% else %>
      <%= render partial: "activate" %>
-    <% end %>
+     <% end %>
 
     <%= render partial: "logged_in_visitor_footer" %>
 

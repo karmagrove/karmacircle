@@ -19,6 +19,8 @@ class UsersInvitationsController < Devise::InvitationsController
       @user.save
       Rails.logger.info "saved user @user #{@user.role}"
     end
+    current_user.invitations_count +=1
+    current_user.save
   	super
     # redirect_to root_path
 

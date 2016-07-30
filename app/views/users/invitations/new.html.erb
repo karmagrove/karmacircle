@@ -1,5 +1,5 @@
 <h2> <%= t "devise.invitations.new.header" %></h2>
-
+<h4> Invite another small business as member or someone who represents a charity as a charity admin to help Karma Grove grow. </h4>
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
   <%= devise_error_messages! %>
 
@@ -9,10 +9,21 @@
 <% end %>
 
   
-<!-- role not -->
- <p><%= f.label "User Type" %><br />
-  <%= f.select(:role, User.invitable_roles.each.map {|user| [user.to_s.titleize, user.to_s]}) %>  </p>
+<!-- role works!  needed to add permissions in devise permitted parameters -->
+
+ <p><%= f.label "User Type" %> Members are businesses who charge cards and donate, charity admins represent charities and receive donations<br />
+  <%= f.select(:role, User.invitable_roles.sort.reverse.each.map {|user| [user.to_s.titleize, user.to_s]}) %>  </p>
 
 
   <p> <%= f.submit t("devise.invitations.new.submit_button") %></p>
 <% end %>
+
+
+<div class="row">
+    <div class="col-lg-4">
+      Total invitations sent: <%= current_user.invitations_count %>
+    </div>
+    <div class="col-lg-4">
+      Total invitations accepted: <%= current_user.invitations_accepted %>
+    </div>
+</div>

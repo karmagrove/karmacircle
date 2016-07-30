@@ -16,6 +16,15 @@ class User < ActiveRecord::Base
   has_many :donation_charges
   has_many :user_invites
   
+  def invitations_accepted
+    a = 0 
+    users = User.where :invited_by_id => self.id
+    users.map {|user| user.invitation_accepted_at}.each {|thisa| 
+      unless thisa == nil then a+=1 end 
+    } 
+    return a 
+  end
+
   def self.invitable_roles
    
      return [:charity_admin, :member]

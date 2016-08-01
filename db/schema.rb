@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160723183058) do
+ActiveRecord::Schema.define(version: 20160801204415) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -332,6 +332,7 @@ ActiveRecord::Schema.define(version: 20160723183058) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
+    t.boolean  "events_allowed"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

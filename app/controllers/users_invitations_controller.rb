@@ -21,6 +21,7 @@ class UsersInvitationsController < Devise::InvitationsController
     end
     current_user.invitations_count +=1
     current_user.save
+    @notice = "new user created"
   	super
     # redirect_to root_path
 

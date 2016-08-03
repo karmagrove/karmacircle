@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801204415) do
+ActiveRecord::Schema.define(version: 20160803175801) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 20160801204415) do
     t.string   "organizer_description"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "avatars"
+    t.string   "avatar"
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id"
@@ -227,6 +229,8 @@ ActiveRecord::Schema.define(version: 20160801204415) do
     t.boolean  "require_name"
     t.boolean  "require_gender"
     t.boolean  "special_instructions"
+    t.string   "avatars"
+    t.string   "avatar"
   end
 
   add_index "products", ["user_id"], name: "index_products_on_user_id"
@@ -333,6 +337,7 @@ ActiveRecord::Schema.define(version: 20160801204415) do
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
     t.boolean  "events_allowed"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

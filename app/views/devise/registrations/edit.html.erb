@@ -52,6 +52,16 @@
        <% end %> 
 
        <br />
+       <p>
+      <!-- <label>My Profile Photo</label> -->
+      <%= image_tag(current_user.avatar_url) if current_user.avatar? %> <br />
+      Upload a profile photo: <%= f.file_field :avatar %>
+     </p>
+       <!-- Upload a profile photo: <%= f.file_field :avatar, multiple: false %>  -->
+       <!-- 
+       https://github.com/carrierwaveuploader/carrierwave
+       <%= f.file_field :avatars, multiple: true %> 
+       -->
        <%= f.label :public_profile %> <%= f.check_box :public_profile, :value => current_user.public_profile %> <label for="user_public_profile"> Enable public to  <a href="https://www.karmagrove.com/community"> view your community profile </a> </label>
        
        <br />

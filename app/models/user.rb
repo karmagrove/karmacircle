@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include DeviseInvitable::Inviter
-  
+  mount_uploader :avatar, AvatarUploader
+    
   enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron, :subscriber, :member]
   @@mapped_roles = roles
 

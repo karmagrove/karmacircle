@@ -8,7 +8,7 @@ module DevisePermittedParameters
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).concat [:name, :role]
+    devise_parameter_sanitizer.for(:sign_up).concat [:name, :role, :avatar]
     # devise_parameter_sanitizer.for(:user_invitation).concat [:name, :role]
     # devise_parameter_sanitizer.for(:account_create) << :role
     # devise_parameter_sanitizer.for(:account_update) << :name
@@ -29,6 +29,7 @@ module DevisePermittedParameters
     # end
     devise_parameter_sanitizer.for(:sign_up) << :role
     devise_parameter_sanitizer.for(:account_update) << :role
+    devise_parameter_sanitizer.for(:account_update) << :avatar
     # devise_parameter_sanitizer.for(:create_invitation) << :role
 
     #add some params
@@ -37,11 +38,11 @@ module DevisePermittedParameters
     # over ride params
     devise_parameter_sanitizer.for(:accept_invitation) do |u|
     u.permit(:name, :password, :business_name, :password_confirmation,
-             :invitation_token,:role)
+             :invitation_token,:role,:avatar)
     end
 
     devise_parameter_sanitizer.for(:account_update) {|u|
-     u.permit(:name,:role, :donation_rate,:business_name,:current_password,:public_profile,:community_profile)
+     u.permit(:name,:role, :donation_rate,:business_name,:current_password,:public_profile,:community_profile, :avatar)
     }
 
   end

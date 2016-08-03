@@ -12,13 +12,14 @@
   <div class="col-sm-4">
 
   <%= image_tag(@product.image_url) %>
+  <%= image_tag(@product.avatar_url) if @product.avatar? %> <br /> 
   </div>
   
 
 
   <div class="col-sm-8">
 
-
+  <%= image_tag(@product.avatar_url) if @product.avatar? %> <br /> 
   <h1> <%= @product.name %> </h1>
   <h2> <%= @product.description %> </h2>
 
@@ -61,6 +62,7 @@
 <% else %>
 
 <div class="large-5 large-centered columns">
+  <%= image_tag(@product.avatar_url) if @product.avatar? %> <br /> 
   <h1> <%= @product.name %> </h1>
   <h2> <%= @product.description %> </h2>
   

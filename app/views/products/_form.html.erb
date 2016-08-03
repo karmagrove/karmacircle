@@ -25,6 +25,10 @@
     <%= f.number_field :price %>
   </div>
   <div class="field">
+  <%= image_tag(@product.avatar_url) if @product.avatar? %> <br />
+      Upload a photo: <%= f.file_field :avatar %>
+  </div>
+  <div class="field">
     <%= f.label :public %><br>
     <%= f.check_box :public %>
   </div>

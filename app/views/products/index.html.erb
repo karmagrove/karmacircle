@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image </th>
       <th>Description</th>
       <th>Name</th>
       <th>Price</th>
@@ -25,6 +26,7 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td><%=  image_tag(product.avatar_url) if product.avatar_url  %></td>
         <td><%= product.description %></td>
         <td><%= product.name %></td>
         <td><%= product.price %></td>

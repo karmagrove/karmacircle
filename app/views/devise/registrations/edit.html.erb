@@ -57,6 +57,10 @@
       <%= image_tag(current_user.avatar_url) if current_user.avatar? %> <br />
       Upload a profile photo: <%= f.file_field :avatar %>
      </p>
+       <p>
+    <label>My Avatar URL:</label>
+    <%= f.text_field :remote_avatar_url, :value => current_user.avatar_url, :disabled => true %>
+    </p>
      <% if current_user.avatar? %>
       <label>
       <%= f.check_box :remove_avatar %>

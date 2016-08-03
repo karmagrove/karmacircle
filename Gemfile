@@ -26,7 +26,9 @@ end
 
 gem 'foundation-rails', '~> 5.5'
 gem 'carrierwave', '~>0.11.2'
-gem "fog-aws"
+gem 'fog-aws'
+# gem 'fog'  ## only needed for non aws installs.  fog-aws is slimmer for AWS only as we are using
+gem 'mini_magick'
 gem 'compass-rails', github: "Compass/compass-rails", branch: "master"
 gem 'font-awesome-rails'
 gem 'devise',           '~> 3.5.2'

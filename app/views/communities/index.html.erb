@@ -14,7 +14,7 @@
 <%= image_tag(user.avatar_url,:style => "position: relative; top: 0px; right: 0px;") if user.avatar? %> 
 <br />
 </div>
-<div class="large-6 columns"
+<div class="large-6 columns">
 <% else %>
 <div class="large-12 columns">
 <h2 style="overflow-wrap:true"> <%= user.name %> <%= user.email %></h2>
@@ -169,7 +169,7 @@
         <%= if user.charity_users.length >0 then "charity: #{user.charity_users.last.charity.name}" end %>
     </div>
 </div>
-
+</div>
 </div>    
 </div>    
 

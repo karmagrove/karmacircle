@@ -2,14 +2,21 @@
 <div class="row">
 <h2 style="text-align: center"> Members of Karma Grove Community </h2>
 </div>
+
 <% @users.each do |user| %>
 
 <% if (user.public_profile == true || ((user.community_profile == true) && (current_user))) %>
 
 <div class="large-6 columns">
 
-<%= image_tag(user.avatar_url) if user.avatar? %> <br />
-
+<% if user.avatar? %>
+<div class="large-6 columns">
+<%= image_tag(user.avatar_url,:style => "position: relative; top: 0px; right: 0px;") if user.avatar? %> 
+<br />
+</div>
+<div class="large-6 columns"
+<% else %>
+<div class="large-12 columns">
 <h2 style="overflow-wrap:true"> <%= user.name %> <%= user.email %></h2>
     <%= user.website %>
     <% if current_user and current_user.id == user.id %>
@@ -161,16 +168,22 @@
     <div>
         <%= if user.charity_users.length >0 then "charity: #{user.charity_users.last.charity.name}" end %>
     </div>
+</div>
+
+</div>    
 </div>    
 
+<% end %>
 <% end %>
 <% end %> 
 
 
-
-
+<div class="row">
+<div class="large-12 columns">
 <h3>  Interested in Joining?  </h3>
 <h4> <a href="mailto:joshua@karmagrove.com?subject=I want to join karma grove community"> Send us a message </a> </h4>
 
 <h3> Already a member and want information to show differently? </h3>
-<h4> <%= link_to("login","/users/sign_in") %>
+<h4> <%= link_to("login","/users/sign_in") %></h4>
+</div>
+</div>

@@ -2,23 +2,29 @@
 <div class="row">
 <h2 style="text-align: center"> Members of Karma Grove Community </h2>
 </div>
+<style ="text/css">    
+    img.main {
+    float: left;
+    margin: 0 20px 20px 0;
+}
 
+p.description {
+    text-align: justify;
+    text-indent: 2em;
+}
+</style>
 <% @users.each do |user| %>
 
 <% if (user.public_profile == true || ((user.community_profile == true) && (current_user))) %>
 
 <div class="large-6 columns">
   <% if user.avatar? %>
-    <div class="large-6 columns">
-     <%= image_tag(user.avatar_url,:style => "position: relative; top: 0px; right: 0px;") if user.avatar? %> 
+    
+     <%= image_tag(user.avatar_url,:class => "main") if user.avatar? %> 
      <br />
-    </div>
-    <div class="large-6 columns">
-  <% else %>
-    <div class="large-12 columns">
   <% end %> <!-- if user.avatar -->
-  
-      <h2 style="overflow-wrap:true"> <%= user.name %> <%= user.email %></h2>
+   <p class="description"> 
+      <h2 style="overflow-wrap:true; word-wrap: break-word;"> <%= user.name %> <%= user.email %></h2>
         <%= user.website %>
         <% if current_user and current_user.id == user.id %>
         <% end %>    
@@ -44,7 +50,8 @@
         <div>
             <%= if user.charity_users.length >0 then "charity: #{user.charity_users.last.charity.name}" end %>
         </div>
-       </div>   <!-- 12 columns large or 6 columns -->
+    </p>
+       <!-- </div>   12 columns large or 6 columns -->
 </div>
   <% end %> <!-- if user.public_profile --> 
 <% end %> <!-- users.each --> 

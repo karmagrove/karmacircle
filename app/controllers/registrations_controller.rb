@@ -195,7 +195,7 @@ class RegistrationsController < Devise::RegistrationsController
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) {|u|
-     u.permit(:name,:donation_rate,:business_name, :email, :password, :password_confirmation, :current_password, :community_profile, :public_profile, :avatar, :remove_avatar, :remote_avatar_url)
+     u.permit(:name,:donation_rate,:business_name, :email, :password, :password_confirmation, :current_password, :community_profile, :public_profile, :avatar, :remove_avatar, :remote_avatar_url, :customer_pay_fees, :allow_customer_match_donation)
     }
   end
 

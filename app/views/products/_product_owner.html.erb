@@ -2,27 +2,27 @@
 <%= link_to 'Edit Product', edit_user_product_path(:user_id =>current_user.id, :product=> @product) %> 
 </h3>
 
-<button id="copyButton">Copy</button><br><br>
-
+<div class="row">
+<div class="col-4">
+</div>
+<div class="col-4" style="text-align:center;">
+<button class="center middle" style="text-align:center;align:center" id="copyButton">Copy Product URL to clipboard</button><br><br>
+</div>
+<div class="col-4">
+</div>
+</div>
 
 <script type="text/javascript">
 
 document.getElementById("copyButton").addEventListener("click", function() {
-    copyToClipboard(document.getElementById("copyTarget"));
+    copyToClipboard(document.URL);
 });
 
-function copyToClipboard(elem) {
-	# // create hidden text element, if it doesn't already exist %> 
+function copyToClipboard(url) {
+    // create hidden text element, if it doesn't already exist %> 
 
     var targetId = "_hiddenCopyText_";
-    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
-    var origSelectionStart, origSelectionEnd;
-    if (isInput) {
-        // can just use the original source element for the selection and copy
-        target = elem;
-        origSelectionStart = elem.selectionStart;
-        origSelectionEnd = elem.selectionEnd;
-    } else {
+    
         // must use a temporary form element for the selection and copy
         target = document.getElementById(targetId);
         if (!target) {
@@ -33,8 +33,8 @@ function copyToClipboard(elem) {
             target.id = targetId;
             document.body.appendChild(target);
         }
-        target.textContent = elem.textContent;
-    }
+        target.textContent = url;
+    
     // select the content
     var currentFocus = document.activeElement;
     target.focus();
@@ -43,7 +43,7 @@ function copyToClipboard(elem) {
     // copy the selection
     var succeed;
     try {
-    	  succeed = document.execCommand("copy");
+          succeed = document.execCommand("copy");
     } catch(e) {
         succeed = false;
     }
@@ -52,13 +52,10 @@ function copyToClipboard(elem) {
         currentFocus.focus();
     }
     
-    if (isInput) {
-        // restore prior selection
-        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
-    } else {
+    
         // clear temporary content
         target.textContent = "";
-    }
+
     return succeed;
 }
 </script>

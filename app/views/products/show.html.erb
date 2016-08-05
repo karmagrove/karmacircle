@@ -3,7 +3,7 @@
 <% end %>
 
 <% if current_user and (current_user.id.to_i == params[:user_id].to_i) %>
-<h3 style="text-align: center"> Only visible to you - <%= link_to 'Edit Product', edit_user_product_path(:user_id =>current_user.id, :product=> @product) %>  </h3>
+<%= render :partial => 'product_owner' %>
 <% end %> 
 
 <p id="notice"><%= notice %></p>

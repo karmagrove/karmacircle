@@ -135,23 +135,23 @@ class Donation < ActiveRecord::Base
   	    if amount[key] > 500 then
           p "over 500"
 
-          # transfer = Stripe::Transfer.create(
-          #   :amount => 1000, # amount in cents
-          #   :currency => "usd",
-          #   :recipient => recipient_id,
-          #   :bank_account => bank_account_id,
-          #   :statement_descriptor => "JULY SALES"
-          # )
+          transfer = Stripe::Transfer.create(
+            :amount => 1000, # amount in cents
+            :currency => "usd",
+            :recipient => recipient_id,
+            :bank_account => bank_account_id,
+            :statement_descriptor => "JULY SALES"
+          )
  
-          #  @donation = Donation.create!(:payment_reference => charge.id ,:donation_amount => charge.amount, :status => :payment_sent, :user_id => user.id)
-#           charges.
+           @donation = Donation.create!(:payment_reference => charge.id ,:donation_amount => charge.amount, :status => :payment_sent, :user_id => user.id)
+          charges.
           
-        #    charges.each do |c|
-        #      c.status=:paid
-        #      c.donation_id = @donation.id
-        #      c.save
-  	     #   end
-        # end
+           charges.each do |c|
+             c.status=:paid
+             c.donation_id = @donation.id
+             c.save
+  	       end
+        end
       end
     end
   end

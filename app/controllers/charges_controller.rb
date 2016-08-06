@@ -148,8 +148,10 @@ end
   end
 
     if status == "success" and @donorCharge.save(:status => "pending")
+      customer= {}
+      customer[:stripeEmail] = params[:stripeEmail]
       UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
-      UserMailer.send_receipt_copy(params[:stripeEmail],@donorCharge).deliver
+      UserMailer.send_receipt_copy(customer,@donorCharge).deliver
       #redirect_to "/",  notice: 'Charge made'
       respond_to do |format|
         format.html { redirect_to "/", notice: 'Charge made'}

@@ -21,6 +21,7 @@ class UserMailer < ActionMailer::Base
     Rails.logger.info "in receipt copy"
     Rails.logger.info customer.inspect
     @customer_email = donationCharge.user.email
+    @customer = customer[:stripeEmail]
     
     @customer_name = customer[:name]
 
@@ -29,11 +30,9 @@ class UserMailer < ActionMailer::Base
     @special_instructions = customer[:special_instructions]
     
     Rails.logger.info "#{@customer.inspect}, #{@customer_email.inspect}, @special_instructions #{@special_instructions}"
-    if customer.class == String 
-     @customer = customer
-    else
-      @customer = customer[:stripeEmail]
-    end
+    
+      
+    
     
     if @donationCharge.purchases and @donationCharge.purchases.first and @donationCharge.purchases.first.product
       @product = @donationCharge.purchases.first.product

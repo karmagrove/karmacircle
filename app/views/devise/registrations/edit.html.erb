@@ -92,13 +92,13 @@
           <%= f.label 'Who pays your processing fees?' %>
           <%= f.select(:customer_pay_fees, User.customer_pay_fees.keys.map {|role| [role.titleize,role]}, :selected => "i_pay_fees") %>
           <p>
-          Stripe Fees: 2.3% plus $<%= '%.2f' % ((30)/100.0 )  %> per transaction
+          Stripe Fees: 2.9% plus $<%= '%.2f' % ((30)/100.0 )  %> per transaction
           </p>
           <p>
           Karma Grove Fees: $<%= '%.2f' % ((@user.transaction_cost)/100.0 ) %> per transaction 
           </p>
           <p>
-          All Fees: 2.3% plus $<%= '%.2f' % ((@user.transaction_cost+30)/100.0 ) %> per transaction 
+          All Fees: 2.9% plus $<%= '%.2f' % ((@user.transaction_cost+30)/100.0 ) %> per transaction 
           </p>
         </div>
 

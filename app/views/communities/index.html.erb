@@ -39,7 +39,9 @@ p.description {
         </div>
         
         <div>
-            <%= if user.website        then  "website: #{user.website}"        end %>       
+            <% if user.website   %>
+                 Website: <%= link_to user.website, user.website %>      
+            <%  end %>       
         </div>
         
         <div>

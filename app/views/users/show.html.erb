@@ -18,7 +18,7 @@
  <div class="large-5 large-centered columns">
  <div class="btn">
  
- <% if @user.customer_pay_fees %>
+
 <div class="row" id="fee_notice">
 </div>
 <input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@user.customer_pay_fees%>"></input> <br />
@@ -43,10 +43,11 @@
     } else if (fee_rule === "i_pay_fees") {
       factor = 1;
       transaction_cost = 0;
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
     };
-
-</script>
-<% end %>
+ </script>   
 
   <button id="customButton" class="btn btn-primary"><h1> Give Money Now </h1></button> <br />
 
@@ -68,12 +69,24 @@
       factor = 1.029;
       transaction_cost = 30;
 
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
+
     } else if (fee_rule === "i_pay_fees") {
       factor = 1;
       transaction_cost = 0;
     };
      //do something
-     return ($('#amount').val()*100 )*factor + transaction_cost
+     var value = $('#amount').val();
+     // return false if value === "";
+     if (value === "" || value === undefined) {
+       return 0;
+     } else {
+       return (value*100 )*factor + transaction_cost 
+     };
+
+     
  };
 
   var handler = StripeCheckout.configure({

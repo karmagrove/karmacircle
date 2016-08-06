@@ -62,11 +62,10 @@
     <%= f.text_field :remote_avatar_url, :value => current_user.avatar_url, :disabled => true %>
     </p>
      <% if current_user.avatar? %>
-      <label>
+      
       <%= f.check_box :remove_avatar %>
       <label for="remove_avatar"> Remove avatar </label>
-      
-    </label>
+
     <% end %> 
 
 
@@ -82,15 +81,26 @@
        <%= f.label :community_profile %>  <%= f.check_box :community_profile, :value => current_user.community_profile %> <label for="user_community_profile"> Enable Karma Grove members to <a href="https://www.karmagrove.com/community"> view your profile</a> </label>
        <br />
 
-      <label>
-      <%= f.check_box :allow_customer_match_donation %>
-      <label for="allow_customer_match_donation"> Show your donation amount & allow matching? </label>
-      
-    </label>
+       <%= f.label :website %>  <%= f.text_field :website, :value => current_user.website %> <label for="website"> Link to  <a href="<%= current_user.website %>">your website</a> on profile </label>
+       <br />
+<script type="text/javascript">
+  function validateURL(url) {
+    var reurl = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+    return re.test(url);
+  }
+</script>
 
+      
        <div class="form-group">
           <%= f.label 'Who pays your processing fees?' %>
-          <%= f.select(:customer_pay_fees, User.customer_pay_fees.keys.map {|role| [role.titleize,role]}, :selected => "i_pay_fees") %>
+          <%  if current_user.customer_pay_fees.nil? %>           
+                  <% @fee_default = "i_pay_fees"  %>
+               <% else %>
+                  <% @fee_default = current_user.customer_pay_fees %>
+          <%    end  %>
+
+           
+          <%= f.select(:customer_pay_fees, User.customer_pay_fees.keys.map {|role| [role.titleize,role]}, :default => @fee_default) %>
           <p>
           Stripe Fees: 2.9% plus $<%= '%.2f' % ((30)/100.0 )  %> per transaction
           </p>
@@ -101,7 +111,12 @@
           All Fees: 2.9% plus $<%= '%.2f' % ((@user.transaction_cost+30)/100.0 ) %> per transaction 
           </p>
         </div>
-
+   
+      <div class="form-group">
+      <%= f.label 'Will you allow your customers to match your donation?' %>
+      <%= f.check_box :allow_customer_match_donation %>
+      <label for="user_allow_customer_match_donation"> Show your donation amount & allow matching? </label>
+      </div>
 
           <%= f.label :email %>
           <%= f.email_field :email, :autofocus => true, class: 'form-control' %>

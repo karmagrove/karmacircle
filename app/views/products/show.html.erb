@@ -52,6 +52,38 @@
  <div class="large-5 large-centered columns">
  <div class="btn">
  
+
+
+<div class="row" id="fee_notice">
+</div>
+<input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@user.customer_pay_fees%>"></input> <br />
+<script type="text/javascript">
+    function write_cost(transaction_cost){
+      var notice = 'Whatever amount you pay, the fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
+      $('#fee_notice').append(notice);
+    }
+    var fee_rule = $('#customer_pay_fees').val() 
+    if (fee_rule === "customer_pays_all_fees"){
+      factor = 1.029;
+      transaction_cost = 130;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_karmagrove_fees") {
+      factor = 1;
+      transaction_cost = <%= current_user.transaction_cost %>;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_stripe_fees") {
+      factor = 1.029;
+      transaction_cost = 30;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "i_pay_fees") {
+      factor = 1;
+      transaction_cost = 0;
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
+    };
+ </script>   
+
  
   <button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
 
@@ -116,6 +148,38 @@ Your notes for the seller: <br/>
  <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> <br />
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
 
+
+<div class="row" id="fee_notice">
+</div>
+<input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@product.user.customer_pay_fees%>"></input> <br />
+<script type="text/javascript">
+    function write_cost(transaction_cost){
+      var notice = 'Whatever amount you pay, the fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
+      $('#fee_notice').append(notice);
+    }
+    var fee_rule = $('#customer_pay_fees').val() 
+    if (fee_rule === "customer_pays_all_fees"){
+      factor = 1.029;
+      transaction_cost = 130;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_karmagrove_fees") {
+      factor = 1;
+      transaction_cost = <%= current_user.transaction_cost %>;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_stripe_fees") {
+      factor = 1.029;
+      transaction_cost = 30;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "i_pay_fees") {
+      factor = 1;
+      transaction_cost = 0;
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
+    };
+ </script>   
+ 
+
  <div class="btn">
  
  
@@ -134,7 +198,43 @@ Your notes for the seller: <br/>
 </div>
 
 
+
+
 <script>
+  function calculateAmount(){
+    var factor, transaction_cost;
+    var fee_rule = $('#customer_pay_fees').val() 
+    if (fee_rule === "customer_pays_all_fees"){
+      factor = 1.029;
+      transaction_cost = 130;
+    } else if (fee_rule === "customer_pays_karmagrove_fees") {
+      factor = 1;
+      transaction_cost = <%= current_user.transaction_cost %>;
+
+    } else if (fee_rule === "customer_pays_stripe_fees") {
+      factor = 1.029;
+      transaction_cost = 30;
+
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
+
+    } else if (fee_rule === "i_pay_fees") {
+      factor = 1;
+      transaction_cost = 0;
+    };
+     //do something
+     var value = $('#amount').val();
+     // return false if value === "";
+     if (value === "" || value === undefined) {
+       return 0;
+     } else {
+       return (value*100 )*factor + transaction_cost 
+     };
+
+     
+ };
+
 
   var handler = StripeCheckout.configure({
     key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',

@@ -18,6 +18,14 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    if params[:customer_view]
+      then
+      Rails.logger.info("CUSTOMER VIEW #{params[:customer_view]}")
+      @customer_view = true
+    else
+      Rails.logger.info("PRODUCT VieW FALSE : CUSTOMER VIEW #{params[:customer_view]}")
+      @customer_view = false
+    end
   end
 
   # GET /products/new

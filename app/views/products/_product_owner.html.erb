@@ -6,7 +6,12 @@
 <div class="col-4">
 </div>
 <div class="col-4" style="text-align:center;">
-<button class="center middle" style="text-align:center;align:center" id="copyButton">Copy Product URL to clipboard</button><br><br>
+<button class="center middle" style="text-align:center;align:center" id="copyButton">Copy a link here to your clipboard to share with your customers</button><br><br>
+</div>
+<div class="col-4" style="text-align:center;">
+<a target="new" href="/users/<%=@product.user.id%>/products/<%=@product.id%>?customer_view=true"
+<button class="center middle" style="text-align:center;align:center" id="newPageButton">View what your customer sees when they follow the link.</button><br><br>
+</a>
 </div>
 <div class="col-4">
 </div>
@@ -17,6 +22,10 @@
 document.getElementById("copyButton").addEventListener("click", function() {
     copyToClipboard(document.URL);
 });
+
+function newPageButton(){
+
+}
 
 function copyToClipboard(url) {
     // create hidden text element, if it doesn't already exist %> 

@@ -15,7 +15,7 @@
       </ul>
     
       <ul class="right">
-        <% if user_signed_in? %>
+        <% if user_signed_in? and @customer_view != true%>
       
           <li>
             <%= link_to edit_user_registration_path do %>

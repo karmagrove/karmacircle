@@ -2,9 +2,11 @@
    <%= render 'customer_header' %>
 <% end %>
 
-<% if current_user and (current_user.id.to_i == params[:user_id].to_i) %>
+
+<% if current_user and (current_user.id.to_i == params[:user_id].to_i) and @customer_view == false%>
 <%= render :partial => 'product_owner' %>
 <% end %> 
+
 
 <p id="notice"><%= notice %></p>
 <% if (@product.image_url && @product.image_url.length > 0) %>
@@ -69,7 +71,7 @@
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
       factor = 1;
-      transaction_cost = <%= current_user.transaction_cost %>;
+      transaction_cost = <%= @product.user.transaction_cost %>;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_stripe_fees") {
       factor = 1.029;
@@ -164,7 +166,7 @@ Your notes for the seller: <br/>
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
       factor = 1;
-      transaction_cost = <%= current_user.transaction_cost %>;
+      transaction_cost = <%= @product.user.transaction_cost %>;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_stripe_fees") {
       factor = 1.029;
@@ -209,7 +211,7 @@ Your notes for the seller: <br/>
       transaction_cost = 130;
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
       factor = 1;
-      transaction_cost = <%= current_user.transaction_cost %>;
+      transaction_cost = <%= @product.user.transaction_cost %>;
 
     } else if (fee_rule === "customer_pays_stripe_fees") {
       factor = 1.029;

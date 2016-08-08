@@ -159,14 +159,17 @@ Your notes for the seller: <br/>
       var notice = 'Whatever amount you pay, the fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
       $('#fee_notice').append(notice);
     }
-    var fee_rule = $('#customer_pay_fees').val() 
+    var factor, transaction_cost, fee_rule;
+    
+    transaction_cost = <%= @product.user.transaction_cost %>;
+    fee_rule = $('#customer_pay_fees').val(); 
+
     if (fee_rule === "customer_pays_all_fees"){
       factor = 1.029;
-      transaction_cost = 130;
+      transaction_cost += 30;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
       factor = 1;
-      transaction_cost = <%= @product.user.transaction_cost %>;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_stripe_fees") {
       factor = 1.029;
@@ -204,14 +207,17 @@ Your notes for the seller: <br/>
 
 <script>
   function calculateAmount(){
-    var factor, transaction_cost;
-    var fee_rule = $('#customer_pay_fees').val() 
+    var factor, transaction_cost, fee_rule;
+    
+    transaction_cost = <%= @product.user.transaction_cost %>;
+    fee_rule = $('#customer_pay_fees').val(); 
+
     if (fee_rule === "customer_pays_all_fees"){
       factor = 1.029;
-      transaction_cost = 130;
+      transaction_cost += 30;
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
       factor = 1;
-      transaction_cost = <%= @product.user.transaction_cost %>;
+      //transaction_cost = <%= @product.user.transaction_cost %>;
 
     } else if (fee_rule === "customer_pays_stripe_fees") {
       factor = 1.029;
@@ -249,7 +255,7 @@ Your notes for the seller: <br/>
            data: {"stripeToken":token.id,
            "stripeEmail": token.email,
            format: "json",
-           amount: $('#amount').val()*100,
+           amount: calculateAmount(),
            description: $('#description').val(),
            user_id: <%= params[:user_id] %>,
            product_id: $('#product_id').val()
@@ -308,7 +314,7 @@ Your notes for the seller: <br/>
 
     handler.open({
       description: $('#description').val(),
-      amount: $('#amount').val()*100
+      amount: calculateAmount()
     });
     e.preventDefault();
   });

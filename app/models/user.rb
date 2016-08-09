@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
       end
     else
       return false
-    end
+    end 
+    return false
   end
 
   def total_donations

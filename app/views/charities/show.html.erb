@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  <% if @charity.stripe_id %> 
+  <% if @charity.stripe_id and @charity.stripe_id.length > 0 %> 
     <strong>Stripe Is Connected - Available to receive donations </strong>
   <% else %>
     <strong>Stripe Is Not Connected - Donations cannot be given here</strong>

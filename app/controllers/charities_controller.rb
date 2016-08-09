@@ -20,7 +20,7 @@ class CharitiesController < ApplicationController
   def admin_only
       Rails.logger.info "ABOUT TO GET BOUNCED ADMIN ONLY"
       @charity ||= Charity.find(params[:id])
-      unless current_user && (current_user.admin? or current_user.charity.id == @charity.id)
+      unless current_user && (current_user.admin? or current_user.charity.charity_id == @charity.id)
         Rails.logger.info "ABOUT TO GET BOUNCED"
         if request.env["HTTP_REFERER"]
           redirect_to :back, :alert => "Access denied."

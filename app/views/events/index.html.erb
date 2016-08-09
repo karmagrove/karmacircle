@@ -18,8 +18,8 @@
       <th>Total sales</th>
       <th>Revenue donation percent</th>
       <th>Status</th>
-      <th>Event image url</th>
-      <th>User</th>
+      <th>Event image </th>
+      <!-- <th>User</th> -->
       <th>Organizer name</th>
       <th>Organizer description</th>
       <th colspan="3"></th>
@@ -42,8 +42,8 @@
         <td><%= event.total_sales %></td>
         <td><%= event.revenue_donation_percent %></td>
         <td><%= event.status %></td>
-        <td><%= event.event_image_url %></td>
-        <td><%= event.user %></td>
+        <td><%= image_tag(event.event_image_url) %></td>
+        <!-- <td><%= event.user %></td> -->
         <td><%= event.organizer_name %></td>
         <td><%= event.organizer_description %></td>
         <td><%= link_to 'Show', event %></td>

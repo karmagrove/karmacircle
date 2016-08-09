@@ -83,11 +83,12 @@
 
        <%= f.label :website %>  <%= f.text_field :website, :value => current_user.website %> <label for="website"> Link to  <a href="<%= current_user.website %>">your website</a> on profile </label>
        <br />
-<script type="text/javascript">
-  function validateURL(url) {
-    var reurl = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
-    return re.test(url);
-  }
+
+       <script type="text/javascript">
+        function validateURL(url) {
+          var reurl = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+          return re.test(url);
+        }
 </script>
 
       

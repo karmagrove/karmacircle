@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :charity_users
   has_many :donation_charges
   has_many :user_invites
+  has_many :events
   
   def invitations_accepted
     a = 0 

@@ -21,7 +21,7 @@
   <tbody>
     <% @tickets.each do |ticket| %>
       <tr>
-        <td><%= ticket.event %></td>
+        <td><%= link_to(ticket.event.name, ticket.event) %></td>
         <td><%= ticket.ticket_name %></td>
         <td><%= ticket.quantity_available %></td>
         <td><%= ticket.price %></td>

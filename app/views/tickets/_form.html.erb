@@ -33,7 +33,8 @@
   </div>
   <div class="field">
     <%= f.label :sales_start %><br>
-    <%= f.datetime_select :sales_start %>
+    <%= f.datetime_select :sales_start, , {:minute_step => 60, :ampm => true} %>
+    <!-- time_select 'game', 'game_time', {:minute_step => 60, :ampm => true} -->
   </div>
   <div class="field">
     <%= f.label :sales_end %><br>

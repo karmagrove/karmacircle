@@ -1,3 +1,5 @@
+## THIS NEEDS TO BE CLEANED UP!
+
 class Donation < ActiveRecord::Base
   belongs_to :charity
   belongs_to :user
@@ -16,7 +18,7 @@ class Donation < ActiveRecord::Base
     params = {
          :amount => amount, # amount in cents
          :currency => "usd",
-         :recipient => charity.stripe_id
+         :destination => charity.stripe_id
     }
 
     if reference and reference.length > 0
@@ -28,6 +30,13 @@ class Donation < ActiveRecord::Base
     success = false
     begin
       success = true
+      @transfer = Stripe::Transfer.create(
+        :amount => params[:amount],
+        :currency => 'usd',
+        :destination => "acct_18euHSE0swh6MOmQ"
+     )
+      #{CONNECTED_STRIPE_ACCOUNT_ID}
+
       @transfer = Stripe::Transfer.create(params)
       Rails.logger.info(@transfer)
       
@@ -87,6 +96,7 @@ class Donation < ActiveRecord::Base
 
   def update_donation_charge_status(charges = {})
      donation_id = 8
+     donation_id = 10
      charges = DonationCharge.where(:status => "unpaid", :user_id => customer.id)
      charges.each do |charge|
      charge.update_attribute(:donation_id, donation_id)
@@ -115,8 +125,11 @@ class Donation < ActiveRecord::Base
         puts s.inspect
         if charge.donation_amount and s.status == "succeeded"
           amount[charge["charity_id"]] ||= 0
+          amount[user.id] ||= { charge["charity_id"] => 0 }
+          #amount[user.id] ||=0
           amount[user.id][charge["charity_id"]] ||= 0
-          key= "charge_count"+charge["charity_id"].to_s
+          #amount[user.id][charge["charity_id"]] ||=0
+          key = "charge_count"+charge["charity_id"].to_s
           amount[key] ||=0
           puts "amount"
           puts amount.inspect

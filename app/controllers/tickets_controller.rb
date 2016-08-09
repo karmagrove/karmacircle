@@ -4,7 +4,8 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    # if current_user
+    @tickets = @event.tickets
   end
 
   # GET /tickets/1

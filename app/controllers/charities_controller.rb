@@ -1,10 +1,27 @@
 class CharitiesController < ApplicationController
   before_action :set_charity, only: [:show, :edit, :update, :destroy]
-  before_action :admin_only, :except => [:new, :index, :create]
+  before_action :admin_only, :except => [:new, :index, :create, :show]
   #before_action :plan_only, :new, :except => [:index]
+
+  def update
+    Rails.logger.info("charity_params")
+    Rails.logger.info(charity_params)
+    respond_to do |format|
+      if @charity.update(charity_params)
+        format.html { redirect_to @charity, notice: 'Charity was successfully updated.' }
+        format.json { render :show, status: :ok, location: @charity }
+      else
+        format.html { render :edit }
+        format.json { render json: @charity.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def admin_only
+      Rails.logger.info "ABOUT TO GET BOUNCED ADMIN ONLY"
       @charity ||= Charity.find(params[:id])
       unless current_user && (current_user.admin? or current_user.charity.id == @charity.id)
+        Rails.logger.info "ABOUT TO GET BOUNCED"
         if request.env["HTTP_REFERER"]
           redirect_to :back, :alert => "Access denied."
         else
@@ -35,11 +52,14 @@ class CharitiesController < ApplicationController
   # GET /charities/new
   def new
     @current_user = current_user
+
     @charity = Charity.new
+    @charity_user = CharityUser.new(:user_id => current_user.id)
   end
 
   # GET /charities/1/edit
   def edit
+    @charity_user = CharityUser.new
   end
 
   # POST /charities
@@ -48,7 +68,7 @@ class CharitiesController < ApplicationController
     # charity_params = params[:charity]
     Rails.logger.info charity_params
 
-    Rails.logger.info ("user id params[:user_id]")
+    Rails.logger.info ("user id params[:user_id] params[charity_user] #{params[:charity_user]}")
     @charity = Charity.new(charity_params)
     email = charity_params[:email]
     if (User.find_by_email(email)) and current_user.email != email
@@ -61,6 +81,7 @@ class CharitiesController < ApplicationController
       @charity.charity_users.create!(:user_id => current_user.id,:role => 'admin')
 
     else
+      # this is where i am from somethign awesome...
       #user = User.new      
       user = User.create(:email => email,:password => "123324324234dfadsfsad")
       if params[:role] == "charity_admin"
@@ -74,6 +95,11 @@ class CharitiesController < ApplicationController
 
     respond_to do |format|
       if @charity.save
+        unless CharityUser.exists?(:user_id => current_user.id, :charity_id => @charity.id, :role =>"admin")
+          CharityUser.create!(:charity_id => @charity.id, :user_id => current_user.id, :role => "admin")
+        end
+        ## Rails.logger.info ( charity now has ID - time to make the charity user admin)
+        Rails.logger.info ("user id params[:user_id] params[charity_user] #{params[:charity_user]}")
         format.html { redirect_to @charity, notice: 'Charity was successfully created.' }
         format.json { render :show, status: :created, location: @charity }
       else
@@ -143,7 +169,7 @@ class CharitiesController < ApplicationController
   
     # Never trust parameters from the scary internet, only allow the white list through.
     def charity_params
-      params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state, :user_id)
+      params.require(:charity).permit(:name, :description, :url, :stripe_id, :email, :city, :state, :charity_user)
     end
   end
   end

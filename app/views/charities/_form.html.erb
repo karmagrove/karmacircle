@@ -35,10 +35,11 @@
       <%= f.text_field :status, { disabled: true } %>
     </div>
   <% end %> 
-  <!-- <div class="field">
-    <%= f.label :stripe_id %><br>
-    <%= f.text_field :stripe_id %>
-  </div> -->
+
+  <div class="field">
+    <%= f.hidden_field :stripe_id, {:value => current_user.uid} %><br>
+  </div>
+
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>
@@ -52,19 +53,15 @@
     <%= f.text_field :state %>
   </div>
 
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
-  </div>
-
-  
-  <% if @current_user.role == "charity_admin" %>
+  <% if current_user.role == "charity_admin" %>
+    <% fields_for @charity_user do |u| %>
     <div class="hidden-field field">
-      <%= f.hidden_field :charity_admin, {value: true } %>
+      <%= f.hidden_field :role, {value: "charity_admin" } %>
     </div>
     <div class="hidden-field field">
       <%= f.hidden_field :user_id, {value: current_user.id } %>
     </div>
+    <% end %>
   <% end %>
     <div class="actions">
       <%= f.submit %>

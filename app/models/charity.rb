@@ -20,6 +20,10 @@ class Charity < ActiveRecord::Base
     	Charity.where(:status => "approved")
     end
 
+    def new_charity_admin(user_id)
+    	#CharityUser.create(:charity_id => self.id, :user_id => user_id, )
+    end
+
     def donate
     	# self.user_id
            Stripe::Transfer.create(

@@ -112,7 +112,7 @@ class Donation < ActiveRecord::Base
         puts "charge insepct"
         puts charge.inspect
         s  = Stripe::Charge.retrieve charge.payment_reference
-
+        puts s.inspect
         if charge.donation_amount and s.status == "succeeded"
           amount[charge["charity_id"]] ||= 0
           amount[user.id][charge["charity_id"]] ||= 0

@@ -279,7 +279,7 @@ A portion of your purchase will be given to the charity:
        <% if @product.user.allow_customer_match_donation == true %> 
        // transaction_cost += (amount * (1 + (<%= @product.user.donation_rate.to_i %>/100)));
        if ($('#match_donation').prop('checked') === true){
-         var additional_donation = (value*100 * (1 + (6/100))) - value*100;
+         var additional_donation = (value*100 * (1 + (<%=@product.user.donation_rate%>/100))) - value*100;
          return (value*100 )* factor + transaction_cost + additional_donation;  
        } else {
          return (value*100 )* factor + transaction_cost;

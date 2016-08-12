@@ -10,7 +10,8 @@ def create
     seller = User.find(params[:user_id])
   end
   @amount = params[:amount]
-  Rails.logger.info("@amount:#{@amount}")
+  @allow_matching = params[:allowMatching]
+  Rails.logger.info("@amount:#{@amount}, allowMatching #{@allow_matching}")
 
   if Stripe.api_key = seller.access_code
 
@@ -38,12 +39,19 @@ def create
   donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
   Rails.logger.info("seller.donation_rate: #{seller.donation_rate}")
   Rails.logger.info("donation_amount #{donation_amount}")
+  if params[:allowMatching] == "true"
+    Rails.logger.info ("matching true donation now is #{donation_amount}")
+    donation_amount = donation_amount * 2
+    Rails.logger.info ("matching true donation now  after * 2 is #{donation_amount}")
+  end
   application_fee = application_fee + donation_amount
   Rails.logger.info("application_fee #{application_fee}")
       Rails.logger.info("donation_amount #{donation_amount.to_s}")
     Rails.logger.info("application_fee #{application_fee.to_s}")
     #application_fee = application_fee + donation_amount
     Rails.logger.info("application_fee + donation_amount: #{application_fee.to_s}")
+
+
   if (seller.email == "joshua@karmagrove.com") or (seller.email == "joshua.montross@gmail.com") then
     begin
       charge = Stripe::Charge.create({
@@ -77,7 +85,7 @@ def create
 
   else
     application_fee = seller.transaction_cost
-    donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
+    #donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
 
     Rails.logger.info("donation_amount #{donation_amount.to_s}")
     Rails.logger.info("application_fee #{application_fee.to_s}")
@@ -121,7 +129,8 @@ def create
 
     Rails.logger.info "charge.inspect"
     Rails.logger.info charge.inspect
-    donation_amount = (charge.amount*(seller.donation_rate/100.to_f)).to_i
+    #donation_amount = (charge.amount*(seller.donation_rate/100.to_f)).to_i
+    donation_amount = donation_amount.to_i
     Rails.logger.info("donation_amount: #{donation_amount}")
 
     if seller.charity_users
@@ -197,7 +206,7 @@ private
   
   def secure_params
     params.require(:donor_charge).permit(:donation_amount,
-    :payment_reference, :charity_id, :revenue, :customer_id, :user_id, :special_instructions)
+    :payment_reference, :charity_id, :revenue, :customer_id, :user_id, :special_instructions, :allowMatching)
   end
 
 

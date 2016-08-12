@@ -280,12 +280,12 @@ A portion of your purchase will be given to the charity:
        // transaction_cost += (amount * (1 + (<%= @product.user.donation_rate.to_i %>/100)));
        if ($('#match_donation').prop('checked') === true){
          var additional_donation = (value*100 * (1 + (<%=@product.user.donation_rate%>/100))) - value*100;
-         return (value*100 )* factor + transaction_cost + additional_donation;  
+         return parseInt((value*100 )* factor + transaction_cost + additional_donation);  
        } else {
-         return (value*100 )* factor + transaction_cost;
+         return parseInt((value*100 )* factor + transaction_cost);
        }
        <% else %>
-       return (value*100 )*factor + transaction_cost;
+       return parseInt((value*100 )*factor + transaction_cost);
        <% end %>
      };
 
@@ -305,6 +305,9 @@ A portion of your purchase will be given to the charity:
            "stripeEmail": token.email,
            format: "json",
            amount: calculateAmount(),
+           <% if @product.user.allow_customer_match_donation == true %>
+           allowMatching: $('#match_donation').prop('checked'), 
+           <% end %>
            description: $('#description').val(),
            user_id: <%= params[:user_id] %>,
            product_id: $('#product_id').val()

@@ -1,144 +1,150 @@
-<% if @user %>
-<%= image_tag(@user.avatar_url) if @user.avatar? %> <br />
-<p> <%= "Name: #{@user.name}" if @user.name %></p>
-<p> <%= "Email: #{@user.email}" if @user.email %></p>
-
-<% if @user.charity_users.length > 0 %>
-
-<p>Preferred Charity: <%= @user.charity_users.first.charity.name %> </p>
-
-<% end %> 
-
-
-<script src="https://checkout.stripe.com/checkout.js"></script>
- Amount ($)
- <input hidden="true" length="5" id="amount" value=""></input> <br />
- <input hidden="true" length="5" id="description" default="description of sale" value="Gift"></input> <br />
-
- <div class="large-5 large-centered columns">
- <div class="btn">
-
-<div class="row" id="fee_notice">
+<div class="row">
+<div class="med-col-1">
 </div>
-<input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@user.customer_pay_fees%>"></input> <br />
-
-<script type="text/javascript">
-    function write_cost(transaction_cost){
-      var notice = 'Whatever amount you pay, the fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
-      $('#fee_notice').append(notice);
-    }
-    var factor, transaction_cost, fee_rule;
-    
-    transaction_cost = <%= @user.transaction_cost %>
-    fee_rule = $('#customer_pay_fees').val() 
-
-    if (fee_rule === "customer_pays_all_fees"){
-      factor = 1.029;
-      transaction_cost += 30;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "customer_pays_karmagrove_fees") {
-      factor = 1;
-      //transaction_cost = <%= @user.transaction_cost %>;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "customer_pays_stripe_fees") {
-      factor = 1.029;
-      transaction_cost = 30;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "i_pay_fees") {
-      factor = 1;
-      transaction_cost = 0;
-    } else if (fee_rule === "") {
-      factor = 1;
-      transaction_cost = 0;
-    };
- </script>   
-
-  <button id="customButton" class="btn btn-primary"><h1> Give Money Now </h1></button> <br />
-
-</div>
-
-
-<script>
-  function calculateAmount(){
-    var factor, transaction_cost;
-    transaction_cost = <%= @user.transaction_cost %>;
-    var fee_rule = $('#customer_pay_fees').val() 
-    if (fee_rule === "customer_pays_all_fees"){
-      factor = 1.029;
-      transaction_cost += 30;
-    } else if (fee_rule === "customer_pays_karmagrove_fees") {
-      factor = 1;
-    } else if (fee_rule === "customer_pays_stripe_fees") {
-      factor = 1.029;
-      transaction_cost = 30;
-    } else if (fee_rule === "") {
-      factor = 1;
-      transaction_cost = 0;
-    } else if (fee_rule === "i_pay_fees") {
-      factor = 1;
-      transaction_cost = 0;
-    };
-     //do something
-     var value = $('#amount').val();
-     // return false if value === "";
-     if (value === "" || value === undefined) {
-       return 0;
-     } else {
-       return (value*100 )*factor + transaction_cost 
-     };
-
-     
- };
-
-  var handler = StripeCheckout.configure({
-    key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
-    image: '/assets/karma_circle.png',
-    token: function(token) {
-      console.log(token.id)
-      $.ajax({
-           type: "POST",
-           url: "/purchases",
-           format: "json",
-           data: {"stripeToken":token.id,
-           "stripeEmail": token.email,
-           format: "json",
-           amount: calculateAmount(),
-           description: $('#description').val(),
-           user_id: <%=@user.id%>
-           
-         },
-           success:function(resp){
-            window.location.replace("/")
-            console.log(resp)
-
+<div class="med-col-11">
+  <% if @user %>
+  <%= image_tag(@user.avatar_url) if @user.avatar? %> <br />
+  <p> <%= "Name: #{@user.name}" if @user.name %></p>
+  <p> <%= "Email: #{@user.email}" if @user.email %></p>
+  
+  <% if @user.charity_users.length > 0 %>
+  
+  <p>Preferred Charity: <%= @user.charity_users.first.charity.name %> </p>
+  
+  <% end %> 
+  
+  
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+   Amount ($)
+   <input hidden="true" length="5" size="6" maxlength="6" id="amount" value=""></input> <br />
+   Reason for payment
+   <input hidden="true" length="5" size="26" id="description" default="description of sale" value="Gift"></input> <br />
+  
+   <div class="large-5 large-centered columns">
+   <div class="btn">
+  
+  <div class="row" id="fee_notice">
+  </div>
+  <input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@user.customer_pay_fees%>"></input>   <br />
+  
+  <script type="text/javascript">
+      function write_cost(transaction_cost){
+        var notice = 'Whatever amount you pay, the fees for processing of 2.9% plus $' + (transaction_cost/100).  toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
+        $('#fee_notice').append(notice);
+      }
+      var factor, transaction_cost, fee_rule;
+      
+      transaction_cost = <%= @user.transaction_cost %>
+      fee_rule = $('#customer_pay_fees').val() 
+  
+      if (fee_rule === "customer_pays_all_fees"){
+        factor = 1.029;
+        transaction_cost += 30;
+        write_cost(transaction_cost);
+      } else if (fee_rule === "customer_pays_karmagrove_fees") {
+        factor = 1;
+        //transaction_cost = <%= @user.transaction_cost %>;
+        write_cost(transaction_cost);
+      } else if (fee_rule === "customer_pays_stripe_fees") {
+        factor = 1.029;
+        transaction_cost = 30;
+        write_cost(transaction_cost);
+      } else if (fee_rule === "i_pay_fees") {
+        factor = 1;
+        transaction_cost = 0;
+      } else if (fee_rule === "") {
+        factor = 1;
+        transaction_cost = 0;
+      };
+   </script>   
+  
+    <button id="customButton" class="btn btn-primary"><h1> Give Money Now </h1></button> <br />
+  
+  </div>
+  
+  
+  <script>
+    function calculateAmount(){
+      var factor, transaction_cost;
+      transaction_cost = <%= @user.transaction_cost %>;
+      var fee_rule = $('#customer_pay_fees').val() 
+      if (fee_rule === "customer_pays_all_fees"){
+        factor = 1.029;
+        transaction_cost += 30;
+      } else if (fee_rule === "customer_pays_karmagrove_fees") {
+        factor = 1;
+      } else if (fee_rule === "customer_pays_stripe_fees") {
+        factor = 1.029;
+        transaction_cost = 30;
+      } else if (fee_rule === "") {
+        factor = 1;
+        transaction_cost = 0;
+      } else if (fee_rule === "i_pay_fees") {
+        factor = 1;
+        transaction_cost = 0;
+      };
+       //do something
+       var value = $('#amount').val();
+       // return false if value === "";
+       if (value === "" || value === undefined) {
+         return 0;
+       } else {
+         return (value*100 )*factor + transaction_cost 
+       };
+  
+       
+   };
+  
+    var handler = StripeCheckout.configure({
+      key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
+      image: '/assets/karma_circle.png',
+      token: function(token) {
+        console.log(token.id)
+        $.ajax({
+             type: "POST",
+             url: "/purchases",
+             format: "json",
+             data: {"stripeToken":token.id,
+             "stripeEmail": token.email,
+             format: "json",
+             amount: calculateAmount(),
+             description: $('#description').val(),
+             user_id: <%=@user.id%>
+             
            },
-            error: function(resp){
-               window.location.reload();
-            }
-        });
-  //    token.id can be used to create a charge or customer.
-    // token.email contains the email address entered by the user. 
-      // Use the token to create the charge with a server-side script.
-      // You can access the token ID with `token.id`
-    }
-  });
-
-  $('#customButton').on('click', function(e) {
-    // Open Checkout with further options
-    handler.open({
-      description: $('#description').val(),
-      amount: calculateAmount()
+             success:function(resp){
+              window.location.replace("/")
+              console.log(resp)
+  
+             },
+              error: function(resp){
+                 window.location.reload();
+              }
+          });
+    //    token.id can be used to create a charge or customer.
+      // token.email contains the email address entered by the user. 
+        // Use the token to create the charge with a server-side script.
+        // You can access the token ID with `token.id`
+      }
     });
-    e.preventDefault();
-  });
-
-  // Close Checkout on page navigation
-  $(window).on('popstate', function() {
-    handler.close();
-  });
-</script>
-
-<% end %>
-
-
-
+  
+    $('#customButton').on('click', function(e) {
+      // Open Checkout with further options
+      handler.open({
+        description: $('#description').val(),
+        amount: calculateAmount()
+      });
+      e.preventDefault();
+    });
+  
+    // Close Checkout on page navigation
+    $(window).on('popstate', function() {
+      handler.close();
+    });
+  </script>
+  
+  <% end %>
+  
+  
+</div>
+  

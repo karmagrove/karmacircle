@@ -1,6 +1,10 @@
+
+<div class="row">
+<div class="col-med-1">
+</div>
 <h1>Editing Product</h1>
-
+<div class="col-med-11">
 <%= render 'form' %>
-
+</div>
 <%= link_to 'Show', user_product_path(:id => @product['id'], :user_id=>current_user.id)  %> |
 <%= link_to 'Back', user_product_path %>

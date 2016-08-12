@@ -18,6 +18,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @charity = @product.user.charity_users.first.charity.name
     if params[:customer_view]
       then
       Rails.logger.info("CUSTOMER VIEW #{params[:customer_view]}")

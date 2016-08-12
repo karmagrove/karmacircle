@@ -62,6 +62,7 @@ class Donation < ActiveRecord::Base
 
   def self.return_user_unpaid
     new_amount = {}
+    new_amount[:total_amount] = 0
     User.all.each do |user|
       Stripe.api_key = user.access_code
       charges = DonationCharge.where(:status => "unpaid", :user_id => user.id).each do |charge|
@@ -86,11 +87,13 @@ class Donation < ActiveRecord::Base
           puts "new_amount"
           puts new_amount.inspect
           #new_amount[key] += 1
+          new_amount[:total_amount] += charge.donation_amount 
           new_amount[user.id][charge["charity_id"]] = new_amount[user.id][charge["charity_id"]] + charge.donation_amount 
           #amount["charity_"+charge["charity_id"].to_s] = amount["charity_"+charge["charity_id"].to_s] + charge.donation_amount 
         end
       end
     end
+    return new_amount
 #(:status => "unpaid", :user_id => user.id).each
   end
 

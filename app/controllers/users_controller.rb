@@ -16,7 +16,11 @@ class UsersController < ApplicationController
 
     unless current_user and current_user.admin?
       if (params[:id] && @user != current_user)
-        redirect_to :back, :alert => "Access denied."
+        if request.env["HTTP_REFERER"]
+          redirect_to :back, :alert => "Access denied."
+        else
+          redirect_to "/", :alert => "User with name #{params[:business_name]} Not Found."
+        end  
       end
       unless @user
         redirect_to "/", :alert => "User with name #{params[:business_name]} Not Found."

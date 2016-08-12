@@ -42,8 +42,8 @@
 <% if @product.require_gender == true %> 
   
   Your gender: <br/>
-  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="male"> Male </input> <br />
-  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="female"> Female </input>
+  <input type="radio" required="true" id="male_gender" class="customer_gender" name="customer_gender" value="male"> <label for="male_gender">Male </label></input> <br />
+  <input type="radio" required="true" id="female_gender" class="customer_gender" name="customer_gender" value="female"> <label for="female_gender">Female </label> </input>
 
 <% end %> 
 
@@ -129,11 +129,16 @@ A portion of your purchase will be given to the charity:
   $('document').ready(function(){
     $('#match_donation').click(function(){
 
-      if($(this).val() === "on"){
+      if($(this).prop('checked') === true){
         var amount = $('#amount').val();
         var donation_rate = <%= @product.user.donation_rate %>;
         var new_amount = amount*(1+(donation_rate/100));
-        $('#match_donation_notice').text('You will be charged an additional $' + String(new_amount - amount) + " for a total of " + String(new_amount));
+        new_amount = parseFloat(Math.round(new_amount * 100) / 100).toFixed(2);
+        var additional_amount = parseFloat(Math.round((new_amount - amount) * 100) / 100).toFixed(2);
+        // parseFloat(Math.round(num3 * 100) / 100).toFixed(2);
+        $('#match_donation_notice').text('You will be charged an additional $' + String(additional_amount) + " for a total of $" + String(new_amount));
+      } else {
+        $('#match_donation_notice').text('');
       };
     });
   })
@@ -141,7 +146,7 @@ A portion of your purchase will be given to the charity:
 
   <% if @product.user.allow_customer_match_donation == true %>
      <input type="checkbox" id="match_donation" required="true" class="match_donation" name="match_donation"> 
-     Would you like to match the donation by paying <%= @product.user.donation_rate %>% more? </input> <br />
+     <label for="match_donation">Would you like to match the donation by paying <%= @product.user.donation_rate %>% more? </label></input> <br />
      <div id="match_donation_notice">
      </div>
   <% end %>
@@ -161,8 +166,8 @@ A portion of your purchase will be given to the charity:
 <% if @product.require_gender == true %> 
   
   Your gender: <br/>
-  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="male"> Male </input> <br />
-  <input type="radio" required="true" class="customer_gender" name="customer_gender" value="female"> Female </input>
+  <input type="radio" required="true" id="male_gender" class="customer_gender" name="customer_gender" value="male"> <label for="male_gender">Male </label></input> <br />
+  <input type="radio" required="true" id="female_gender" class="customer_gender" name="customer_gender" value="female"> <label for="female_gender">Female </label> </input>
 
 <% end %> 
 
@@ -210,7 +215,7 @@ Your notes for the seller: <br/>
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> 
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> 
- 
+
  <p>
 
  <%= @product.user.name || @product.user.email %> donates <%= @product.user.donation_rate %>% of the sale to <%= @product.user.charity_users.first.charity.name %>. 
@@ -271,7 +276,17 @@ A portion of your purchase will be given to the charity:
      if (value === "" || value === undefined) {
        return 0;
      } else {
-       return (value*100 )*factor + transaction_cost 
+       <% if @product.user.allow_customer_match_donation == true %> 
+       // transaction_cost += (amount * (1 + (<%= @product.user.donation_rate.to_i %>/100)));
+       if ($('#match_donation').prop('checked') === true){
+         var additional_donation = (value*100 * (1 + (6/100))) - value*100;
+         return (value*100 )* factor + transaction_cost + additional_donation;  
+       } else {
+         return (value*100 )* factor + transaction_cost;
+       }
+       <% else %>
+       return (value*100 )*factor + transaction_cost;
+       <% end %>
      };
 
      

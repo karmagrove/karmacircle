@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     return a 
   end
 
+  def pretty_accepted_at
+    self.invitation_accepted_at.strftime("%B %d, %Y")
+  end
+
   def self.invitable_roles
    
      return [:charity_admin, :member]

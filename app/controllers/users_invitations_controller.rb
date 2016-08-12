@@ -31,7 +31,10 @@ class UsersInvitationsController < Devise::InvitationsController
     # params = secure_params
     @user ||= User.new
     # render 
-
+    @accepted_invitation_count = current_user.invitations_accepted
+    if @accepted_invitation_count > 0
+      @accepted_user_emails = User.where(:invited_by_id => current_user.id)
+    end
     respond_to do |format|
         format.html { render "/users/invitations/new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }

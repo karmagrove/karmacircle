@@ -1,3 +1,8 @@
+
+<div class="row">
+<div class="col-med-1">
+</div>
+<div class="col-med-11">
 <h2> <%= t "devise.invitations.new.header" %></h2>
 <h4> Invite another small business as member or someone who represents a charity as a charity admin to help Karma Grove grow. </h4>
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
@@ -11,7 +16,7 @@
   
 <!-- role works!  needed to add permissions in devise permitted parameters -->
 
- <p><%= f.label "User Type" %> Members are businesses who charge cards and donate, charity admins represent charities and receive donations<br />
+ <p><%= f.label "Is your friend going to use this as a charity or a business?" %> Members are businesses who charge cards and donate, charity admins represent charities and receive donations<br />
   <%= f.select(:role, User.invitable_roles.sort.reverse.each.map {|user| [user.to_s.titleize, user.to_s]}) %>  </p>
 
 
@@ -24,6 +29,20 @@
       Total invitations sent: <%= current_user.invitations_count %>
     </div>
     <div class="col-lg-4">
-      Total invitations accepted: <%= current_user.invitations_accepted %>
+      Total invitations accepted: <%= @accepted_invitation_count %>
     </div>
+</div>
+
+<% if @accepted_invitation_count > 0 %>
+<div class="row">
+<% @accepted_user_emails.each do |user| %>
+  <div class="large-6 columns">
+  <%= user.email %> <br />
+
+  <%= "--#{user.role.gsub('_', ' ').gsub('user','member').capitalize} accepted your invite on #{user.pretty_accepted_at}" if user.invitation_accepted_at %>
+
+  </div>
+<% end %>  
+</div>
+<% end %>
 </div>

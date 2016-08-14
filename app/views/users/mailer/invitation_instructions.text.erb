@@ -1,7 +1,7 @@
 <%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %>
 
 <%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %>
-
+test
 <%= accept_invitation_url(@resource, :invitation_token => @token) %>
 
 <% if @resource.invitation_due_at %>

@@ -1,4 +1,11 @@
-<h2><%= t 'devise.invitations.edit.header' %></h2>
+<h2><%= t("devise.invitations.edit.header") %></h2>
+
+<% if @current_user  %>
+<h3> <%= t 'devise.invitations.edit.description', @current_user.email %></h3>
+<% else %>
+<h3> <%= t 'devise.invitations.edit.description' %></h3>
+
+<% end %> 
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
   <%= devise_error_messages! %>

@@ -1,8 +1,7 @@
 <div class="row well">
   <div class="col-sm-8">
      <h3>
-     Activate your account by connecting with stripe.  You will be asked to share information* with us. 
-     Say yes. This enables you us to deposit money into your bank account.  
+     Activate your account by connecting with Stripe. You will need your personal and banking account information.  By connecting with Stripe, Karma Grove is able to offer you the service of charging credit cards and depositing the money into your bank account.*  
      </h3>
    </div>
 
@@ -20,7 +19,7 @@
   <% else %>
     <div class="col-sm-8">
      <h5 class="notice">
-     *We do not have access to any of your banking information stored in Stripe.  We receive a token that allows us to charge credit cards on your behalf, take a percentage for charity, and take <%= current_user.transaction_cost %> per transaction.  Stripe will deposit the money in your account in a few days. 
+     *We do not have access to any of your banking information stored in Stripe.  By using Stripe, you will be able to access all of Karma Grove's features and accept credit card payments.  Stripe will deposit any charges you make in your bank account (minus fees and <%=current_user.donation_rate%>% donation to charity of your choice).  The first transaction you make will be deposited within 7 business days and any transactions thereafter will be deposited within 2 to 5 business days. <a href="https://stripe.com/docs/transfers" target="new">More information on Stripe transfers. </a>
      </h5>
    </div>
    <% end %>

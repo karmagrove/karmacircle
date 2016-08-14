@@ -10,6 +10,12 @@ class UsersInvitationsController < Devise::InvitationsController
     end
   end
 
+  def edit
+    # iNc5nZtEnBvUXaZQqCyy
+    #current_user = User.where(:invitation_token => params['invitation_token']).limit(1)
+    super
+  end
+
   def create
   	@user ||= User.create(:role => "patron")
     Rails.logger.info("params[:user][:role]")

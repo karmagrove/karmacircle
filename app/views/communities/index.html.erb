@@ -20,7 +20,7 @@ p.description {
 <div class="large-6 columns">
   <% if user.avatar? %>
     
-     <%= image_tag(user.avatar_url,:class => "main") if user.avatar? %> 
+     <%= image_tag(user.avatar.profile, :class => "main") if user.avatar? %> 
      <br />
   <% end %> <!-- if user.avatar -->
    <p class="description"> 

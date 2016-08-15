@@ -4,10 +4,12 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  # storage :file
+ #file for testing
+ # storage :file
+ # fog for production
   storage :fog  
 
   # Override the directory where uploaded files will be stored.
@@ -18,6 +20,26 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   def cache_dir
     "#{Rails.root}/tmp/uploads"
+  end
+
+  version :large do
+    process resize_to_limit: [800, 800]
+  end
+ 
+  version :medium, :from_version => :large do
+    process resize_to_limit: [500, 500]
+  end
+ 
+  version :thumb, :from_version => :medium do
+    process resize_to_fit: [100, 100]
+  end
+ 
+  version :square do
+    process :resize_to_fill => [500, 500]
+  end
+
+  version :profile do
+    process :resize_to_fill => [200, 200]
   end
 
 

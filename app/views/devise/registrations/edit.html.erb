@@ -119,6 +119,11 @@
       <label for="user_allow_customer_match_donation"> Show your donation amount & allow matching? </label>
       </div>
 
+      <div class="form-group">
+      <%= f.label 'Your default currency' %>
+      <%= f.select(:currency, User.currencies.keys.map {|role| [role.upcase,role]}, :default => 'usd') %>
+      </div>
+
           <%= f.label :email %>
           <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

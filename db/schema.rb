@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805160939) do
+ActiveRecord::Schema.define(version: 20160817153807) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 20160805160939) do
     t.boolean  "special_instructions"
     t.string   "avatars"
     t.string   "avatar"
+    t.integer  "currency"
   end
 
   add_index "products", ["user_id"], name: "index_products_on_user_id"
@@ -340,6 +341,7 @@ ActiveRecord::Schema.define(version: 20160805160939) do
     t.string   "avatar"
     t.integer  "customer_pay_fees"
     t.boolean  "allow_customer_match_donation"
+    t.integer  "currency"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

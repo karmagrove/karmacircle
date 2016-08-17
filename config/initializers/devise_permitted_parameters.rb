@@ -42,7 +42,7 @@ module DevisePermittedParameters
     end
 
     devise_parameter_sanitizer.for(:account_update) {|u|
-     u.permit(:name,:role, :donation_rate,:business_name,:current_password,:public_profile,:community_profile, :avatar)
+     u.permit(:name,:role, :donation_rate,:business_name,:current_password,:public_profile,:community_profile, :avatar, :currency)
     }
 
   end

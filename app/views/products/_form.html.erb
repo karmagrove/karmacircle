@@ -25,6 +25,9 @@
     <%= f.number_field :price %>
   </div>
   <div class="field">
+  <%= f.select(:currency, Product.currencies.keys.map {|role| [role.upcase,role]}, :default => 'usd') %>
+  </div>
+  <div class="field">
   <%= image_tag(@product.avatar_url) if @product.avatar? %> <br />
       Upload a photo: <%= f.file_field :avatar %>
   </div>

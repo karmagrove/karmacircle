@@ -8,9 +8,9 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
  #file for testing
- # storage :file
+  storage :file
  # fog for production
-  storage :fog  
+  #storage :fog  
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:

@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
     
   enum role: [:user, :admin, :customer, :charity_admin, :partner, :patron, :subscriber, :member]
   enum customer_pay_fees: [:i_pay_fees, :customer_pays_stripe_fees, :customer_pays_karmagrove_fees, :customer_pays_all_fees]
+  enum currency: [:usd, :cad, :eur, :gbp]
+  
   @@mapped_roles = roles
 
   after_initialize :set_default_role, :if => :new_record?

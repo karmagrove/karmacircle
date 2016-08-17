@@ -51,12 +51,22 @@ def create
     #application_fee = application_fee + donation_amount
     Rails.logger.info("application_fee + donation_amount: #{application_fee.to_s}")
 
+  currency = "usd"
+  if seller.currency
+    currency = seller.currency 
+  end
+  product_id = params[:product_id].to_i
+  @product = Product.find(product_id)
+  if @product.currency 
+    currency = @product.currency 
+  end
+
 
   if (seller.email == "joshua@karmagrove.com") or (seller.email == "joshua.montross@gmail.com") then
     begin
       charge = Stripe::Charge.create({
     :amount => @amount, # amount in cents
-    :currency => "usd",
+    :currency => currency,
     :customer => customer,
     :description => description
   },
@@ -96,7 +106,7 @@ def create
     begin 
       charge = Stripe::Charge.create({
        :amount => @amount, # amount in cents
-       :currency => "usd",
+       :currency => currency,
        :customer => customer,
        :description => description,
        :application_fee => application_fee, # amount in cents

@@ -27,8 +27,13 @@
 
 
 <h3>
-  <strong>Price:</strong>
-  $<%= @product.price %>
+  <strong>Price:
+  <% if @product.currency != "usd" %>
+    <%= (@product.currency) %>
+  <% end %>
+  </strong>
+  $<%= @product.price %> 
+
 </h3>
 
 <% if @product.require_name == true %> 
@@ -109,7 +114,11 @@ A portion of your purchase will be given to the charity:
 <h3>
   
   <% unless @product.price == nil %>
-  <strong>Price:</strong>
+  <strong>Price:
+  <% if @product.currency != "usd" %>
+    <%= (@product.currency) %>
+  <% end %>
+  </strong>
   $<%= @product.price %>
   <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
 

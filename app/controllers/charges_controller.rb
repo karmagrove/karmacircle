@@ -153,12 +153,13 @@ end
       customer[:stripeEmail] = params[:stripeEmail]
       UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
       UserMailer.send_receipt_copy(customer,@donorCharge).deliver
-      #redirect_to "/",  notice: 'Charge made'
-      respond_to do |format|
-        # recent change to make customer obvious they have bought
-        format.html { render "/success", notice: 'Charge made'}
-        format.json { render :show, status: :created, location: @user }
-      end
+      #notice = 'Charge success - you should have an email receipt' at #{customer[:stripeEmail]}
+      redirect_to "/",  notice: 'Charge success - you should have an email receipt'
+      # respond_to do |format|
+      #   # recent change to make customer obvious they have bought
+      #   format.html { redirect_to "/success", notice: 'Charge made'}
+      #   format.json { render json: {:status => "success"} }
+      # end
     else
        Rails.logger.info "redirect_to with notice Charge failed: #{failure_message}"
        #redirect_to "/", notice: "Charge failed: #{failure_message}" 
@@ -174,7 +175,7 @@ end
          format.json { render json: {:status => "failure", :status_message => notice}, status: 400 }
        end
        # format.html { redirect_to @charity, notice: 'Charity was successfully updated.' }
-      #  format.json { render :show, status: :ok, location: @charity }
+       #  format.json { render :show, status: :ok, location: @charity }
     end
   
 # rescue error => e

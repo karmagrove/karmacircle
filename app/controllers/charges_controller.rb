@@ -13,9 +13,9 @@ def index
     @balance = Stripe::Balance#.retrieve
      # @balance.inspect 
     @transfers = Stripe::Transfer.all
-    @transfers.each  do |transfer|
+    # @transfers.each  do |transfer|
       #Rails.logger.info transfer.inspect
-    end
+    #end
 
     @total_donations = current_user.total_donations
     @total_pledged_donations = current_user.total_pledged_donations
@@ -52,7 +52,8 @@ def create
     seller = User.find(params[:user_id])
   end
   @amount = params[:amount]
-  Rails.logger.info("@amount:#{@amount}")
+  Rails.logger.info("@amount:#{@amount},  #{params[:stripeEmail]},
+ #{params[:stripeToken]}")
   Stripe.api_key = ENV['STRIPE_API_KEY']
   #Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
   token = params[:stripeToken]
@@ -154,7 +155,8 @@ end
       UserMailer.send_receipt_copy(customer,@donorCharge).deliver
       #redirect_to "/",  notice: 'Charge made'
       respond_to do |format|
-        format.html { redirect_to "/", notice: 'Charge made'}
+        # recent change to make customer obvious they have bought
+        format.html { render "/success", notice: 'Charge made'}
         format.json { render :show, status: :created, location: @user }
       end
     else

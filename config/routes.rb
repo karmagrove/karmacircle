@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "content/patron"
   get "content/partner"
   get "content/charity"
+  get "/success", :to =>  "purchases#success"
   get "/about", :to =>  "visitors#about"
   get '/pricing', :to => "visitors#pricing"
 

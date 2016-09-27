@@ -1,5 +1,9 @@
 class PurchasesController < ApplicationController
 
+def success
+
+end
+
 def create
   # Amount in cents
   #@amount = (params[:amount].to_f * 100).to_i
@@ -56,11 +60,15 @@ def create
     currency = seller.currency 
   end
   product_id = params[:product_id].to_i
-  @product = Product.find(product_id)
-  if @product.currency 
-    currency = @product.currency 
+  
+  unless product_id == 0 
+    @product = Product.find(product_id)
+    if @product.currency 
+      currency = @product.currency 
+    end
   end
-
+  
+  
 
   if (seller.email == "joshua@karmagrove.com") or (seller.email == "joshua.montross@gmail.com") then
     begin
@@ -163,7 +171,7 @@ def create
         @purchase = Purchase.new(:buyer_email => params[:stripeEmail])
         @purchase.donation_charge_id = @donorCharge.id
         Rails.logger.info("params inspect #{params.inspect}")
-        if params[:product_id]
+        if params[:product_id] and params[:product_id].to_i != 0
           Rails.logger.info("params product_id #{params[:product_id]}")
           @purchase.product_id = params[:product_id].to_i
           @product = Product.find(@purchase.product_id)

@@ -102,7 +102,7 @@
         console.log(token.id)
         $.ajax({
              type: "POST",
-             url: "/purchases",
+             url: "/charges",
              format: "json",
              data: {"stripeToken":token.id,
              "stripeEmail": token.email,

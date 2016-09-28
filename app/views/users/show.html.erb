@@ -69,12 +69,12 @@
       transaction_cost = <%= @user.transaction_cost %>;
       var fee_rule = $('#customer_pay_fees').val() 
       if (fee_rule === "customer_pays_all_fees"){
-        factor = 1.029;
+        factor = .971;
         transaction_cost += 30;
       } else if (fee_rule === "customer_pays_karmagrove_fees") {
         factor = 1;
       } else if (fee_rule === "customer_pays_stripe_fees") {
-        factor = 1.029;
+        factor = .971;
         transaction_cost = 30;
       } else if (fee_rule === "") {
         factor = 1;
@@ -89,7 +89,7 @@
        if (value === "" || value === undefined) {
          return 0;
        } else {
-         return Math.round((value*100 )*factor) + transaction_cost 
+         return parseInt( ((value*100 ) + transaction_cost) / factor)  
        };
   
        

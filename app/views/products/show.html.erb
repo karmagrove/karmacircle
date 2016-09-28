@@ -71,7 +71,7 @@
     }
     var fee_rule = $('#customer_pay_fees').val() 
     if (fee_rule === "customer_pays_all_fees"){
-      factor = 1.029;
+      factor = .971;
       transaction_cost = 130;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
@@ -79,7 +79,7 @@
       transaction_cost = <%= @product.user.transaction_cost %>;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_stripe_fees") {
-      factor = 1.029;
+      factor = .971;
       transaction_cost = 30;
       write_cost(transaction_cost);
     } else if (fee_rule === "i_pay_fees") {
@@ -204,14 +204,14 @@ Your notes for the seller: <br/>
     fee_rule = $('#customer_pay_fees').val(); 
 
     if (fee_rule === "customer_pays_all_fees"){
-      factor = 1.029;
+      factor = .971;
       transaction_cost += 30;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
       factor = 1;
       write_cost(transaction_cost);
     } else if (fee_rule === "customer_pays_stripe_fees") {
-      factor = 1.029;
+      factor = .971;
       transaction_cost = 30;
       write_cost(transaction_cost);
     } else if (fee_rule === "i_pay_fees") {
@@ -268,14 +268,14 @@ A portion of your purchase will be given to the charity:
     fee_rule = $('#customer_pay_fees').val(); 
 
     if (fee_rule === "customer_pays_all_fees"){
-      factor = 1.029;
+      factor = .971;
       transaction_cost += 30;
     } else if (fee_rule === "customer_pays_karmagrove_fees") {
       factor = 1;
       //transaction_cost = <%= @product.user.transaction_cost %>;
 
     } else if (fee_rule === "customer_pays_stripe_fees") {
-      factor = 1.029;
+      factor = .971;
       transaction_cost = 30;
 
     } else if (fee_rule === "") {
@@ -296,12 +296,12 @@ A portion of your purchase will be given to the charity:
        // transaction_cost += (amount * (1 + (<%= @product.user.donation_rate.to_i %>/100)));
        if ($('#match_donation').prop('checked') === true){
          var additional_donation = (value*100 * (1 + (<%=@product.user.donation_rate%>/100))) - value*100;
-         return parseInt((value*100 )* factor + transaction_cost + additional_donation);  
+         return parseInt((value*100 + transaction_cost + additional_donation) / factor);  
        } else {
-         return parseInt((value*100 )* factor + transaction_cost);
+         return parseInt((value*100 + transaction_cost) / factor);
        }
        <% else %>
-       return parseInt((value*100 )*factor + transaction_cost);
+       return parseInt((value*100 + transaction_cost) / factor);
        <% end %>
      };
 

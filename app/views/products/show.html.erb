@@ -138,10 +138,9 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
   <% end %>
 
   <script type="text/javascript">
-  $('document').ready(function(){
-    $('#match_donation').click(function(){
+  function write_new_cost(){ 
 
-      if($(this).prop('checked') === true){
+    if($('#match_donation').prop('checked') === true){
         var amount = $('#amount').val();
         var donation_rate = <%= @product.user.donation_rate %>;
         var new_amount = amount*(1+(donation_rate/100));
@@ -152,13 +151,26 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
       } else {
         $('#match_donation_notice').text('');
       };
+
+  }
+
+  $('document').ready(function(){
+
+
+    $("#amount").change(function(){
+      write_new_cost();
     });
+
+    $('#match_donation').click(function(){
+      write_new_cost();
+    });
+
   })
   </script>
 
   <% if @product.user.allow_customer_match_donation == true %>
      <input type="checkbox" id="match_donation" required="true" class="match_donation" name="match_donation"> 
-     <label for="match_donation">Would you like to match the donation by paying <%= @product.user.donation_rate %>% more? </label></input> <br />
+     <label for="match_donation"><h4>Would you like to match the donation by paying <%= @product.user.donation_rate %>% more? </h4></label></input> <br />
      <div id="match_donation_notice">
      </div>
   <% end %>
@@ -322,7 +334,7 @@ A portion of your purchase will be given to the charity:
            format: "json",
            amount: calculateAmount(),
            <% if @product.user.allow_customer_match_donation == true %>
-           allowMatching: $('#match_donation').prop('checked'), 
+           matchDonation:: $('#match_donation').prop('checked'), 
            <% end %>
            description: $('#description').val(),
            user_id: <%= params[:user_id] %>,

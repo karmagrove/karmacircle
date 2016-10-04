@@ -19,7 +19,44 @@
    <input hidden="true" length="5" size="6" maxlength="6" id="amount" value=""></input> <br />
    Reason for payment
    <input hidden="true" length="5" size="26" id="description" default="description of sale" value="Gift"></input> <br />
-  
+
+   
+  <% if @user.allow_customer_match_donation == true %>
+  <script type="text/javascript">
+  function write_new_cost(){ 
+
+    if($('#match_donation').prop('checked') === true){
+        var amount = $('#amount').val();
+        var donation_rate = <%= @user.donation_rate %>;
+        var new_amount = amount*(1+(donation_rate/100));
+        new_amount = parseFloat(Math.round(new_amount * 100) / 100).toFixed(2);
+        var additional_amount = parseFloat(Math.round((new_amount - amount) * 100) / 100).toFixed(2);
+        // parseFloat(Math.round(num3 * 100) / 100).toFixed(2);
+        $('#match_donation_notice').text('You will be charged an additional $' + String(additional_amount) + " for a total of $" + String(new_amount));
+      } else {
+        $('#match_donation_notice').text('');
+      };
+
+  }
+
+  $('document').ready(function(){
+
+    $("#amount").change(function(){
+      write_new_cost();
+    });
+
+    $('#match_donation').click(function(){
+      write_new_cost();
+    });
+  })
+  </script>
+
+     <input type="checkbox" id="match_donation" required="true" class="match_donation" name="match_donation"> 
+     <label for="match_donation"><h4>Would you like to match the donation by paying <%= @user.donation_rate %>% more? </h4></label></input> <br />
+     <div id="match_donation_notice">
+     </div>
+  <% end %>
+
    <div class="large-5 large-centered columns">
    <div class="btn">
   
@@ -91,7 +128,6 @@
        } else {
          return parseInt( ((value*100 ) + transaction_cost) / factor)  
        };
-  
        
    };
   
@@ -108,6 +144,9 @@
              "stripeEmail": token.email,
              format: "json",
              amount: calculateAmount(),
+             <% if @user.allow_customer_match_donation == true %>
+             match_donation: $('#match_donation').prop('checked'),
+             <% end %> 
              description: $('#description').val(),
              user_id: <%=@user.id%>
              

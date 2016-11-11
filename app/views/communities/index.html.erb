@@ -1,6 +1,7 @@
 
 <div class="row">
 <h2 style="text-align: center"> Members of Karma Grove Community </h2>
+<h3 style="text-align: center"> Pracitioners of Conscious Commerce  </h3>
 </div>
 <style ="text/css">    
     img.main {
@@ -31,10 +32,8 @@ p.description {
         <div>
             <% if user.business_name  %>  
             	<%= link_to "View Profile of #{user.business_name}", "http://www.karmagrove.com/" + user.business_name %>
-    
             <% else %>
                <!-- User has not claimed a business name and profile. -->
-    
             <% end %>
         </div>
         

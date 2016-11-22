@@ -18,6 +18,11 @@
     <li><%= link_to 'My Products', user_products_path({ user_id: current_user.id }) %></li> 
     <li><%= link_to 'My Sales', "/charges" %></li>
     <li><%= link_to 'Invite a friend', "/users/invitation/new" %></li>
+    <% if current_user.business_name.length > 0 %>
+      <li><%= link_to 'My Profile', "/#{current_user.business_name}" %></li>
+    <% else %>
+      <li><%= link_to 'Claim Your Profile', edit_user_registration_path %></li>
+    <% end %>
     <% if current_user.events_allowed == true  %> 
       <li><%= link_to 'My Events', "/events" %></li> 
     <% end %>

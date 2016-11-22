@@ -31,9 +31,9 @@
         <option <%=if num == current_user.donation_rate then "selected" end %>  ><%=num%></option>
         <% end %>
       </select>
-
-       <%= f.label :business_name %>
-       <%= f.text_field :business_name, :value => current_user.business_name %>
+        WAHT THA
+       <%= f.label "Claim profile by providing business name" %>
+       <%= f.text_field "business_name awesome", :value => current_user.business_name %>
 
        <% if current_user.business_name %>
        Your profile: <a href="https://www.karmagrove.com/<%= current_user.business_name %>" target="new"> 

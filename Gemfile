@@ -21,6 +21,7 @@ group :development, :test do
   gem 'spring'
   gem 'sqlite3'
   gem "letter_opener"
+  gem 'stripe-ruby-mock', github: "rebelidealist/stripe-ruby-mock", branch: "master"
 end
 
 

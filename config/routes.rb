@@ -53,5 +53,7 @@ Rails.application.routes.draw do
   get ":business_name", :to => "users#show"
   #post '/users/invite', :to => "registrations#invite"
 
+  get '/auth/frontdesk', to: 'sessions#authenticate_pike13'
+  get '/callback/frontdesk', to: 'sessions#create_pike13'
 
 end

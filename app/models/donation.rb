@@ -30,11 +30,11 @@ class Donation < ActiveRecord::Base
     success = false
     begin
       success = true
-      @transfer = Stripe::Transfer.create(
-        :amount => params[:amount],
-        :currency => 'usd',
-        :destination => "acct_18euHSE0swh6MOmQ"
-     )
+     #  @transfer = Stripe::Transfer.create(
+     #    :amount => params[:amount],
+     #    :currency => 'usd',
+     #    :destination => ""
+     # )
       #{CONNECTED_STRIPE_ACCOUNT_ID}
 
       @transfer = Stripe::Transfer.create(params)
@@ -98,8 +98,10 @@ class Donation < ActiveRecord::Base
   end
 
   def update_donation_charge_status(charges = {})
-     donation_id = 8
-     donation_id = 10
+     # donation_id = 8
+     # donation_id = 10
+     # customer = Customer.find x
+     donation_id = 11
      charges = DonationCharge.where(:status => "unpaid", :user_id => customer.id)
      charges.each do |charge|
      charge.update_attribute(:donation_id, donation_id)

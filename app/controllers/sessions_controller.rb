@@ -6,6 +6,26 @@ class SessionsController < ApplicationController
     @url_for_facebook = @oauth.url_for_oauth_code(:state=>donation_id)
   end
 
+  def authenticate_pike13
+    @client_id=ENV['CLIENT_ID']
+    @client_secret=ENV['CLIENT_SECRET']
+    @client = OAuth2::Client.new(@client_id, @client_secret, :site => 'https://frontdeskhq.com/oauth/authorize')  
+    url = @client.auth_code.authorize_url(:redirect_uri => 'http://www.karmagrove.com/callback/frontdesk')
+    redirect_to url
+  end
+
+  def create_pike13
+
+    Rails.logger.info "session create!"
+    session[:code] = params['code']
+    Rails.logger.info "session code #{params['code']}"
+    Rails.logger.info "session[:code] #{session[:code]}"
+    Rails.logger.info "session create for user #{user}!"
+    Rails.logger.info "params.inspect #{params.inspect}, auth_hash #{auth_hash}"
+    #redirect_to '/gas_deliveries'
+    redirect_to '/profile'
+  end
+
   def create
     # P_ID=402764733175875;
     # export FACEBOOK_SECRET=b91c8b29bf5295730b4d8100f76ded1d;

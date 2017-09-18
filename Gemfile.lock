@@ -281,7 +281,6 @@ GEM
       websocket (~> 1.0)
     sendgrid (1.2.0)
       json
-      json
     spring (1.4.0)
     sprockets (2.12.4)
       hike (~> 1.2)
@@ -368,3 +367,9 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+RUBY VERSION
+   ruby 2.1.3p242
+
+BUNDLED WITH
+   1.13.1

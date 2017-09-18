@@ -8,7 +8,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
  #file for testing
- # storage :file
+  # storage :file
   # fog for production
   storage :fog  
 

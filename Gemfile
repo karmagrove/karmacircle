@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.1.3'
+
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rails', '4.2.1'
 gem 'sass-rails', '~> 5.0'

@@ -37,9 +37,11 @@ class SessionsController < ApplicationController
      headers = {
      :grant_type => "authorization_code",
      :code => @code,
-     :redirect_uri => "http://www.reports.thecryozone.com", :client_id => @client_id, :client_secret => @client_secret}
-     @token = @client.auth_code.get_token(@code, :redirect_uri => 'http://www.reports.thecryozone.com/frontdesk/callback', :headers => headers)
-     
+     :redirect_uri => "http://www.karmagrove.com/callback/frontdesk", :client_id => @client_id, :client_secret => @client_secret}
+     @token = @client.auth_code.get_token(@code, :redirect_uri => 'http://www.karmagrove.com/callback/frontdesk', :headers => headers)
+     Rails.logger.info "@token!! #{@token.inspect}!"
+     Rails.logger.info "@token!! #{@token.token}!"
+
     #redirect_to '/gas_deliveries'
     redirect_to '/profile'
   end

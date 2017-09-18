@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     Rails.logger.info "session code #{params['code']}"
     Rails.logger.info "session[:code] #{session[:code]}"
     # Rails.logger.info "session create for user #{user}!"
-    Rails.logger.info "params.inspect #{params.inspect}, auth_hash #{auth_hash}"
+    # Rails.logger.info "params.inspect #{params.inspect}, auth_hash #{auth_hash}"
      @client_id=ENV['CLIENT_ID']
      @client_secret=ENV['CLIENT_SECRET']
      Rails.logger.info("code.inspect #{@code},client_id, @client_secret #{@client_id} #{@client_secret}")

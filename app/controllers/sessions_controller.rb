@@ -20,8 +20,26 @@ class SessionsController < ApplicationController
     session[:code] = params['code']
     Rails.logger.info "session code #{params['code']}"
     Rails.logger.info "session[:code] #{session[:code]}"
-    Rails.logger.info "session create for user #{user}!"
+    # Rails.logger.info "session create for user #{user}!"
     Rails.logger.info "params.inspect #{params.inspect}, auth_hash #{auth_hash}"
+     @client_id=ENV['CLIENT_ID']
+     @client_secret=ENV['CLIENT_SECRET']
+     Rails.logger.info("code.inspect #{@code},client_id, @client_secret #{@client_id} #{@client_secret}")
+     Rails.logger.debug("code.inspect #{@code},client_id, @client_secret #{@client_id} #{@client_secret}")
+     page=params[:page]
+     @page=1
+     @code = session[:code]
+     #@client = OAuth2::Client.new(@client_id, @client_secret, :site => 'https://frontdeskhq.com')
+     #@client = OAuth2::Client.new(@client_id, @client_secret, :site => 'https://thecryozone.frontdeskhq.com')
+     # @client = OAuth2::Client.new(@client_id, @client_secret, :site => 'https://cryozoneuptown.frontdeskhq.com') 
+     @client = OAuth2::Client.new(@client_id, @client_secret, :site => 'https://frontdeskhq.com') 
+
+     headers = {
+     :grant_type => "authorization_code",
+     :code => @code,
+     :redirect_uri => "http://www.reports.thecryozone.com", :client_id => @client_id, :client_secret => @client_secret}
+     @token = @client.auth_code.get_token(@code, :redirect_uri => 'http://www.reports.thecryozone.com/frontdesk/callback', :headers => headers)
+     
     #redirect_to '/gas_deliveries'
     redirect_to '/profile'
   end

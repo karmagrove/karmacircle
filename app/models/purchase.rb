@@ -16,19 +16,21 @@ class Purchase < ActiveRecord::Base
   end
 
   def update_pike13_with_purchase
-  	id = get_buyer_pike13_id_or_create
-  	Rails.logger.info id
-  # curl -XPOST https://mybiz.pike13.com/api/v2/desk/pack_products/1/packs \
-  # -H "Authorization: Bearer XXXXXXXXXXXXXXX" \
-  # -H "Content-Type: application/json" \
-  # -d '{"pack": {"person_ids": [1]}}'
-
-     # FUNCTIONAL!!
-     response = `curl -XPOST "https://cryozonesm.pike13.com/api/v2/desk/pack_products/#{self.product.pike13productid}/packs" \
-     -H "Authorization: Bearer #{self.product.user.pike13token}" \
-     -H "Content-Type: application/json" \
-     -d '{"pack": {"person_ids": ["#{id}"]}}'`
-     Rails.logger.info response
+  	if self.product.pike13productid
+     	id = get_buyer_pike13_id_or_create
+     	Rails.logger.info id
+     # curl -XPOST https://mybiz.pike13.com/api/v2/desk/pack_products/1/packs \
+     # -H "Authorization: Bearer XXXXXXXXXXXXXXX" \
+     # -H "Content-Type: application/json" \
+     # -d '{"pack": {"person_ids": [1]}}'
+   
+        # FUNCTIONAL!!
+        response = `curl -XPOST "https://cryozonesm.pike13.com/api/v2/desk/pack_products/#{self.product.pike13productid}/packs" \
+        -H "Authorization: Bearer #{self.product.user.pike13token}" \
+        -H "Content-Type: application/json" \
+        -d '{"pack": {"person_ids": ["#{id}"]}}'`
+        Rails.logger.info response
+    end
     # 301846
   end
 

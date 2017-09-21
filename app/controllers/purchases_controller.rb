@@ -179,6 +179,7 @@ def create
           customer= {}
           if @product.require_name and params[:customer_name]
             customer[:name] = params[:customer_name]
+            @purchase.buyer_name = params[:customer_name]
           end
           if @product.require_gender and params[:customer_gender]
             customer[:gender] = params[:customer_gender]

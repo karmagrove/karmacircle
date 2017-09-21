@@ -6,13 +6,48 @@ class Purchase < ActiveRecord::Base
   after_save :update_pike13_with_purchase
   ## 
   
+  def create_user
+    if self.buyer_name && self.buyer_name.split(' ')[1]
+      first_name = self.buyer_name.split(' ')[0]
+      last_name = self.buyer_name.split(' ')[1]
+    else
+      first_name = self.buyer_email
+      last_name = self.buyer_email
+    end
+     # response = `curl -XPOST https://cryozonesm.pike13.com/api/v2/desk/people \
+     # -H "Authorization: Bearer #{self.product.user.pike13token}" \
+     # -H "Content-Type: application/json" \
+     # -d '{"person":{"first_name": "#{first_name}", "last_name": "#{last_name}": "Client", "email": "#{self.buyer_email}", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}'`
+     # Rails.logger.info ('curl -XPOST https://cryozonesm.pike13.com/api/v2/desk/people \
+     #           # -H "Authorization: Bearer #{self.product.user.pike13token}" \
+     #           # -H "Content-Type: application/json" \
+     #           # -d \'{"person":{"first_name": "#{first_name}","last_name":"#{last_name}": "Client", "email": "#{self.buyer_email}", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}\'') 
+     
+     # Rails.logger.info "RESONSE! /n \n"
+
+     cmd = 'curl -XPOST https://cryozonesm.pike13.com/api/v2/desk/people \
+               -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
+               -H "Content-Type: application/json" \
+               -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}\''
+     Rails.logger.info cmd
+     response = %x(#{cmd})
+     Rails.logger.info response
+     user_id = JSON.parse(response)
+     return user_id['people'][0]['id']
+  end 
+    
   def get_buyer_pike13_id_or_create
   	 response = `curl "https://cryozonesm.pike13.com/api/v2/desk/people/search?q=#{self.buyer_email}" \
   -H "Authorization: Bearer #{self.product.user.pike13token}"`
   	 # Rails.logger.info "https://cryozonesm.pike13.com/api/v2/desk/people/search?q=#{self.buyer_email} Authorization: Bearer #{self.product.user.pike13token}"
-  	 user_id = JSON.parse(response)
+  	 Rails.logger.info response
+     user_id = JSON.parse(response)
   	 Rails.logger.info user_id
-  	 return user_id['results'][0]['person']['id']
+     if user_id['results'][0]['person']['email'] == self.buyer_email
+  	   return user_id['results'][0]['person']['id'] 
+     else
+       return create_user
+     end
   end
 
   def update_pike13_with_purchase

@@ -38,7 +38,7 @@ class Purchase < ActiveRecord::Base
     
   def get_buyer_pike13_id_or_create
 
-  	 response = `curl "https://#{self.product.user.pike13subdomain}".pike13.com/api/v2/desk/people/search?q=#{self.buyer_email}" \
+  	 response = `curl "https://#{self.product.user.pike13subdomain}.pike13.com/api/v2/desk/people/search?q=#{self.buyer_email}" \
   -H "Authorization: Bearer #{self.product.user.pike13token}"`
   	 # Rails.logger.info "https://cryozonesm.pike13.com/api/v2/desk/people/search?q=#{self.buyer_email} Authorization: Bearer #{self.product.user.pike13token}"
   	 Rails.logger.info response

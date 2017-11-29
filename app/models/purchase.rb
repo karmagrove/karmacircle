@@ -25,7 +25,7 @@ class Purchase < ActiveRecord::Base
      
      # Rails.logger.info "RESONSE! /n \n"
 
-     cmd = 'curl -XPOST https://cryozonesm.pike13.com/api/v2/desk/people \
+     cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
                -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
                -H "Content-Type: application/json" \
                -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}\''
@@ -37,7 +37,8 @@ class Purchase < ActiveRecord::Base
   end 
     
   def get_buyer_pike13_id_or_create
-  	 response = `curl "https://cryozonesm.pike13.com/api/v2/desk/people/search?q=#{self.buyer_email}" \
+
+  	 response = `curl "https://#{self.product.user.pike13subdomain}".pike13.com/api/v2/desk/people/search?q=#{self.buyer_email}" \
   -H "Authorization: Bearer #{self.product.user.pike13token}"`
   	 # Rails.logger.info "https://cryozonesm.pike13.com/api/v2/desk/people/search?q=#{self.buyer_email} Authorization: Bearer #{self.product.user.pike13token}"
   	 Rails.logger.info response
@@ -60,7 +61,7 @@ class Purchase < ActiveRecord::Base
      # -d '{"pack": {"person_ids": [1]}}'
    
         # FUNCTIONAL!!
-        response = `curl -XPOST "https://cryozonesm.pike13.com/api/v2/desk/pack_products/#{self.product.pike13productid}/packs" \
+        response = `curl -XPOST "https://#{self.product.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products/#{self.product.pike13productid}/packs" \
         -H "Authorization: Bearer #{self.product.user.pike13token}" \
         -H "Content-Type: application/json" \
         -d '{"pack": {"person_ids": ["#{id}"]}}'`

@@ -200,11 +200,11 @@ def create
         Rails.logger.info("Exception: #{e.message}")
       end
       
-      if seller.email == "uptown@thecryozone.com" 
-        redirect_to "http://www.thecryozone.com/locations/uptown-dallas" and return 
-      else
+      # if seller.email == "uptown@thecryozone.com" 
+      #   redirect_to "http://www.thecryozone.com/locations/uptown-dallas" and return 
+      # else
         redirect_to "/",  notice: @notice
-      end  
+      # end  
       
       #format.html { redirect_to "/", notice: 'Charge made'}
       #format.json { render :show, status: :created, location: @user }
@@ -223,8 +223,6 @@ def create
       format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }
       format.json { render json: {:status => "failure", :status_message => notice}, status: 400 }
   end
-
-   return true
   end
 
 end

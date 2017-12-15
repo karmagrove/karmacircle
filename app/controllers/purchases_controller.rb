@@ -202,6 +202,7 @@ def create
       
       if seller.email == "uptown@thecryozone.com" 
         redirect_to "http://thecryozone.com/locations/uptown-dallas" 
+        return
       else
         redirect_to "/",  notice: @notice
       end  
@@ -213,7 +214,7 @@ def create
       format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }
        format.json { render json: @user.errors, status: :unprocessable_entity }
      end
-    end
+  end
 
   else
     Rails.logger.info "no awesome charge"
@@ -221,7 +222,7 @@ def create
     respond_to do |format|
       format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }
       format.json { render json: {:status => "failure", :status_message => notice}, status: 400 }
-    end
+  end
 
   end
 end

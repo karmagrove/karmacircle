@@ -201,7 +201,7 @@ def create
       end
       
       if seller.email == "uptown@thecryozone.com" 
-        redirect_to "http://thecryozone.com/locations/uptown-dallas" 
+        redirect_to "http://www.thecryozone.com/locations/uptown-dallas", status: 301
         return
       else
         redirect_to "/",  notice: @notice

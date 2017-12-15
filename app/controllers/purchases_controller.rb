@@ -199,8 +199,13 @@ def create
       rescue Exception => e
         Rails.logger.info("Exception: #{e.message}")
       end
-  
-      redirect_to "/",  notice: @notice
+      
+      if seller.email == "uptown@thecryozone.com" 
+        redirect_to "http://thecryozone.com/locations/uptown-dallas" 
+      else
+        redirect_to "/",  notice: @notice
+      end  
+      
       #format.html { redirect_to "/", notice: 'Charge made'}
       #format.json { render :show, status: :created, location: @user }
     else

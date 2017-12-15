@@ -224,7 +224,9 @@ def create
       format.json { render json: {:status => "failure", :status_message => notice}, status: 400 }
   end
 
+   return true
   end
+
 end
 
 private

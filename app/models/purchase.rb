@@ -24,11 +24,23 @@ class Purchase < ActiveRecord::Base
      #           # -d \'{"person":{"first_name": "#{first_name}","last_name":"#{last_name}": "Client", "email": "#{self.buyer_email}", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}\'') 
      
      # Rails.logger.info "RESONSE! /n \n"
-
-     cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
+     if seller.email == "santamonica@thecryozone.com"
+       cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
                -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
                -H "Content-Type: application/json" \
                -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}\''
+     elsif seller.email == "uptown@thecryozone.com"
+       cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
+               -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
+               -H "Content-Type: application/json" \
+               -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '", "custom_fields": [{"id":110790,"value":"KarmaGrove"}]}}\''
+     else
+         cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
+               -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
+               -H "Content-Type: application/json" \
+               -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '}}\''
+               
+     end
      Rails.logger.info cmd
      response = %x(#{cmd})
      Rails.logger.info response

@@ -1,4 +1,4 @@
-This is a record that <%= @customer.email %> has given $<%= sprintf("%03d", @donation.donation_amount).insert(-3, ".") %> to <%= @charity.name %> on <%= Date.today %> using Karma Grove and giving a portion of their income over the past month.  
+This is a record that <%= @customer.email %> has given $<%= sprintf("%03d", @donation.donation_amount).insert(-3, ".") %> to <%= @charity.name %> on <%= Date.today %> using Karma Grove and giving a portion of their revenue at the point of sale.  
 
 <% if @donation.payment_reference %>
 For your own records the stripe transfer reference id is: <%= @donation.payment_reference %>

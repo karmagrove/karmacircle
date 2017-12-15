@@ -24,12 +24,12 @@ class Purchase < ActiveRecord::Base
      #           # -d \'{"person":{"first_name": "#{first_name}","last_name":"#{last_name}": "Client", "email": "#{self.buyer_email}", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}\'') 
      
      # Rails.logger.info "RESONSE! /n \n"
-     if self.product.seller.email == "santamonica@thecryozone.com"
+     if self.product.user.email == "santamonica@thecryozone.com"
        cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
                -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
                -H "Content-Type: application/json" \
                -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '", "custom_fields": [{"id":110812,"value":"KarmaGrove"}]}}\''
-     elsif self.product.seller.email == "uptown@thecryozone.com"
+     elsif self.product.user.email == "uptown@thecryozone.com"
        cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
                -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
                -H "Content-Type: application/json" \

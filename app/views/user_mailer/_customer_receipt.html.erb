@@ -1,10 +1,13 @@
 <% if @donationCharge.user.email == "drtartaro@gmail.com" %>
   <% @message = "<h2 style='color: #3F3F38;display: block;font-family: Helvetica;font-size: 20px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;'>Congratulations on your recent payment to Jessica Tartaro.</h2> <br />  Because Dr Tartaro Orgasmic Coaching prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <span style='color:#9DDE53;'> #{(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i}% </span> of your purchase goes to support #{@donationCharge.charity.name}." %>
+<% elsif @donationCharge.user.email == "uptown@thecryozone.com" %>
+  <% @message = "<h2 style='color: #3F3F38;display: block;font-family: Helvetica;font-size: 20px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;'>Thanks for your payment to CryoZone Uptown.</h2> <br /> 
+    <h3> <a href=\"http://www.thecryozone.com/locations/uptown-dallas\"> Book an appointment online </a> </h3>
+  <br /> A portion of your purchase goes to support #{@donationCharge.charity.name}." %>
+
 <% else %>
   <% @message = "<h2 <h2 style='color: #3F3F38;display: block;font-family: Helvetica;font-size: 20px;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;'>Congratulations on your recent payment to #{@donationCharge.user.email}.</h2> <br />   Because #{@donationCharge.user.email} prioritizes conscious commerce by choosing Karma Grove as their merchant vendor, <span style='color:#9DDE53;'> #{(@donationCharge.donation_amount.to_f / @donationCharge.revenue.to_f * 100).to_i}% </span> of your purchase goes to support #{@donationCharge.charity.name}." %>
 <% end %> 
-
-
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

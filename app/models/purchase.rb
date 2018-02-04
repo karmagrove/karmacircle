@@ -38,7 +38,7 @@ class Purchase < ActiveRecord::Base
          cmd = 'curl -XPOST https://' + self.product.user.pike13subdomain + '.pike13.com/api/v2/desk/people \
                -H "Authorization: Bearer ' + self.product.user.pike13token + '" \
                -H "Content-Type: application/json" \
-               -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '}}\''
+               -d \'{"person":{"first_name": "' + first_name + '", "last_name" : "' + last_name + '", "email": "' + self.buyer_email + '"}}\''
                
      end
      Rails.logger.info cmd

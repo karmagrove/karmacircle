@@ -50,6 +50,12 @@
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
-		<%= render 'layouts/footer' %>
+    
+    <% unless request.path_info.include?('products') %>
+    
+    <%= render 'layouts/footer' %>
+    
+    <% end %>
+		
   </body>
 </html>

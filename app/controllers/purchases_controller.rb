@@ -191,10 +191,9 @@ def create
         end
         @purchase.save
         
-        UserMailer.send_receipt(params[:stripeEmail],@donorCharge).deliver
+        UserMailer.delay.send_receipt(params[:stripeEmail],@donorCharge).deliver
         customer[:stripeEmail] = params[:stripeEmail]
-        UserMailer.send_receipt_copy(customer,@donorCharge).deliver
-
+        UserMailer.delay.send_receipt_copy(customer,@donorCharge).deliver
         @notice = 'Charge succeeded: check your email'
       rescue Exception => e
         Rails.logger.info("Exception: #{e.message}")
@@ -203,11 +202,11 @@ def create
       # if seller.email == "uptown@thecryozone.com" 
       #   redirect_to "http://www.thecryozone.com/locations/uptown-dallas" and return 
       # else
-        redirect_to "/",  notice: @notice
+      # redirect_to "/",  notice: @notice
       # end  
       
-      #format.html { redirect_to "/", notice: 'Charge made'}
-      #format.json { render :show, status: :created, location: @user }
+      format.html { redirect_to "/", notice: 'Charge made'}
+      # format.json { render :show, status: :created, location: @user }
     else
       respond_to do |format|
        format.html { redirect_to "/", notice: 'Charge failed: #{charge.failure_message}' }

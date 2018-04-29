@@ -9,6 +9,8 @@ Bundler.require(*Rails.groups)
 module Karmacircle
   class Application < Rails::Application
 
+    config.active_job.queue_adapter = :delayed_job
+
     config.generators do |g|
       g.test_framework :rspec,
         fixtures: true,

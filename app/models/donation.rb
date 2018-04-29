@@ -101,7 +101,7 @@ class Donation < ActiveRecord::Base
      # donation_id = 8
      # donation_id = 10
      # customer = Customer.find x
-     donation_id = 11
+     donation_id = 12
      charges = DonationCharge.where(:status => "unpaid", :user_id => customer.id)
      charges.each do |charge|
      charge.update_attribute(:donation_id, donation_id)

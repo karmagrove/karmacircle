@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
   belongs_to :user
+  has_many :purchases
   mount_uploader :avatar, AvatarUploader
   enum currency: [:usd, :cad, :eur, :gbp]
   #attr_accessor :description, :name, :price, :id, :image_url, :user

@@ -3,7 +3,8 @@ class Purchase < ActiveRecord::Base
   belongs_to :user
   belongs_to :donation_charge
   has_many :ticket_purchases
-  after_save :update_pike13_with_purchase
+  # moves into method
+  # after_save :update_pike13_with_purchase
   ## 
   
   def create_user
@@ -70,7 +71,7 @@ class Purchase < ActiveRecord::Base
     begin 
   	  if self.product.pike13productid
        	 id = get_buyer_pike13_id_or_create
-       	 Rails.logger.info id
+       	 Rails.logger.info "attempting post for purchase with id #{id}" 
          # curl -XPOST https://mybiz.pike13.com/api/v2/desk/pack_products/1/packs \
          # -H "Authorization: Bearer XXXXXXXXXXXXXXX" \
          # -H "Content-Type: application/json" \
@@ -81,7 +82,7 @@ class Purchase < ActiveRecord::Base
           -H "Authorization: Bearer #{self.product.user.pike13token}" \
           -H "Content-Type: application/json" \
           -d '{"pack": {"person_ids": ["#{id}"]}}'`
-          Rails.logger.info response
+          Rails.logger.info "response from post of product #{response.inspect}"
       end
       # 301846
   

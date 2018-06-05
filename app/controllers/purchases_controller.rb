@@ -37,10 +37,14 @@ def create
 # Create the charge on Stripe's servers - this will charge the user's card
   Rails.logger.info "seller.email #{seller.email} and customer #{customer.inspect}"
   Rails.logger.info "params #{params.inspect}"
+  product_id = params[:product_id].to_i
 
   ## seller.calculate_application_fee
   application_fee = seller.transaction_cost
-  donation_amount = (@amount.to_i*seller.donation_rate/100).to_i
+  @product = Product.find(product_id)
+  donation_rate = @product.donation_rate
+  donation_rate ||= seller.donation_rate
+  donation_amount = (@amount.to_i*donation_rate/100).to_i
   Rails.logger.info("seller.donation_rate: #{seller.donation_rate}")
   Rails.logger.info("donation_amount #{donation_amount}")
   if params[:allowMatching] == "true"
@@ -59,7 +63,7 @@ def create
   if seller.currency
     currency = seller.currency 
   end
-  product_id = params[:product_id].to_i
+  
   
   unless product_id == 0 
     @product = Product.find(product_id)
@@ -190,7 +194,7 @@ def create
           end
         end
         @purchase.save
-        
+        @purchase.delay.update_pike13_with_purchase
         UserMailer.delay.send_receipt(params[:stripeEmail],@donorCharge)
         customer[:stripeEmail] = params[:stripeEmail]
         UserMailer.delay.send_receipt_copy(customer,@donorCharge)

@@ -91,7 +91,7 @@
     };
  </script>   
 
- <%= @product.user.name || @product.user.email %> donates <%= @product.user.donation_rate %>% of the sale to <%= @charity.name %>. 
+ <%= @product.user.name || @product.user.email %> donates <%= @donation_rate %>% of the sale to <%= @charity.name %>. 
  
 A portion of your purchase will be given to the charity <%= @charity.url %>:
 <% if @charity.url %>

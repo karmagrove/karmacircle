@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @charity = @product.user.charity_users.first.charity
-    @donation_rate = @product.donation_rate
+    @donation_rate = @product.donation_percent
     @donation_rate ||= @product.user.donation_rate
     if params[:customer_view]
       then

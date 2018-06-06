@@ -143,7 +143,7 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
 
     if($('#match_donation').prop('checked') === true){
         var amount = $('#amount').val();
-        var donation_rate = <%= @product.user.donation_rate %>;
+        var donation_rate = <%= @donation_rate %>;
         var new_amount = amount*(1+(donation_rate/100));
         new_amount = parseFloat(Math.round(new_amount * 100) / 100).toFixed(2);
         var additional_amount = parseFloat(Math.round((new_amount - amount) * 100) / 100).toFixed(2);
@@ -171,7 +171,7 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
 
   <% if @product.user.allow_customer_match_donation == true %>
      <input type="checkbox" id="match_donation" required="true" class="match_donation" name="match_donation"> 
-     <label for="match_donation"><h4>Would you like to match the donation by paying <%= @product.user.donation_rate %>% more? </h4></label></input> <br />
+     <label for="match_donation"><h4>Would you like to match the donation by paying <%= @donation_rate %>% more? </h4></label></input> <br />
      <div id="match_donation_notice">
      </div>
   <% end %>
@@ -243,7 +243,7 @@ Your notes for the seller: <br/>
 
  <p>
 
- <%= @product.user.name || @product.user.email %> donates <%= @product.user.donation_rate %>% of the sale to <%= @charity.name %>. 
+ <%= @product.user.name || @product.user.email %> donates <%= @donation_rate %>% of the sale to <%= @charity.name %>. 
  
 A portion of your purchase will be given to the charity:
 <% if @charity.url %>
@@ -308,7 +308,7 @@ A portion of your purchase will be given to the charity:
        <% if @product.user.allow_customer_match_donation == true %> 
        // transaction_cost += (amount * (1 + (<%= @product.user.donation_rate.to_i %>/100)));
        if ($('#match_donation').prop('checked') === true){
-         var additional_donation = (value*100 * (1 + (<%=@product.user.donation_rate%>/100))) - value*100;
+         var additional_donation = (value*100 * (1 + (<%=@donation_rate%>/100))) - value*100;
          return parseInt((value*100 + transaction_cost + additional_donation) / factor);  
        } else {
          return parseInt((value*100 + transaction_cost) / factor);

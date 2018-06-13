@@ -7,6 +7,45 @@
 <!-- <button class="center middle" style="text-align:center;align:center" id="editProduct">
 Edit Product
 </button> -->
+
+<%= link_to 'Click to send this product as invoice', '#', :type => "button", data: {:'reveal-id' => 'myModal'} %>
+<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Please provide the email for your invoice recipient. </h2>
+  <p class="lead"><input type="text" placeholder="Customer Email" id="invoiceemail"> </input> </p>
+  <button id="sendInvoice"> SEND INVOICE</button>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<script type="text/javascript">
+
+$('#sendInvoice').click(function(){
+    $.post('/invoices')
+              $.ajax({
+               type: "POST",
+               url: "/invoices",
+               format: "json",
+               data: {
+                 "email": $('#invoiceemail').val(),
+                  "url": document.URL,
+                  "seller_id": <%= params[:user_id] %>
+               },
+               success:function(resp){
+                 window.location.replace("/charges")
+                 console.log(resp)
+    
+               },
+               error: function(resp){
+                console.log("fail!");
+                 console.log(resp);
+                 // alert(resp)
+                 window.location.replace("/")
+               }
+            });
+
+});
+
+</script>
+
 <%= link_to 'Click to edit this product', edit_user_product_path(:user_id =>current_user.id, :product=> @product), :type => "button" %>   <br />
 </div>
 <div class="large-6 columns" style="text-align:center;">
@@ -19,6 +58,8 @@ Edit Product
 </div>
 </div>
 </div>
+
+
 
 <script type="text/javascript">
 

@@ -4,6 +4,12 @@ def success
 
 end
 
+
+def send_invoice
+  email = params[:email]
+  UserMailer.send_invoice(email).deliver
+end
+
 def create
   # Amount in cents
   #@amount = (params[:amount].to_f * 100).to_i

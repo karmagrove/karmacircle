@@ -24,17 +24,12 @@ class InvoicesController < ApplicationController
   # POST /invoices
   # POST /invoices.json
   def create
-    @invoice = Invoice.new(invoice_params)
-
-    respond_to do |format|
-      if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-        format.json { render :show, status: :created, location: @invoice }
-      else
-        format.html { render :new }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
-    end
+    email = params[:email]
+    url = params[:url]
+    seller_id = params[:seller_id]
+    seller_email = User.find(seller_id).email
+    UserMailer.send_invoice(email,url).deliver
+    UserMailer.send_invoice_copy(email,url,seller_email).deliver
   end
 
   # PATCH/PUT /invoices/1

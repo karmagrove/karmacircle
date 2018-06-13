@@ -5,6 +5,12 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Subscription Cancelled")
   end
 
+  def send_invoice(email,url)
+    @email = email
+    @url = url
+    mail(:to => email, :subject => "Please complete the invoice and we will give to charity")
+  end
+
   def send_receipt(customer, donationCharge)
   	@customer = customer
   	@donationCharge = donationCharge

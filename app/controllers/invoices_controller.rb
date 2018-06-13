@@ -28,8 +28,8 @@ class InvoicesController < ApplicationController
     url = params[:url]
     seller_id = params[:seller_id]
     seller_email = User.find(seller_id).email
-    UserMailer.delay.send_invoice(email,url).deliver
-    UserMailer.delay.send_invoice_copy(email,url,seller_email).deliver
+    UserMailer.send_invoice(email,url,seller_email).deliver
+    UserMailer.send_invoice_copy(email,url,seller_email).deliver
   end
 
   # PATCH/PUT /invoices/1

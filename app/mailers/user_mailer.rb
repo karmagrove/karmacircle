@@ -11,6 +11,12 @@ class UserMailer < ActionMailer::Base
     mail(:to => email, :subject => "Please complete the invoice and we will give to charity")
   end
 
+  def send_invoice_copy(email,url,sender)
+    @email = email
+    @url = url
+    mail(:to => sender, :subject => "COPY SENT TO #{@email}: Please complete the invoice and we will give to charity")
+  end
+
   def send_receipt(customer, donationCharge)
   	@customer = customer
   	@donationCharge = donationCharge

@@ -1,3 +1,7 @@
+<script>
+$('#datepicker').datepicker({format: 'dd/mm/yyyy'});
+</script>
+
 <%= form_for(@product, url: @product_url) do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
@@ -11,6 +15,17 @@
     </div>
   <% end %>
 
+  <% if @product.user.pike13token %>
+
+    
+    <div class="field">
+
+    <%= f.label :pike13productid, "Pike13 Connected Product" %><br>
+    <%= f.select(:pike13productid, @product.get_available_pike13_products) %>
+    </div>
+  
+  <% end %> 
+  
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_field :description %>
@@ -26,6 +41,14 @@
   </div>
   <div class="field">
   <%= f.select(:currency, Product.currencies.keys.map {|role| [role.upcase,role]}, :default => 'usd') %>
+  </div>
+  <div class="field">
+  <%= f.label :expires_at %> <br>
+  <%= f.date_field :expires_at, :id => "datepicker", :default => @product.expires_at %>
+  </div>
+  <div class="field">
+  <%= f.label :donation_percent %> <br>
+  <%= f.number_field :donation_percent %>
   </div>
   <div class="field">
   <%= image_tag(@product.avatar_url) if @product.avatar? %> <br />

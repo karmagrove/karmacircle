@@ -13,12 +13,29 @@ class ProductsController < ApplicationController
   def index
     Rails.logger.info("@products.inspect")
     Rails.logger.info(@products.inspect)
+    @is_owner = false
+    @is_owner = (params[:user_id] && current_user && current_user.id == params[:user_id].to_i)
+    if @is_owner == false
+      @products = @products.where("expires_at" > Time.now.strftime("%m/%d/%Y"))
+    end  
+    @user = User.find(params[:user_id])
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+    Rails.logger.info "@product #{@product.inspect}" 
+    if @product.expires_at and @product.expires_at < Date.today
+      then
+      # redirect_to ""
+      flash[:notice] = 'The product link has expired. View current products below.'
+      redirect_to "/users/#{params[:user_id]}/products"
+      # return "YOU CANT LOOK AT THIS"
+    end
+    # @product = Product.find(params["product_id"])
     @charity = @product.user.charity_users.first.charity
+    Rails.logger.info "charity inspect"
+    Rails.logger.info(@charity.inspect)
     @donation_rate = @product.donation_percent
     @donation_rate ||= @product.user.donation_rate
     if params[:customer_view]
@@ -125,6 +142,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:special_instructions, :description, :name, :price, :public, :donation_percent, :image_url, :user_id, :require_name, :require_gender, :avatar, :currency)
+      params.require(:product).permit(:special_instructions, :description, :name, :price, :public, :donation_percent, :image_url, :user_id, :require_name, :require_gender, :avatar, :currency, :pike13productid, :expires_at)
     end
 end

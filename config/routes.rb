@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
   end
   
+  post '/invoices', :to => 'purchases#send_invoice'
 
   get "communities/index"
   get "community", :to => "communities#index"

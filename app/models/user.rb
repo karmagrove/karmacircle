@@ -22,6 +22,14 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :products
   
+  def display_name
+    if self.name and self.name.length > 2 then return self.name 
+    else
+    return self.email
+    end
+
+  end
+
   def invitations_accepted
     a = 0 
     users = User.where :invited_by_id => self.id

@@ -243,7 +243,10 @@ Your notes for the seller: <br/>
 
  <p>
 
- <%= @product.user.name || @product.user.email %> donates <%= @donation_rate %>% of the sale to <%= @charity.name %>. 
+ <%= @product.user.name || 
+ @product.user.email %> donates 
+ <%= @donation_rate %>% of the sale to 
+ <%= @charity.name %>. 
  
 A portion of your purchase will be given to the charity:
 <% if @charity.url %>

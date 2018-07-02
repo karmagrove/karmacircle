@@ -34,6 +34,7 @@ class ProductsController < ApplicationController
     end
     # @product = Product.find(params["product_id"])
     @charity = @product.user.charity_users.first.charity
+    @user = @product.user
     Rails.logger.info "charity inspect"
     Rails.logger.info(@charity.inspect)
     @donation_rate = @product.donation_percent

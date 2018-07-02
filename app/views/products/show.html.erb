@@ -9,16 +9,9 @@
 
 
 <p id="notice"><%= notice %></p>
-<% if (@product.image_url && @product.image_url.length > 0) %>
+<% if (@product.image_url && @product.image_url.length > 0) or @product.avatar? %>
   <div class="row">
-  <div class="col-sm-4">
-
-  <%= image_tag(@product.image_url) %>
-  <%= image_tag(@product.avatar_url) if @product.avatar? %> <br /> 
-  </div>
-  
-
-
+ 
   <div class="col-sm-8">
 
   <%= image_tag(@product.avatar_url) if @product.avatar? %> <br /> 

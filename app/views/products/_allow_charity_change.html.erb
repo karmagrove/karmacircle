@@ -1,0 +1,32 @@
+ <h3>The selected charity is <%= @product.list_available_charities.first.charity_name %> </h3>
+ <h4>You have the right to change the charity recipient below</h4>
+  <%= collection_select(:charity_id, :charity_id, @product.list_available_charities, :charity_id, :charity_name, {:selected => @product.user.charity_users.first.id}) %>
+
+  <script type="text/javascript">
+
+  $( document ).ready(function() {
+    var ob1 = "#charity_<%= @product.user.charity_users.first.charity_id %>";
+    $(ob1).show() 
+  });
+  
+  $('#charity_id_charity_id').change(function(){
+     // console.log("$(this).val()");
+     // console.log($(this).val());
+     var ob = "#charity_" + $(this).val();
+     $('.charity_descriptions').hide()
+     $(ob).show()
+  })
+
+  </script>
+
+  <div class-"notice" id="charity_info">
+  <% @product.list_available_charities.each do |charity| %>
+
+  <div id=<%="charity_#{charity.charity_id}"%> hidden="true" class="charity_descriptions">
+  <%= charity.charity_name %> <%= charity.charity_description %> <br />
+  <%= link_to(charity.charity_url,charity.charity_url) %>
+  </div>
+
+  </div>
+
+  <% end %>

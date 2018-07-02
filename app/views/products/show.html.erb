@@ -36,6 +36,15 @@
 
 </h3>
 
+
+<% if @product.charity_choice == true %>
+
+  <%= f.label :charity_choice, "You can change the charity recipient below" %><br>
+  <%= collection_select(:charity_id, :charity_id, @product.user.charities, :id, :name) %>
+
+<% end %>
+
+
 <% if @product.require_name == true %> 
   
   First Name & Last Name:
@@ -168,6 +177,38 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
 
   })
   </script>
+
+  <% if @product.charity_choice == true %>
+
+  <%= label :charity_choice, "You can change the charity recipient below" %><br>
+  <%= collection_select(:charity_id, :charity_id, @product.list_available_charities, :charity_id, :charity_name, {:selected => @product.user.charity_users.first.id}) %>
+
+  <script type="text/javascript">
+    
+  $('#charity_id_charity_id').change(function(){
+    console.log("$(this).val()");
+     console.log($(this).val());
+     var ob = "#charity_" + $(this).val();
+     $('.charity_descriptions').hide()
+     $(ob).show()
+  })
+
+  </script>
+
+  <div class-"notice" id="charity_info">
+  <% @product.list_available_charities.each do |charity| %>
+
+  <div id=<%="charity_#{charity.charity_id}"%> hidden="true" class="charity_descriptions">
+  <%= charity.charity_name %> <%= charity.charity_description %> <br />
+  <%= link_to(charity.charity_url,charity.charity_url) %>
+  </div>
+
+  <% end %>
+  
+  </div>
+
+  <% end %>
+
 
   <% if @product.user.allow_customer_match_donation == true %>
      <input type="checkbox" id="match_donation" required="true" class="match_donation" name="match_donation"> 

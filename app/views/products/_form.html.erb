@@ -21,7 +21,7 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     <div class="field">
 
     <%= f.label :pike13productid, "Pike13 Connected Product" %><br>
-    <%= f.select(:pike13productid, @product.get_available_pike13_products) %>
+    <%= f.select(:pike13productid, @product.get_available_pike13_products, {include_blank: true}) %>
     </div>
   
   <% end %> 
@@ -30,6 +30,11 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
+  <div class="field">
+    <%= f.label :charity_choice, "Customer can change the charity" %><br>
+    <%= f.check_box :charity_choice %>
+  </div>
+
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>

@@ -15,11 +15,19 @@ class Product < ActiveRecord::Base
         
 
         pikeproducts = response["pack_products"].map {|product| [product["product"]["name"], product["id"]]}
-        return ["",""] + pikeproducts
-        return ()
+        return pikeproducts
       else
         return '[{"name": "no products found"}]'
       end
+  end
+
+  def list_available_charities
+
+    char = self.user.charity_users
+    response = char.map {|p| 
+      OpenStruct.new({:charity_id => p.charity_id,:charity_name => p.charity.name, :charity_description => p.charity.description, :charity_url => p.charity.url} )
+    }
+    response
   end
   
 end

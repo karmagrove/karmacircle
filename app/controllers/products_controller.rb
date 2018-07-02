@@ -85,7 +85,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     #@product = Product.find(params[:id])
-    Rails.logger.info("WHAT THE FUCK? product_params: #{product_params.inspect} product: #{@product}")
+    Rails.logger.info("WHAT THE PARAMS? product_params: #{product_params.inspect} product: #{@product}")
     respond_to do |format|
       if @product.update_attributes(product_params)
         format.html { redirect_to "/users/#{current_user.id}/products", notice: 'Product was successfully updated.' }
@@ -142,6 +142,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:special_instructions, :description, :name, :price, :public, :donation_percent, :image_url, :user_id, :require_name, :require_gender, :avatar, :currency, :pike13productid, :expires_at)
+      params.require(:product).permit(:charity_choice,:special_instructions, :description, :name, :price, :public, :donation_percent, :image_url, :user_id, :require_name, :require_gender, :avatar, :currency, :pike13productid, :expires_at)
     end
 end

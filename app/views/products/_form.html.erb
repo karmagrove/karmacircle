@@ -31,8 +31,8 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :charity_choice, "Customer can change the charity" %><br>
-    <%= f.check_box :charity_choice, {:checked => @product.charity_choice} %>
+    <%= f.check_box :charity_choice, {:checked => @product.charity_choice} %> <%= f.label :charity_choice, "Customer can change the charity" %>
+    
   </div>
 
   <div class="field">

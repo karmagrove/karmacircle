@@ -23,8 +23,13 @@
   <% @product.list_available_charities.each do |charity| %>
 
   <div id=<%="charity_#{charity.charity_id}"%> hidden="true" class="charity_descriptions">
-  <%= charity.charity_name %> <%= charity.charity_description %> <br />
-  <%= link_to(charity.charity_url,charity.charity_url) %>
+  <h3> <%= charity.charity_name %>:</h3> <%= charity.charity_description %> <br />
+  <% if @charity.url %>
+    <%= link_to(charity.charity_url,charity.charity_url) %>
+  <% else %>
+    
+  <% end %> 
+  
   </div>
 
   </div>

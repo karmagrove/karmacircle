@@ -39,7 +39,7 @@
 
 <% if @product.charity_choice == true %>
 
-  <%= f.label :charity_choice, "You can change the charity recipient below" %><br>
+  <h3>You can change the charity recipient below</h3>
   <%= collection_select(:charity_id, :charity_id, @product.user.charities, :id, :name) %>
 
 <% end %>

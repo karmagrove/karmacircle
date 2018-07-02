@@ -1,5 +1,5 @@
  <h3>The selected charity is <%= @product.list_available_charities.first.charity_name %> </h3>
- <h4>You have the right to change the charity recipient below</h4>
+ <p>Other charity options below</p>
   <%= collection_select(:charity_id, :charity_id, @product.list_available_charities, :charity_id, :charity_name, {:selected => @product.user.charity_users.first.id}) %>
 
   <script type="text/javascript">

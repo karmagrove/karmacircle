@@ -341,6 +341,9 @@ A portion of your purchase will be given to the charity:
            url: "/purchases",
            format: "json",
            data: {"stripeToken":token.id,
+           <% if @product.charity_choice == true %>
+           charity_id: $('#charity_id_charity_id').val(),
+           <% end %>
            "stripeEmail": token.email,
            format: "json",
            amount: calculateAmount(),

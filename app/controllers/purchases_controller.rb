@@ -161,10 +161,14 @@ def create
     donation_amount = donation_amount.to_i
     Rails.logger.info("donation_amount: #{donation_amount}")
 
-    if seller.charity_users
-      charity_id = seller.charity_users.first.charity_id
-    else
-      charity_id = 4
+    if params[:charity_id]
+      charity_id = params[:charity_id]
+    else 
+      if seller.charity_users
+        charity_id = seller.charity_users.first.charity_id
+      else
+        charity_id = 4
+      end
     end
     # Donation.where
   

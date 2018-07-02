@@ -39,7 +39,7 @@
 
 <% if @product.charity_choice == true %>
 
-  <h3>You can change the charity recipient below</h3>
+  <h3>You have the right to change the charity recipient below</h3>
   <%= collection_select(:charity_id, :charity_id, @product.list_available_charities, :charity_id, :charity_name, {:selected => @product.user.charity_users.first.id}) %>
 
 <% end %>
@@ -180,7 +180,7 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
 
   <% if @product.charity_choice == true %>
 
-  <h3>You can change the charity recipient below</h3>
+  <h3>You have the right to change the charity recipient below</h3>
   <%= collection_select(:charity_id, :charity_id, @product.list_available_charities, :charity_id, :charity_name, {:selected => @product.user.charity_users.first.id}) %>
 
   <script type="text/javascript">

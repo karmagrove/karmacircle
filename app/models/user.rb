@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :products
   
+  def create_charity_user(charity_id)
+    CharityUser.create!(:user_id => self.id,:charity_id => charity_id)
+  end
+
   def display_name
     if self.name and self.name.length > 2 then return self.name 
     else

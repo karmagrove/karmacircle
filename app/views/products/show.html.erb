@@ -90,6 +90,7 @@
     };
  </script>   
 
+<% unless @product.charity_choice == true %>
  <%= @product.user.name || @product.user.email %> donates <%= @donation_rate %>% of the sale to <%= @charity.name %>. 
  
 A portion of your purchase will be given to the charity <%= @charity.url %>:
@@ -98,12 +99,13 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
 <% else %>
 <%= @charity.name %>
 <% end %> 
-
+<% end %>
   <button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
 
 </div>
   </div>
   </div>
+
 
 <% else %>
 

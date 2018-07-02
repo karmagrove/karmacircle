@@ -20,6 +20,7 @@
   </script>
 
   <div class-"notice" id="charity_info">
+  <%= @product.user.name || @product.user.email %> donates <%= @donation_rate %>% of the sale to <%= @charity.name %>. 
   <% @product.list_available_charities.each do |charity| %>
 
   <div id=<%="charity_#{charity.charity_id}"%> hidden="true" class="charity_descriptions">

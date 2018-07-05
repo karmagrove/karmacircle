@@ -22,7 +22,7 @@ class Product < ActiveRecord::Base
       if response and response["pack_products"] then 
         pikeproducts += response["pack_products"].map {|product| [product["product"]["name"], product["id"]]}
         if response["next"]
-          get_available_pike13_products(p,pikeproducts,response["next"].split('=').last)
+          get_available_pike13_products(pikeproducts,response["next"].split('=').last)
         else 
           return pikeproducts
         end

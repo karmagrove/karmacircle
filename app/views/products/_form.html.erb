@@ -21,7 +21,7 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     <div class="field">
 
     <%= f.label :pike13productid, "Pike13 Connected Product" %><br>
-    <%= f.select(:pike13productid, @product.get_available_pike13_products(), {include_blank: true}) %>
+    <%= f.select(:pike13productid, @product.get_available_pike13_products, {include_blank: true}) %>
     </div>
   
   <% end %> 

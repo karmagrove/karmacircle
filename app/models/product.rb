@@ -8,7 +8,7 @@ class Product < ActiveRecord::Base
   
   # pass a user
   def get_available_pike13_products()
-      response = `curl https://thecryozone.pike13.com/api/v2/desk/pack_products \
+      response = `curl https://#{self.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products \
       -H "Authorization: Bearer #{self.user.pike13token}"`
       response = JSON.parse(response)
       if response and response["pack_products"] then 

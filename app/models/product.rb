@@ -7,15 +7,25 @@ class Product < ActiveRecord::Base
   #attr_accessor :image_url
   
   # pass a user
-  def get_available_pike13_products()
-      response = `curl https://#{self.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products \
+  def get_available_pike13_products(pikeproducts=[],page=1)
+      response = `curl https://#{self.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products?page=#{page} \
       -H "Authorization: Bearer #{self.user.pike13token}"`
-      response = JSON.parse(response)
-      if response and response["pack_products"] then 
-        
 
-        pikeproducts = response["pack_products"].map {|product| [product["product"]["name"], product["id"]]}
-        return pikeproducts
+      # response = `curl https://#{p.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products?page=1 \
+      # -H "Authorization: Bearer #{p.user.pike13token}"`
+
+      # response = `curl https://#{p.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products?page=#{page} \
+      # -H "Authorization: Bearer #{p.user.pike13token}"`
+
+      response = JSON.parse(response)
+
+      if response and response["pack_products"] then 
+        pikeproducts += response["pack_products"].map {|product| [product["product"]["name"], product["id"]]}
+        if response["next"]
+          get_available_pike13_products(p,pikeproducts,response["next"].split('=').last)
+        else 
+          return pikeproducts
+        end
       else
         return '[{"name": "no products found"}]'
       end

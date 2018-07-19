@@ -9,9 +9,13 @@ class Product < ActiveRecord::Base
   
 
 
-  def selected_charity
+  def selected_charity(u={})
     charity = self.charity
-    charity ||= self.user.charity_users.first.charity_id
+    if self.user
+      charity ||= self.user.charity_users.first.charity_id
+    else
+      charity = u.charity_users.first.charity_id
+    end
     charity
   end
 

@@ -344,7 +344,7 @@ A portion of your purchase will be given to the charity:
            charity_id: $('#charity_id_charity_id').val(),
            <% end %>
            <% if @product.charity %>
-           charity_id: <%= @product.charity %> 
+           charity_id: <%= @product.charity %>, 
            <% end %>
            "stripeEmail": token.email,
            format: "json",

@@ -34,6 +34,7 @@ class ProductsController < ApplicationController
     end
     # @product = Product.find(params["product_id"])
     @charity = Charity.find @product.selected_charity
+    @charity_id = @charity.id
     # @charity = @product.user.charity_users.first.charity
     @user = @product.user
     Rails.logger.info "charity inspect"
@@ -52,7 +53,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-
+    @charity_id = User.find(current_user.id).charity_users.first.charity_id
     @product = Product.new
     @product_url = "/users/#{current_user.id}/products"
     Rails.logger.info("@product.inspect")
@@ -61,6 +62,8 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @charity = Charity.find @product.selected_charity
+    @charity_id = @charity.id
     #@product = Product.find(params[:id])
     @product_url = "/users/#{current_user.id}/products/#{params[:id]}"
     Rails.logger.info("product_url #{@product_url}")

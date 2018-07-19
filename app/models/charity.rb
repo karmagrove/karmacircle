@@ -5,7 +5,20 @@ class Charity < ActiveRecord::Base
 	has_many :donations
 
 	after_initialize :set_default_status, :if => :new_record?
-	#scope :
+	# scope :
+
+
+    def self.active_list
+      response = Charity.actives.map {|p| 
+          OpenStruct.new({:charity_id => p.id,:charity_name => p.name, :charity_description => p.description, :charity_url => p.url} )
+       }
+      response
+
+    end
+
+    def self.actives
+        return Charity.where(:status => "approved")
+    end
 
 	def charity_admin 
 	  self.charity_users.where(role: 1).each do |charity_user|

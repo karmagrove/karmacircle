@@ -33,7 +33,8 @@ class ProductsController < ApplicationController
       # return "YOU CANT LOOK AT THIS"
     end
     # @product = Product.find(params["product_id"])
-    @charity = @product.user.charity_users.first.charity
+    @charity = Charity.find @product.selected_charity
+    # @charity = @product.user.charity_users.first.charity
     @user = @product.user
     Rails.logger.info "charity inspect"
     Rails.logger.info(@charity.inspect)
@@ -143,6 +144,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:charity_choice,:special_instructions, :description, :name, :price, :public, :donation_percent, :image_url, :user_id, :require_name, :require_gender, :avatar, :currency, :pike13productid, :expires_at)
+      params.require(:product).permit(:charity_choice,:special_instructions, :description, :name, :price, :public, :donation_percent, :image_url, :user_id, :require_name, :require_gender, :avatar, :currency, :pike13productid, :expires_at, :charity, :charity_id)
     end
 end

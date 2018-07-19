@@ -1,11 +1,20 @@
 class Product < ActiveRecord::Base
   belongs_to :user
   has_many :purchases
+  # belongs_to :charity
   mount_uploader :avatar, AvatarUploader
   enum currency: [:usd, :cad, :eur, :gbp]
   #attr_accessor :description, :name, :price, :id, :image_url, :user
   #attr_accessor :image_url
   
+
+
+  def selected_charity
+    charity = self.charity
+    charity ||= self.user.charity_users.first.charity_id
+    charity
+  end
+
   # pass a user
   def get_available_pike13_products(pikeproducts=[],page=1)
       response = `curl https://#{self.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products?page=#{page} \

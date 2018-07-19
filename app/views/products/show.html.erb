@@ -29,7 +29,6 @@
 
 </h3>
 
-
 <% if @product.charity_choice == true %>
 <%= render :partial => 'allow_charity_change' %>
 <% end %>
@@ -343,6 +342,9 @@ A portion of your purchase will be given to the charity:
            data: {"stripeToken":token.id,
            <% if @product.charity_choice == true %>
            charity_id: $('#charity_id_charity_id').val(),
+           <% end %>
+           <% if @product.charity %>
+           charity_id: $('#product_charity').val(),
            <% end %>
            "stripeEmail": token.email,
            format: "json",

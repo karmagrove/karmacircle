@@ -52,6 +52,10 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
   <%= f.date_field :expires_at, :id => "datepicker", :default => @product.expires_at %>
   </div>
   <div class="field">
+  <%= f.label :charity %> <br>
+  <%= collection_select(:product, :charity, Charity.active_list, :charity_id, :charity_name, {:selected => @product.selected_charity}) %>
+  </div>
+  <div class="field">
   <%= f.label :donation_percent %> <br>
   <%= f.number_field :donation_percent %>
   </div>

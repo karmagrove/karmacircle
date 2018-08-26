@@ -6,15 +6,14 @@ class Product < ActiveRecord::Base
   enum currency: [:usd, :cad, :eur, :gbp]
   #attr_accessor :description, :name, :price, :id, :image_url, :user
   #attr_accessor :image_url
-  
 
 
   def selected_charity(u={})
     charity = self.charity
     if self.user
-      charity ||= self.user.charity_users.first.charity_id
+      charity ||= self.user.charity_users.last.charity_id
     else
-      charity = u.charity_users.first.charity_id
+      charity = u.charity_users.last.charity_id
     end
     charity
   end

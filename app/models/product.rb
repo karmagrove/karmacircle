@@ -10,6 +10,11 @@ class Product < ActiveRecord::Base
 
   def selected_charity(u={})
     charity = self.charity
+    if self.charity then
+      return self.charity 
+    end
+
+    end
     if self.user
       charity ||= self.user.charity_users.last.charity_id
     else

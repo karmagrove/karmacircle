@@ -15,17 +15,16 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     </div>
   <% end %>
 
-  <% if @product.user && @product.user.pike13token %>
+  <% if (@product.user && @product.user.pike13token) or current_user && current_user.pike13token %>
 
     
-    <div class="field">
-
-    <%= f.label :pike13productid, "Pike13 Connected Product" %><br>
-    <%= f.select(:pike13productid, @product.get_available_pike13_products, {include_blank: true}) %>
+    <div class="field medium-5 cell">
+    <%= f.label :pike13productid, "Pike13 Connected Product (will automatically add to pike13 for you upon sale)" %><br>
+    <%= f.select(:pike13productid, @product.get_available_pike13_products([],1,current_user), {include_blank: true}) %>
     </div>
   
   <% end %> 
-  <div class="field medium-6 cell">
+  <div class="field medium-3 cell">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>

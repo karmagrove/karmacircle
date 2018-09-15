@@ -1,10 +1,19 @@
-<div class="row">
-  <div class="large-6 columns large-centered">
+<div class="table large-centered">
     <br /><br />
     <h1> Available charities </h1>
+     <div class="table row"> 
+      <% @active_charities.each_with_index do |c,i| %>
+      <div class="table col-md-3">
+        <%= c.name %>
+      </div>
+      <% if (i+1) % 3 === 0 %>
+         </div>
+         <div class="row">
+      <% end %>
+      <% end %>
+    </div>
       <% if current_user.charity_users.length > 0 %>
         Currently you support: <%= current_user.charity_users.first.charity.name %>
-      
         <%= form_for :update_charity_user, :id => current_user.charity_users.first.id do |f| %>
           <%= collection_select(:charity_user, :charity_id, @charities, :id, :name) %>
           <div class="actions">

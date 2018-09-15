@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
     @charity_id = User.find(current_user.id).charity_users.first.charity_id
     @product = Product.new
     @product_url = "/users/#{current_user.id}/products"
-    Rails.logger.info("@product.inspect")
+    Rails.logger.info("@product.inspect ad charity id #{@charity_id}")
     Rails.logger.info(@product.inspect)
   end
 

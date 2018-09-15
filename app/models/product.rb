@@ -22,9 +22,13 @@ class Product < ActiveRecord::Base
   end
 
   # pass a user
-  def get_available_pike13_products(pikeproducts=[],page=1)
-      response = `curl https://#{self.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products?page=#{page} \
-      -H "Authorization: Bearer #{self.user.pike13token}"`
+  def get_available_pike13_products(pikeproducts=[],page=1, user)
+
+      # user = self.user
+      # user ||=current_user
+      user = user
+      response = `curl https://#{user.pike13subdomain}.pike13.com/api/v2/desk/pack_products?page=#{page} \
+      -H "Authorization: Bearer #{user.pike13token}"`
 
       # response = `curl https://#{p.user.pike13subdomain}.pike13.com/api/v2/desk/pack_products?page=1 \
       # -H "Authorization: Bearer #{p.user.pike13token}"`
@@ -37,7 +41,7 @@ class Product < ActiveRecord::Base
       if response and response["pack_products"] then 
         pikeproducts += response["pack_products"].map {|product| [product["product"]["name"], product["id"]]}
         if response["next"]
-          get_available_pike13_products(pikeproducts,response["next"].split('=').last)
+          get_available_pike13_products(pikeproducts,response["next"].split('=').last, user)
         else 
           return pikeproducts
         end

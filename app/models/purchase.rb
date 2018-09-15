@@ -82,18 +82,27 @@ class Purchase < ActiveRecord::Base
           -H "Authorization: Bearer #{self.product.user.pike13token}" \
           -H "Content-Type: application/json" \
           -d '{"pack": {"person_ids": ["#{id}"]}}'`
+
+          unless response and response['packs']
+            self.delay(run_at: 5.minutes.from_now).update_pike13_with_purchase(tries)
+            # NEED TO EMAIL MYSELF HERE. 
+          end
+
           Rails.logger.info "response from post of product #{response.inspect}"
       end
       # 301846
   
     rescue Exception => e
       Rails.logger.info("exception #{e.message}")
+      # NEED TO EMAIL MYSELF HERE. 
       tries = tries + 1 
       Rails.logger.info("tries: #{tries}")
       if tries > 5
         return false
       else
-        self.update_pike13_with_purchase(tries)
+        # Notifier.delay(run_at: 5.minutes.from_now)
+        #  RECENTLY ADDS 5 minutes from now trying.
+        self.delay(run_at: 5.minutes.from_now).update_pike13_with_purchase(tries)
       end
     end
 

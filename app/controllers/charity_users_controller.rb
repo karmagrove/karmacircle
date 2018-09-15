@@ -3,6 +3,7 @@ class CharityUsersController < ApplicationController
 	end
 
 	def show
+		@active_charities = Charity.actives
 	end
 
 	def update
@@ -39,6 +40,7 @@ class CharityUsersController < ApplicationController
 	end
 
 	def index
+		@active_charities = Charity.actives
 	  if current_user	
 	    @charity_users = CharityUser.where(:user_id => current_user.id)
 	    @charities = Charity.where(:status => 2)

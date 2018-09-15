@@ -25,41 +25,41 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     </div>
   
   <% end %> 
-  
-  <div class="field">
+  <div class="field medium-6 cell">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field medium-6 cell">
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.check_box :charity_choice, {:checked => @product.charity_choice} %> <%= f.label :charity_choice, "Customer can change the charity" %>
+  <%= f.label :charity_choice, "Check to allow customer to change charity" %>
+  <%= f.check_box :charity_choice, {:checked => @product.charity_choice} %> 
     
   </div>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
   <p> If price is left blank your users can name the price </p>
-  <div class="field">
+  <div class="field medium-1 cell">
     <%= f.label :price %> <br>
     <%= f.number_field :price %>
   </div>
-  <div class="field">
+  <div class="field medium-1 cell">
   <%= f.select(:currency, Product.currencies.keys.map {|role| [role.upcase,role]}, :default => 'usd') %>
   </div>
-  <div class="field">
+  <div class="field medium-1 cell">
   <%= f.label :expires_at %> <br>
   <%= f.date_field :expires_at, :id => "datepicker", :default => @product.expires_at %>
   </div>
-  <div class="field">
+  <div class="field medium-3 cell">
   <%= f.label :charity %> <br>
   <%= collection_select(:product, :charity, Charity.active_list, :charity_id, :charity_name, {:selected => @charity_id}) %>
   </div>
-  <div class="field">
+  <div class="field medium-1 cell">
   <%= f.label :donation_percent %> <br>
   <%= f.number_field :donation_percent %>
   </div>
-  <div class="field">
+  <div class="field ">
   <%= image_tag(@product.avatar_url) if @product.avatar? %> <br />
       Upload a photo: <%= f.file_field :avatar %>
   </div>
@@ -83,15 +83,15 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     <%= f.label :donation_percent %><br>
     <%= f.number_field :donation_percent %>
   </div> -->
-  <div class="field">
+  <!-- <div class="field">
     <%= f.label :image_url %><br>
     <%= f.text_field :image_url %>
-  </div><!-- 
+  </div> --><!-- 
   <div class="field">
     <%= f.label :user_id %><br>
     <%= f.text_field :user_id %>
   </div> -->
-  <div class="actions">
+  <div class="button primary large">
     <%= f.submit %>
   </div>
 <% end %>

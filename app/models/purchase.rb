@@ -57,7 +57,7 @@ class Purchase < ActiveRecord::Base
   	 Rails.logger.info response
      user_id = JSON.parse(response)
   	 Rails.logger.info user_id
-     if (user_id['results'].length > 0) && (user_id['results'][0]['person']['email'] == self.buyer_email)
+     if (user_id['results'].length > 0) && (user_id['results'][0]['person']['email'].downcase == self.buyer_email.downcase)
   	   return user_id['results'][0]['person']['id'] 
      else
        return create_user

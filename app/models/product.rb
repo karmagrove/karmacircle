@@ -9,7 +9,6 @@ class Product < ActiveRecord::Base
 
 
   def selected_charity(u={})
-    charity = self.charity
     if self.charity_choice == true and self.charity then
       return self.charity 
     end

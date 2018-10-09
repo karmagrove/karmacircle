@@ -1,3 +1,4 @@
+
 <% content_for :head do %>
    <%= render 'customer_header' %>
 <% end %>
@@ -7,17 +8,19 @@
 <%= render :partial => 'product_owner' %>
 <% end %> 
 
+<div class="row text-center">
 
 <p id="notice"><%= notice %></p>
 <% if (@product.image_url && @product.image_url.length > 0) or @product.avatar? %>
-  <div class="row">
+  <div class="row text-center">
  
-  <div class="col-sm-8">
+  <div class="col-sm-8 text-center">
 
   <%= image_tag(@product.avatar_url) if @product.avatar? %> <br /> 
+  <div class="text-center">
   <h1> <%= @product.name %> </h1>
   <h2> <%= @product.description %> </h2>
-
+  </div>
 
 <h3>
   <strong>Price:
@@ -59,36 +62,6 @@
  
 
 
-<div class="row" id="fee_notice">
-</div>
-<input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@user.customer_pay_fees%>"></input> <br />
-<script type="text/javascript">
-    function write_cost(transaction_cost){
-      var notice = 'Whatever amount you pay, the fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
-      $('#fee_notice').append(notice);
-    }
-    var fee_rule = $('#customer_pay_fees').val() 
-    if (fee_rule === "customer_pays_all_fees"){
-      factor = .971;
-      transaction_cost = 130;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "customer_pays_karmagrove_fees") {
-      factor = 1;
-      transaction_cost = <%= @product.user.transaction_cost %>;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "customer_pays_stripe_fees") {
-      factor = .971;
-      transaction_cost = 30;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "i_pay_fees") {
-      factor = 1;
-      transaction_cost = 0;
-    } else if (fee_rule === "") {
-      factor = 1;
-      transaction_cost = 0;
-    };
- </script>   
-
 <% unless @product.charity_choice == true %>
  <%= @product.user.name || @product.user.email %> donates <%= @donation_rate %>% of the sale to <%= @charity.name %>. 
  
@@ -110,7 +83,7 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
 
 </div>
 <div class="large-5 large-centered columns">
-  
+  <div class="text-center">
   <h1> <%= @product.name %> </h1>
   <h2> <%= @product.description %> </h2>
   
@@ -137,7 +110,8 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
   })
   </script>
   <% end %>
-
+<!-- ENDS DIV OF MAKING IT CENTERED! -->
+</div> 
   <script type="text/javascript">
   function write_new_cost(){ 
 
@@ -176,8 +150,8 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
   
 
   <% if @product.user.allow_customer_match_donation == true %>
-     <input type="checkbox" id="match_donation" required="true" class="match_donation" name="match_donation"> 
-     <label for="match_donation"><h4>Would you like to match the donation by paying <%= @donation_rate %>% more? </h4></label></input> <br />
+ <input type="checkbox" id="match_donation" required="true" class="match_donation" name="match_donation"> <label for="match_donation"> <h4>Click to match donation </h4></label></input> <br />
+     
      <div id="match_donation_notice">
      </div>
   <% end %>
@@ -209,45 +183,13 @@ Your notes for the seller: <br/>
 
 <% end %> 
 
-<div class="row" id="fee_notice">
-</div>
-<input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@product.user.customer_pay_fees%>"></input> <br />
-<script type="text/javascript">
-    function write_cost(transaction_cost){
-      var notice = 'Whatever amount you pay, the fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
-      $('#fee_notice').append(notice);
-    }
-    var factor, transaction_cost, fee_rule;
-    
-    transaction_cost = <%= @product.user.transaction_cost %>;
-    fee_rule = $('#customer_pay_fees').val(); 
-
-    if (fee_rule === "customer_pays_all_fees"){
-      factor = .971;
-      transaction_cost += 30;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "customer_pays_karmagrove_fees") {
-      factor = 1;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "customer_pays_stripe_fees") {
-      factor = .971;
-      transaction_cost = 30;
-      write_cost(transaction_cost);
-    } else if (fee_rule === "i_pay_fees") {
-      factor = 1;
-      transaction_cost = 0;
-    } else if (fee_rule === "") {
-      factor = 1;
-      transaction_cost = 0;
-    };
- </script>   
 
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
  <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> 
  <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> 
 
- <p>
+ <p class="text-center">
 
  <%= @product.user.name || 
  @product.user.email %> donates 
@@ -263,23 +205,27 @@ A portion of your purchase will be given to the charity:
 
  </p>
 
- <div class="btn">
+ <div class="btn text-center">
  
   <button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
 
+         <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' rel='nofollow'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'  alt='Expedited SSL Scanner'></a>
+
 </div>
+<div class="row" id="fee_notice">
+</div>
+<input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@product.user.customer_pay_fees%>"></input> <br />
 
 
 <% end %>
+
+<div class="row" id="fee_notice">
+</div>
+<input type="hidden" hidden="true" length="5" id="customer_pay_fees" value="<%=@user.customer_pay_fees%>"></input> <br />
 <!-- <button id="customButton">Send invoice</button> -->
 
-<div class="large-5 large-centered columns">
-    <div class="left">
-       <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' rel='nofollow'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'  alt='Expedited SSL Scanner'></a>
-   </div>
+<!-- end text center -->
 </div>
-
-
 
 
 <script>
@@ -420,3 +366,30 @@ A portion of your purchase will be given to the charity:
     handler.close();
   });
 </script>
+
+<script type="text/javascript">
+    function write_cost(transaction_cost){
+      var notice = 'The fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
+      $('#fee_notice').append(notice);
+    }
+    var fee_rule = $('#customer_pay_fees').val() 
+    if (fee_rule === "customer_pays_all_fees"){
+      factor = .971;
+      transaction_cost = 130;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_karmagrove_fees") {
+      factor = 1;
+      transaction_cost = <%= @product.user.transaction_cost %>;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_stripe_fees") {
+      factor = .971;
+      transaction_cost = 30;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "i_pay_fees") {
+      factor = 1;
+      transaction_cost = 0;
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
+    };
+ </script>   

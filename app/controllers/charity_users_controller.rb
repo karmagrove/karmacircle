@@ -4,6 +4,7 @@ class CharityUsersController < ApplicationController
 
 	def show
 		@active_charities = Charity.actives
+		@charities = Charity.actives
 	end
 
 	def update

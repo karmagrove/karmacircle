@@ -33,11 +33,6 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
-  <div class="field">
-  <%= f.label :charity_choice, "Check to allow customer to change charity" %>
-  <%= f.check_box :charity_choice, {:checked => @product.charity_choice} %> 
-    
-  </div>
   <p> If price is left blank your users can name the price </p>
   <div class="field medium-1 cell">
     <%= f.label :price %> <br>
@@ -50,9 +45,13 @@ $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
   <%= f.label :expires_at %> <br>
   <%= f.date_field :expires_at, :id => "datepicker", :default => @product.expires_at %>
   </div>
+  <div class="field">
+  <%= f.label :charity_choice, "Check to allow customer to change charity" %>
+  <%= f.check_box :charity_choice, {:checked => @product.charity_choice} %>
+  </div>
   <div class="field medium-3 cell">
-  <%= f.label :charity %> <br>
-  <%= collection_select(:product, :charity, Charity.active_list, :charity_id, :charity_name, {:selected => @charity_id}) %>
+  <%= f.label :charity_override_for_this_product %> <br>
+  <%= collection_select(:product, :charity, Charity.active_list, :charity_id, :charity_name, {:selected => @charity_id, :include_blank => true}) %>
   </div>
   <div class="field medium-1 cell">
   <%= f.label :donation_percent %> <br>

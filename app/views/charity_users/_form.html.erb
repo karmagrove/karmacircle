@@ -1,42 +1,35 @@
-<div class="table large-centered">
-    <br /><br />
-    <h1> Available charities </h1>
-     <div class="table row"> 
-      <% @active_charities.each_with_index do |c,i| %>
-      <div class="table col-md-3">
-        <%= c.name %>
-      </div>
-      <% if (i+1) % 3 === 0 %>
-         </div>
-         <div class="row">
-      <% end %>
-      <% end %>
-    </div>
+<div class="text-center">
+      <h2> Select your default charity from the available options below </h2>
       <% if current_user.charity_users.length >= 1 %>
         Currently you support: <%= current_user.charity_users.first.charity.name %>
+        <div class="small-4 small-offset-4">
         <%= form_for :update_charity_user, :id => current_user.charity_users.first.id do |f| %>
-          <%= collection_select(:charity_user, :charity_id, @charities, :id, :name) %>
+          <%= collection_select(:charity_user, :charity_id, @active_charities, :id, :name, {:id => "charity_select"} ) %>
+        </div>
+        <!-- </div> -->
           <div class="actions">
-              <%= f.submit class: "button success radius right", value: "save charity"  %>
+              <%= f.submit class: "button success radius text-center", value: "save charity"  %>
           </div>
         <% end %>
-      
-      <% else %> 
-      
+      <% else %>       
+      <div class="small-4 small-offset-4">
         <%= form_for :charity_user do |f| %>
-          <%= collection_select(:charity_user, :charity_id, @charities, :id, :name ) %>
+          <%= collection_select(:charity_user, :charity_id, @active_charities, :id, :name) %>
           <div class="actions">
-            <%= f.submit class: "button success radius right", value: "save charity" %>
+            <%= f.submit class: "button success radius text-center", value: "save charity" %>
           </div>
         <% end %>
-          
-      <% end %>  
-  </div>
+      </div>
+      <% end %> 
+      
+
 </div>
+
+
 
  
       <div class="row well">
-      <h1> Charities </h1>
+      <!-- <h1> Charities </h1>
         <% @charities.each do |charity| %>
         <div class="col-sm-1 span2 col-md">
           <%= charity.name %> - <%= charity.description %>
@@ -44,5 +37,15 @@
           <%= charity.url %><br />
           <%= charity.city %> <%= charity.state %>
         </div>
-        <% end %>    
+        <% end %>     -->
       </div> 
+      
+<!-- TODO + MAKE THIS JAVASCRIPTY 
+      <script type="text/javascript">
+        $("#charity_user_charity_id").change(function(){
+            console.log($(this));
+
+        })
+
+
+      </script> -->

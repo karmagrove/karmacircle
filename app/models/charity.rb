@@ -13,7 +13,6 @@ class Charity < ActiveRecord::Base
           OpenStruct.new({:charity_id => p.id,:charity_name => p.name, :charity_description => p.description, :charity_url => p.url} )
        }
       response
-
     end
 
     def self.actives

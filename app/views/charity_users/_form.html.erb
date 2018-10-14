@@ -4,7 +4,7 @@
         Currently you support: <%= current_user.charity_users.first.charity.name %>
         <div class="small-4 small-offset-4">
         <%= form_for :update_charity_user, :id => current_user.charity_users.first.id do |f| %>
-          <%= collection_select(:charity_user, :charity_id, @active_charities, :id, :name, {:id => "charity_select"} ) %>
+          <%= collection_select(:charity_user, :charity_id, @active_charities, :id, :name, { :selected => current_user.charity_users.first.charity.id} ) %>
         </div>
         <!-- </div> -->
           <div class="actions">
@@ -39,7 +39,7 @@
         </div>
         <% end %>     -->
       </div> 
-      
+
 <!-- TODO + MAKE THIS JAVASCRIPTY 
       <script type="text/javascript">
         $("#charity_user_charity_id").change(function(){

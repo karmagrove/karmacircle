@@ -7,7 +7,6 @@ class Charity < ActiveRecord::Base
 	after_initialize :set_default_status, :if => :new_record?
 	# scope :
 
-
     def self.active_list
       response = Charity.actives.map {|p| 
           OpenStruct.new({:charity_id => p.id,:charity_name => p.name, :charity_description => p.description, :charity_url => p.url} )

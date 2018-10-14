@@ -15,7 +15,7 @@ class Charity < ActiveRecord::Base
     end
 
     def self.actives
-        return Charity.where(:status => "approved")
+        return Charity.approved
     end
 
 	def charity_admin 

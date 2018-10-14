@@ -3,8 +3,8 @@ class CharityUsersController < ApplicationController
 	end
 
 	def show
-		@active_charities = Charity.actives
-		@charities = Charity.actives
+		@active_charities = Charity.approved
+		@charities = Charity.approved
 	end
 
 	def update
@@ -41,10 +41,10 @@ class CharityUsersController < ApplicationController
 	end
 
 	def index
-		@active_charities = Charity.actives
+		@active_charities = Charity.approved
 	  if current_user	
 	    @charity_users = CharityUser.where(:user_id => current_user.id)
-	    @charities = Charity.where(:status => 2)
+	    @charities = Charity.approved
 	  else
 	  	redirect_to "/"
 	  end

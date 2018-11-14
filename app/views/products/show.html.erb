@@ -32,6 +32,11 @@
 
 </h3>
 
+  <% if @product.quantity  and @product.quantity >= 0 %>
+   <h3> Remaining Quantity: <%= @product.quantity %>  </h3>
+  <% end %>
+
+
 <% if @product.charity_choice == true %>
 <%= render :partial => 'allow_charity_change' %>
 <% end %>

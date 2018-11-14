@@ -218,6 +218,11 @@ def create
       # else
       # redirect_to "/",  notice: @notice
       # end  
+      if @product.quantity and @product.quantity > 0 
+        @product.quantity = @product.quantity - 1
+        @product.save
+      end
+
       respond_to do |format|
         format.html { redirect_to "/", notice: 'Charge made'}
         format.json { render json:  {:status => "success"}, status: 200 }

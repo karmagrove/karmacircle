@@ -102,6 +102,9 @@ A portion of your purchase will be given to the charity <%= @charity.url %>:
   <% end %>
   </strong>
   $<%= @product.price %>
+  <% if @product.quantity  and @product.quantity >= 0 %>
+   <h3> Remaining Quantity: <%= @product.quantity %>  </h3>
+  <% end %>
   <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
 
   <% else %> 

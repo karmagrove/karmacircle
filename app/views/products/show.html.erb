@@ -324,7 +324,7 @@ A portion of your purchase will be given to the charity:
          },
            success:function(resp){
             ga('send', 'event', 'web', 'purchase', '<%=@product.name%>', calculateAmount());
-            
+            fbq('track', 'Purchase', {currency: "USD", value: calculateAmount()});            
             window.location.replace("/")
 
            },

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181114211818) do
+ActiveRecord::Schema.define(version: 20190205061804) do
 
   create_table "charities", force: :cascade do |t|
     t.string   "name"
@@ -344,6 +344,8 @@ ActiveRecord::Schema.define(version: 20181114211818) do
     t.integer  "currency"
     t.string   "pike13subdomain"
     t.string   "pike13token"
+    t.integer  "facebookpixel"
+    t.string   "googleanalytics"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

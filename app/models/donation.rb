@@ -101,9 +101,11 @@ class Donation < ActiveRecord::Base
      # donation_id = 8
      # donation_id = 10
      # customer = Customer.find x
-     donation_id = 12
-     charges = DonationCharge.where(:status => "unpaid", :user_id => customer.id)
+     donation_id = 33
+     # charges = DonationCharge.where(:status => "unpaid", :user_id => customer.id)
+     charges = DonationCharge.where(:status => "unpaid", :user_id => customer.id, :charity_id => charity.id)
      charges.each do |charge|
+     # charge.charity_id = 26
      charge.update_attribute(:donation_id, donation_id)
     
      charge.update_attribute(:status,"paid")

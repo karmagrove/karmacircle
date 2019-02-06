@@ -13,6 +13,11 @@
 </div>
 
 <% if @product %>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+ <input type="hidden" hidden="true" id="product_id" value="<%= @product.id %>"></input> <br />
+ <input type="hidden" hidden="true" id="amount" value="<%= @product.price %>"></input> <br />
+ <input type="hidden" hidden="true" id="description" default="description of sale" value="<%= @product.description %>"></input> <br />
+
 
 <div class="row">
 You can purchase this session now for a special intro rate of your first session at $200.  

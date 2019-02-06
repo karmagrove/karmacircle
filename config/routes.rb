@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   end
   resources :users do 
     resources :charity_users
-    resources :products
+    resources :products do
+      get 'success', :to => 'products#success'
+    end
   end
   #resources :charity_users
   resources :charges

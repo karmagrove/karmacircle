@@ -319,14 +319,18 @@ A portion of your purchase will be given to the charity:
           <% if @product.special_instructions == true %> 
            , special_instructions: $('#special_instructions').val()
            <% end %>
-
-           
          },
            success:function(resp){
             ga('send', 'event', 'web', 'purchase', '<%=@product.name%>', calculateAmount());
+            // gtag('event', 'conversion', {
+            //  'send_to': 'AW-961353872/XmyFCLzbyZQBEJCxtMoD',
+            //  'value': 100.0,
+            //  'currency': 'USD',
+            //  'transaction_id': ''    
+            // });
             fbq('track', 'Purchase', {currency: "USD", value: calculateAmount()});            
-            window.location.replace("/")
-
+            var newLocation = window.location + "/success";
+            window.location.replace(newLocation);
            },
             error: function(resp){
                 alert("An error has occurred.  Please try again and check your card number.");

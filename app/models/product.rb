@@ -7,6 +7,10 @@ class Product < ActiveRecord::Base
   #attr_accessor :description, :name, :price, :id, :image_url, :user
   #attr_accessor :image_url
 
+  def find_upsell
+    return nil unless self.upsell
+    return Product.find self.upsell
+  end
 
   def selected_charity(u={})
     if self.charity_choice == true and self.charity then

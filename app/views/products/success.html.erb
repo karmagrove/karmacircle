@@ -1,0 +1,150 @@
+<div class="center ctr row"> <h1>Thanks for purchasing <%= @purchasedproduct.name %> </h1>
+
+<% if @purchasedproduct.user.id == 7 %>
+
+<h2> You can book online at <a href="http://www.cryozone.com"> www.cryozone.com </a> </h2>
+
+<h3> Check out the recent video of the T-Shock below </h3>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gWtbMZUUUuY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<% end %> 
+
+</div>
+
+<% if @product %>
+
+<div class="row">
+You can purchase this session now for a special intro rate of your first session at $200.  
+Normally $350.  This is a savings of over $150.  
+</div>
+
+<div class="row">
+<button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
+</div>
+
+
+var handler = StripeCheckout.configure({
+    key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',
+    image: '/assets/karma_circle.png',
+    token: function(token) {
+      $.ajax({
+           type: "POST",
+           url: "/purchases",
+           format: "json",
+           data: {"stripeToken":token.id,
+           <% if @product.charity %>
+           charity_id: <%= @product.charity %>, 
+           <% end %>
+           <% if @product.charity_choice == true %>
+           charity_id: $('#charity_id_charity_id').val(),
+           <% end %>
+           "stripeEmail": token.email,
+           format: "json",
+           amount: calculateAmount(),
+           <% if @product.user.allow_customer_match_donation == true %>
+           matchDonation: $('#match_donation').prop('checked'), 
+           <% end %>
+           description: $('#description').val(),
+           user_id: <%= params[:user_id] %>,
+           product_id: $('#product_id').val()
+           <% if @product.require_name == true %> 
+           , customer_name: $('#customer_name').val()
+           <% end %>
+
+           <% if @product.require_gender == true %> 
+           , customer_gender: $('.customer_gender:checked').val()
+           <% end %>
+
+          <% if @product.special_instructions == true %> 
+           , special_instructions: $('#special_instructions').val()
+           <% end %>
+         },
+           success:function(resp){
+            ga('send', 'event', 'web', 'purchase', '<%=@product.name%>', calculateAmount());
+            // gtag('event', 'conversion', {
+            //  'send_to': 'AW-961353872/XmyFCLzbyZQBEJCxtMoD',
+            //  'value': 100.0,
+            //  'currency': 'USD',
+            //  'transaction_id': ''    
+            // });
+            fbq('track', 'Purchase', {currency: "USD", value: calculateAmount()});            
+            var newLocation = window.location + "/success";
+            window.location.replace(newLocation);
+           },
+            error: function(resp){
+                alert("An error has occurred.  Please try again and check your card number.");
+                 //alert(resp.responseText.status_message);
+                 //window.location.replace("/")
+               }
+        });
+  //    token.id can be used to create a charge or customer.
+    // token.email contains the email address entered by the user. 
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+    }
+  });
+
+  $('#customButton').on('click', function(e) {
+    // Open Checkout with further options
+     <% if @product.require_name == true %> 
+       if($('#customer_name').val() < 1){
+         alert('You must supply a name before purchasing');
+         return false;
+       }
+     <% end %>
+
+    <% if @product.require_gender == true %> 
+       if($('.customer_gender:checked').val() == undefined ){
+         alert('You must supply a gender before purchasing');
+         return false;
+       }
+     <% end %>
+
+
+
+
+     // amount: $('#amount').val()*100
+
+
+    handler.open({
+      description: $('#description').val(),
+      amount: calculateAmount()
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>
+
+<script type="text/javascript">
+    function write_cost(transaction_cost){
+      var notice = 'The fees for processing of 2.9% plus $' + (transaction_cost/100).toFixed( 2 ) + ' per transaction will be added to the amount you see upon checkout';
+      $('#fee_notice').append(notice);
+    }
+    var fee_rule = $('#customer_pay_fees').val() 
+    if (fee_rule === "customer_pays_all_fees"){
+      factor = .971;
+      transaction_cost = 130;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_karmagrove_fees") {
+      factor = 1;
+      transaction_cost = <%= @product.user.transaction_cost %>;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "customer_pays_stripe_fees") {
+      factor = .971;
+      transaction_cost = 30;
+      write_cost(transaction_cost);
+    } else if (fee_rule === "i_pay_fees") {
+      factor = 1;
+      transaction_cost = 0;
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
+    };
+ </script>   
+
+<% end %> 

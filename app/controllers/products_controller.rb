@@ -112,6 +112,12 @@ class ProductsController < ApplicationController
     end
   end
 
+
+  def success
+    @purchasedproduct = Product.find params[:product_id]
+    @product = @purchasedproduct.find_upsell
+  end
+
   private
 
     def set_user_products

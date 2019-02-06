@@ -23,6 +23,54 @@ Normally $350.  This is a savings of over $150.
 <button id="customButton" class="btn btn-primary"><h1> Purchase Now </h1></button> <br />
 </div>
 
+<script>
+  function calculateAmount(){
+    var factor, transaction_cost, fee_rule;
+    
+    transaction_cost = <%= @product.user.transaction_cost %>;
+    fee_rule = $('#customer_pay_fees').val(); 
+
+    if (fee_rule === "customer_pays_all_fees"){
+      factor = .971;
+      transaction_cost += 30;
+    } else if (fee_rule === "customer_pays_karmagrove_fees") {
+      factor = 1;
+      //transaction_cost = <%= @product.user.transaction_cost %>;
+
+    } else if (fee_rule === "customer_pays_stripe_fees") {
+      factor = .971;
+      transaction_cost = 30;
+
+    } else if (fee_rule === "") {
+      factor = 1;
+      transaction_cost = 0;
+
+    } else if (fee_rule === "i_pay_fees") {
+      factor = 1;
+      transaction_cost = 0;
+    };
+     //do something
+     var value = $('#amount').val();
+     // return false if value === "";
+     if (value === "" || value === undefined) {
+       return 0;
+     } else {
+       <% if @product.user.allow_customer_match_donation == true %> 
+       // transaction_cost += (amount * (1 + (<%= @product.user.donation_rate.to_i %>/100)));
+       if ($('#match_donation').prop('checked') === true){
+         var additional_donation = (value*100 * (1 + (<%=@donation_rate%>/100))) - value*100;
+         return parseInt((value*100 + transaction_cost + additional_donation) / factor);  
+       } else {
+         return parseInt((value*100 + transaction_cost) / factor);
+       }
+       <% else %>
+       return parseInt((value*100 + transaction_cost) / factor);
+       <% end %>
+     };
+
+     
+ };
+
 
 var handler = StripeCheckout.configure({
     key: '<%=ENV['STRIPE_PUBLISHABLE_KEY']%>',

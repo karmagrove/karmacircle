@@ -13,6 +13,9 @@ class Product < ActiveRecord::Base
   end
 
   def selected_charity(u={})
+    if self.charity
+      return self.charity
+    end
     if self.charity_choice == true and self.charity then
       return self.charity 
     end

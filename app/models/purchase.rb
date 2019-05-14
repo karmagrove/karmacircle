@@ -57,13 +57,20 @@ class Purchase < ActiveRecord::Base
   	 Rails.logger.info response
      user_id = JSON.parse(response)
   	 Rails.logger.info user_id
+     pike13_id = false
      if (user_id['results'].length > 0) && (user_id['results'][0]['person']['email'].downcase == self.buyer_email.downcase)
-  	   return user_id['results'][0]['person']['id'] 
-     else
-        user_id['results'].each do |person|
-          return person['person']['id'] if (person['person']['email'].downcase == email.downcase)
-        end
-       return create_user
+  	   pike13_id = user_id['results'][0]['person']['id'] 
+     else 
+       user_id['results'].each do |person|
+          if (person['person']['email'].downcase == self.buyer_email.downcase)
+            pike13_id = person['person']['id'] 
+          end  
+        end 
+     end
+     if pike13_id 
+       return pike13_id
+     else 
+       return self.create_user
      end
   end
 

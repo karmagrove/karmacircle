@@ -60,6 +60,9 @@ class Purchase < ActiveRecord::Base
      if (user_id['results'].length > 0) && (user_id['results'][0]['person']['email'].downcase == self.buyer_email.downcase)
   	   return user_id['results'][0]['person']['id'] 
      else
+        user_id['results'].each do |person|
+          return person['person']['id']
+        end
        return create_user
      end
   end

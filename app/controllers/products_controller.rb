@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-   before_action :set_product, only: [:show, :edit, :update, :destroy]
+   before_action :set_product, only: [:edit, :update, :destroy]
 
    before_action :verify_owner, only: [:edit, :update, :destroy] 
 
@@ -24,6 +24,14 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    if params[:product_name] == "lucca"
+      @product = Product.find 217
+      # /users/7/products/217/
+
+    else
+      set_product
+    end
+
     Rails.logger.info "@product #{@product.inspect}" 
     if @product.expires_at and @product.expires_at < Date.today
       then

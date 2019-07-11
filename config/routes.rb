@@ -58,5 +58,6 @@ Rails.application.routes.draw do
 
   get '/auth/frontdesk', to: 'sessions#authenticate_pike13'
   get '/callback/frontdesk', to: 'sessions#create_pike13'
+  get '/cryozone/:product_name', to: 'products#show'
 
 end

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :invoices
   # resources :products
   # resources :products
-  
+  get '/cryozone/:product_name', to: 'products#show'
   
   resources :events do
     resources :tickets do 
@@ -58,6 +58,6 @@ Rails.application.routes.draw do
 
   get '/auth/frontdesk', to: 'sessions#authenticate_pike13'
   get '/callback/frontdesk', to: 'sessions#create_pike13'
-  get '/cryozone/:product_name', to: 'products#show'
+  
 
 end

@@ -27,7 +27,7 @@ end
 
 
 gem 'foundation-rails', '~> 5.5'
-gem 'carrierwave', '~>0.11.2'
+gem 'carrierwave', '~>1.3.2'
 gem 'fog-aws'
 # gem 'fog'  ## only needed for non aws installs.  fog-aws is slimmer for AWS only as we are using
 gem 'mini_magick'

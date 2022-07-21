@@ -1,12 +1,12 @@
 GIT
-  remote: git://github.com/Compass/compass-rails.git
-  revision: d600de4a6c5870613aac63f32491da4771a3c982
+  remote: https://github.com/Compass/compass-rails.git
+  revision: f6391d0d30fa63bb9bf6cd94e0e5608012584e6e
   branch: master
   specs:
-    compass-rails (2.0.5)
+    compass-rails (4.0.0)
       compass (~> 1.0.0)
       sass-rails (< 5.1)
-      sprockets (< 2.13)
+      sprockets (< 4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -194,7 +194,9 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.6.2)
-    mimemagic (0.3.1)
+    mimemagic (0.4.3)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.5.1)
     mini_portile (0.6.2)
     minitest (5.8.1)
@@ -262,9 +264,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
-    rb-fsevent (0.9.6)
-    rb-inotify (0.9.5)
-      ffi (>= 0.5.0)
+    rb-fsevent (0.11.1)
+    rb-inotify (0.9.10)
+      ffi (>= 0.5.0, < 2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
@@ -309,13 +311,13 @@ GEM
     sucker_punch (1.6.0)
       celluloid (~> 0.17.2)
     thor (0.19.1)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     tilt (1.4.1)
     timers (4.1.1)
       hitimes
     turbolinks (2.5.3)
       coffee-rails
-    tzinfo (1.2.2)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
